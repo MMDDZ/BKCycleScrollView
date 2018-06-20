@@ -1,8 +1,8 @@
 //
 //  BKCycleScrollView.h
-//  weixiutong
+//  BKCycleScrollView
 //
-//  Created by zhaolin on 2018/5/25.
+//  Created by BIKE on 2018/5/25.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 

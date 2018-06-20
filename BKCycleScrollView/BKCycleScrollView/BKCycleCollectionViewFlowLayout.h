@@ -1,8 +1,8 @@
 //
 //  BKCycleCollectionViewFlowLayout.h
-//  weixiutong
+//  BKCycleScrollView
 //
-//  Created by zhaolin on 2018/5/25.
+//  Created by BIKE on 2018/5/25.
 //  Copyright © 2018年 BIKE. All rights reserved.
 //
 
@@ -17,7 +17,10 @@
 @property (nonatomic,assign) CGFloat itemSpace;
 /** cell距四周边界的偏移量 默认UIEdgeInsetsZero */
 @property (nonatomic,assign) UIEdgeInsets itemInset;
-/** 当layoutStyle = BKDisplayCellLayoutStyleMiddleLarger 时 除中间显示的cell不缩放外,其余cell缩放系数 默认0.1 */
+/**
+ 默认0不缩放
+ 当layoutStyle = BKDisplayCellLayoutStyleMiddleLarger 时 除中间显示的cell不缩放外,其余cell缩放系数 默认0.1
+ */
 @property (nonatomic,assign) CGFloat itemReduceScale;
 
 @end
