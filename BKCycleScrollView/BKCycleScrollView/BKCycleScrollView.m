@@ -565,7 +565,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
     
     NSInteger count = [self.displayDataArr count];
     if (selectIndex < 0) {
-        selectIndex = count - labs(selectIndex) % count;
+        selectIndex = (count + selectIndex % count) % count;
     }else if (selectIndex > count - 1) {
         selectIndex = selectIndex % count;
     }
