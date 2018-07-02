@@ -38,12 +38,14 @@
     visiableRect.size = self.collectionView.frame.size;
     visiableRect.origin = self.collectionView.contentOffset;
     
-    CGFloat centenrX = self.collectionView.contentOffset.x + self.collectionView.frame.size.width/2;
+    CGFloat centerX = self.collectionView.contentOffset.x + self.collectionView.frame.size.width/2;
     for (UICollectionViewLayoutAttributes* attributes in array) {
-        if (!CGRectIntersectsRect(visiableRect, attributes.frame)) continue;
+        if (!CGRectIntersectsRect(visiableRect, attributes.frame)) {
+            continue;
+        }
         
         CGFloat itemCenterX = attributes.center.x;
-        CGFloat gap = fabs(itemCenterX - centenrX);
+        CGFloat gap = fabs(itemCenterX - centerX);
 //        除中间原大小外 其余缩放比例相同
 //        CGFloat max_gap = self.minimumLineSpacing + self.itemSize.width;
 //        if (gap > max_gap) {

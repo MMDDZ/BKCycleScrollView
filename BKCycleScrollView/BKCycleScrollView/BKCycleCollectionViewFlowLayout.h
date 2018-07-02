@@ -18,8 +18,8 @@
 /** cell距四周边界的偏移量 默认UIEdgeInsetsZero */
 @property (nonatomic,assign) UIEdgeInsets itemInset;
 /**
- 默认0不缩放
- 当layoutStyle = BKDisplayCellLayoutStyleMiddleLarger 时 除中间显示的cell不缩放外,其余cell缩放系数 默认0.1
+ 默认0.1 当layoutStyle = BKDisplayCellLayoutStyleMiddleLarger时有效
+ 除中间显示的cell不缩放外,其余cell缩放系数
  */
 @property (nonatomic,assign) CGFloat itemReduceScale;
 

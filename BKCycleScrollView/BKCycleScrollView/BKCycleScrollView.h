@@ -54,11 +54,11 @@ typedef NS_ENUM(NSUInteger, BKCycleScrollPageControlStyle) {
 @property (nonatomic,assign) BKDisplayCellLayoutStyle layoutStyle;
 /** cell间距 默认0 */
 @property (nonatomic,assign) CGFloat itemSpace;
-/** cell的宽度 默认屏幕宽 */
+/** cell的宽度 默认和无限滚动视图同宽 */
 @property (nonatomic,assign) CGFloat itemWidth;
 /**
- 默认0不缩放
- 当layoutStyle = BKDisplayCellLayoutStyleMiddleLarger 时 除中间显示的cell不缩放外,其余cell缩放系数 默认0.1
+ 默认0.1 当layoutStyle = BKDisplayCellLayoutStyleMiddleLarger时有效
+ 除中间显示的cell不缩放外,其余cell缩放系数
  */
 @property (nonatomic,assign) CGFloat itemReduceScale;
 /** cell圆角度数 默认0 */
@@ -81,11 +81,11 @@ typedef NS_ENUM(NSUInteger, BKCycleScrollPageControlStyle) {
 @property (nonatomic,assign) CGFloat dotBottomInset;
 /** 小圆点默认颜色 默认灰 */
 @property (nonatomic,strong) UIColor * normalDotColor;
-/** 小圆点默认颜色 默认白 */
+/** 小圆点选中颜色 默认白 */
 @property (nonatomic,strong) UIColor * selectDotColor;
 /** 小圆点默认图片 无默认 级数比颜色高 */
 @property (nonatomic,strong) UIImage * normalDotImage;
-/** 小圆点默认图片 无默认 级数比颜色高 */
+/** 小圆点选中图片 无默认 级数比颜色高 */
 @property (nonatomic,strong) UIImage * selectDotImage;
 
 #pragma mark - 创建方法

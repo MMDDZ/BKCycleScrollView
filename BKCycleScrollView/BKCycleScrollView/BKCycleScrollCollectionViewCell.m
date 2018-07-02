@@ -7,6 +7,7 @@
 //
 
 #import "BKCycleScrollCollectionViewCell.h"
+#import "UIImageView+WebCache.h"
 
 @implementation BKCycleScrollCollectionViewCell
 
@@ -50,6 +51,29 @@
         [self addSubview:_displayImageView];
     }
     return _displayImageView;
+}
+
+#pragma mark - 赋值
+
+-(void)setDataObj:(NSObject *)dataObj
+{
+    _dataObj = dataObj;
+    
+    if ([dataObj isKindOfClass:[NSString class]]) {
+        NSURL * imageUrl = [NSURL URLWithString:(NSString*)_dataObj];
+        [self.displayImageView sd_setImageWithURL:imageUrl placeholderImage:self.placeholderImage];
+    }else if ([_dataObj isKindOfClass:[UIImage class]]) {
+        self.displayImageView.image = (UIImage*)_dataObj;
+    }else if ([_dataObj isKindOfClass:[NSData class]]) {
+        FLAnimatedImage * image = [FLAnimatedImage animatedImageWithGIFData:(NSData*)_dataObj];
+        if (!image) {
+            self.displayImageView.image = [UIImage imageWithData:(NSData*)_dataObj];
+        }else{
+            self.displayImageView.animatedImage = image;
+        }
+    }else{
+        self.displayImageView.image = nil;
+    }
 }
 
 @end

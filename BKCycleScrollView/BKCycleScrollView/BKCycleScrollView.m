@@ -10,14 +10,12 @@
 #import "BKCycleCollectionViewFlowLayout.h"
 #import "BKCycleScrollCollectionViewCell.h"
 #import "BKCycleScrollPageControl.h"
-#import "UIImageView+WebCache.h"
 
 NSInteger const AllCount = 99999;//初始item数量
 NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 @interface BKCycleScrollView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIGestureRecognizerDelegate>
 
-@property (nonatomic,strong) BKCycleCollectionViewFlowLayout * layout;
 @property (nonatomic,strong) UICollectionView * collectionView;
 
 @property (nonatomic,strong) BKCycleScrollPageControl * pageControl;
@@ -28,7 +26,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 @property (nonatomic,strong) NSTimer * timer;
 
-@property (nonatomic,strong) UIPanGestureRecognizer * panGesture;
+//@property (nonatomic,strong) UIPanGestureRecognizer * panGesture;
 
 @end
 
@@ -176,7 +174,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
         _collectionView = nil;
         
         [self invalidateTimer];
-        [self resetCurrentIndex:0 displayIndexPath:[NSIndexPath indexPathForItem:MiddleCount inSection:0]];
+        [self resetCurrentIndex:0 displayIndexPath:_beginIndexPath];
         [self collectionView];
         [self timer];
     }
@@ -432,15 +430,16 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 -(void)autoScrollTimer:(NSTimer*)timer
 {
-    CGPoint point = [self convertPoint:self.collectionView.center toView:self.collectionView];
-    NSIndexPath * currentIndexPath = [self.collectionView indexPathForItemAtPoint:point];
-
-    NSIndexPath * nextIndexPath = [NSIndexPath indexPathForItem:currentIndexPath.item + 1 inSection:0];
-    
-    NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:nextIndexPath];
-    [self resetCurrentIndex:selectIndex displayIndexPath:nextIndexPath];
-
     if (_collectionView) {
+        
+        CGPoint point = [self convertPoint:self.collectionView.center toView:self.collectionView];
+        NSIndexPath * currentIndexPath = [self.collectionView indexPathForItemAtPoint:point];
+        
+        NSIndexPath * nextIndexPath = [NSIndexPath indexPathForItem:currentIndexPath.item + 1 inSection:0];
+        
+        NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:nextIndexPath];
+        [self resetCurrentIndex:selectIndex displayIndexPath:nextIndexPath];
+        
         [_collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
     }
 }
@@ -453,28 +452,26 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 #pragma mark - UICollectionView
 
--(BKCycleCollectionViewFlowLayout *)layout
+-(BKCycleCollectionViewFlowLayout *)resetLayout
 {
-    if (!_layout) {
-        
-        CGFloat left_right_inset = (self.frame.size.width - self.itemWidth)/2;
-        
-        _layout = [[BKCycleCollectionViewFlowLayout alloc] init];
-        _layout.layoutStyle = _layoutStyle;
-        _layout.itemSpace = _itemSpace;
-        _layout.itemInset = UIEdgeInsetsMake(0, left_right_inset, 0, left_right_inset);
-        _layout.itemReduceScale = _itemReduceScale;
-    }
-    return _layout;
+    CGFloat left_right_inset = (self.frame.size.width - self.itemWidth)/2;
+    
+    BKCycleCollectionViewFlowLayout * layout = [[BKCycleCollectionViewFlowLayout alloc] init];
+    layout.layoutStyle = _layoutStyle;
+    layout.itemSpace = _itemSpace;
+    layout.itemInset = UIEdgeInsetsMake(0, left_right_inset, 0, left_right_inset);
+    layout.itemReduceScale = _itemReduceScale;
+    
+    return layout;
 }
 
 -(UICollectionView*)collectionView
 {
     if (!_collectionView) {
         
-        _layout = nil;
+        BKCycleCollectionViewFlowLayout * layout = [self resetLayout];
         
-        _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:self.layout];
+        _collectionView = [[UICollectionView alloc] initWithFrame:self.bounds collectionViewLayout:layout];
         _collectionView.delegate = self;
         _collectionView.dataSource = self;
         _collectionView.backgroundColor = self.displayBackgroundColor?self.displayBackgroundColor:[UIColor clearColor];
@@ -516,23 +513,8 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
     }
     
     cell.radius = self.radius;
-    
-    NSObject * obj = self.displayDataArr[selectIndex];
-    if ([obj isKindOfClass:[NSString class]]) {
-        NSURL * imageUrl = [NSURL URLWithString:(NSString*)obj];
-        [cell.displayImageView sd_setImageWithURL:imageUrl placeholderImage:self.placeholderImage];
-    }else if ([obj isKindOfClass:[UIImage class]]) {
-        cell.displayImageView.image = (UIImage*)obj;
-    }else if ([obj isKindOfClass:[NSData class]]) {
-        FLAnimatedImage * image = [FLAnimatedImage animatedImageWithGIFData:(NSData*)obj];
-        if (!image) {
-            cell.displayImageView.image = [UIImage imageWithData:(NSData*)obj];
-        }else{
-            cell.displayImageView.animatedImage = image;
-        }
-    }else{
-        cell.displayImageView.image = nil;
-    }
+    cell.placeholderImage = self.placeholderImage;
+    cell.dataObj = self.displayDataArr[selectIndex];
     
     return cell;
 }
@@ -608,15 +590,15 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
         __block BOOL isExist = NO;
         [visibleIndexPaths enumerateObjectsUsingBlock:^(id  _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
             NSIndexPath * indexPath = obj;
-            //为了适配一屏显示多个时 返回滚动不出现bug 建议目前滚动item与初始item相差屏幕显示最大item数量*2 我这默认设置成10
-            if (self.beginIndexPath.item + 10 > indexPath.item) {
+            //为了适配一屏显示多个时 返回滚动不出现bug 建议目前滚动item与初始item相差屏幕显示最大item数量*2 我这默认设置成99
+            if (self.beginIndexPath.item + 99 > indexPath.item) {
                 isExist = YES;
                 *stop = YES;
             }
         }];
 
         if (!isExist) {
-            self.displayIndexPath = [NSIndexPath indexPathForItem:MiddleCount inSection:0];
+            self.displayIndexPath = self.beginIndexPath;
             [self.collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
         }
     });

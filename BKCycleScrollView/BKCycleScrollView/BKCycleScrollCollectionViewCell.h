@@ -16,5 +16,9 @@
 
 /** cell圆角度数 */
 @property (nonatomic,assign) CGFloat radius;
+/** 占位图 无默认 */
+@property (nonatomic,strong) UIImage * placeholderImage;
+/** 数据 */
+@property (nonatomic,strong) NSObject * dataObj;
 
 @end

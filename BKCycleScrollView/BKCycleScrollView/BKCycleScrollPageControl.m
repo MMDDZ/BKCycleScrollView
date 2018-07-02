@@ -22,9 +22,6 @@
 -(void)setCurrentPage:(NSInteger)currentPage
 {
     _currentPage = currentPage;
-    
-    [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    
     [self resetUI];
 }
 
@@ -99,15 +96,16 @@
         for (int index = 0; index < _numberOfPages; index++) {
             
             BKCycleScrollImageView * dot = [[BKCycleScrollImageView alloc]init];
+            CGFloat x = lastView?(CGRectGetMaxX(lastView.frame)+space):beginX;
             if (index == _currentPage) {
-                [dot setFrame:CGRectMake(lastView?(CGRectGetMaxX(lastView.frame)+space):beginX, 0, select_w , normal_w)];
+                [dot setFrame:CGRectMake(x, 0, select_w , normal_w)];
                 if (_selectDotImage) {
                     dot.image = _selectDotImage;
                 }else{
                     dot.backgroundColor = _selectDotColor;
                 }
             }else{
-                [dot setFrame:CGRectMake(lastView?(CGRectGetMaxX(lastView.frame)+space):beginX, 0, normal_w , normal_w)];
+                [dot setFrame:CGRectMake(x, 0, normal_w , normal_w)];
                 if (_normalDotImage) {
                     dot.image = _normalDotImage;
                 }else{
