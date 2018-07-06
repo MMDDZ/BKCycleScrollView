@@ -23,5 +23,5 @@ NSLog(@"点击了 cycleScrollView 上 索引%ld的item",index);
 - [FLAnimatedImage](https://github.com/Flipboard/FLAnimatedImage)
 - [SDWebImage](https://github.com/rs/SDWebImage)
 
-## 版本
+## 版本记录
     1.0 无限轮播第一版完成
