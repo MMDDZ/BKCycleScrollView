@@ -28,6 +28,14 @@
     self.layer.mask = maskLayer;
 }
 
+#pragma mark - setPlaceholderImage
+
+-(void)setPlaceholderImage:(UIImage *)placeholderImage
+{
+    _placeholderImage = placeholderImage;
+    [self setDataObj:self.dataObj];
+}
+
 #pragma mark - init
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -47,7 +55,7 @@
         _displayImageView = [[BKCycleScrollImageView alloc] initWithFrame:self.bounds];
         _displayImageView.clipsToBounds = YES;
         _displayImageView.contentMode = UIViewContentModeScaleAspectFill;
-//        _displayImageView.runLoopMode = NSDefaultRunLoopMode;//滑动时gif不进行动画 为了滑动流畅
+        //        _displayImageView.runLoopMode = NSDefaultRunLoopMode;//滑动时gif不进行动画 为了滑动流畅
         [self addSubview:_displayImageView];
     }
     return _displayImageView;
@@ -72,7 +80,7 @@
             self.displayImageView.animatedImage = image;
         }
     }else{
-        self.displayImageView.image = nil;
+        self.displayImageView.image = self.placeholderImage;
     }
 }
 

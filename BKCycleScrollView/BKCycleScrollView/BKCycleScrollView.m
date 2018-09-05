@@ -11,8 +11,8 @@
 #import "BKCycleScrollCollectionViewCell.h"
 #import "BKCycleScrollPageControl.h"
 
-NSInteger const AllCount = 99999;//初始item数量
-NSInteger const MiddleCount = AllCount/2-1;//item中间数
+NSInteger const kAllCount = 99999;//初始item数量
+NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 
 @interface BKCycleScrollView()<UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,UIScrollViewDelegate,UIGestureRecognizerDelegate>
 
@@ -52,7 +52,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
         [self.collectionView reloadData];
         
         [self invalidateTimer];
-        [self timer];
+        [self initTimer];
     }
     if (_pageControl) {
         self.pageControl.numberOfPages = [_displayDataArr count];
@@ -65,7 +65,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
     _autoScrollTime = autoScrollTime;
     
     [self invalidateTimer];
-    [self timer];
+    [self initTimer];
 }
 
 /******************************************************************************/
@@ -176,7 +176,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
         [self invalidateTimer];
         [self resetCurrentIndex:0 displayIndexPath:_beginIndexPath];
         [self collectionView];
-        [self timer];
+        [self initTimer];
     }
     if (_pageControl) {
         self.pageControl.numberOfPages = [_displayDataArr count];
@@ -201,7 +201,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
     if (!newWindow) {
         [self invalidateTimer];
     }else{
-        [self timer];
+        [self initTimer];
     }
 }
 
@@ -215,7 +215,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
         [self collectionView];
         
         [self invalidateTimer];
-        [self timer];
+        [self initTimer];
     }
     if (!_pageControl) {
         [self pageControl];
@@ -277,11 +277,11 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
     self.displayBackgroundColor = [UIColor clearColor];
     self.autoScrollTime = 5;
     
-    self.beginIndexPath = [NSIndexPath indexPathForItem:MiddleCount inSection:0];
+    self.beginIndexPath = [NSIndexPath indexPathForItem:kMiddleCount inSection:0];
     self.displayIndexPath = self.beginIndexPath;
     self.currentIndex = 0;
     
-//    [self panGesture];
+    //    [self panGesture];
     
     self.itemSpace = 0;
     self.itemWidth = self.frame.size.width;
@@ -300,7 +300,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 /**
  当前看见的索引重新赋值
-
+ 
  @param currentIndex 当前所看到数据的索引
  @param displayIndexPath collectionView当前显示的indexPath
  */
@@ -321,7 +321,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 -(void)didBecomeActiveNotification:(NSNotification*)notification
 {
-    [self timer];
+    [self initTimer];
 }
 
 //#pragma mark - UIPanGestureRecognizer
@@ -358,7 +358,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 //        case UIGestureRecognizerStateCancelled:
 //        case UIGestureRecognizerStateFailed:
 //        {
-//            [self timer];
+//            [self initTimer];
 //
 //            NSIndexPath * targetIndexPath = nil;//滑动目标IndexPath
 //
@@ -419,6 +419,11 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 #pragma mark - NSTimer
 
+-(void)initTimer
+{
+    
+}
+
 -(NSTimer*)timer
 {
     if (!_timer) {
@@ -452,6 +457,16 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 #pragma mark - UICollectionView
 
+-(BOOL)checkData
+{
+    if ([self.displayDataArr count] > 0) {
+        _collectionView.userInteractionEnabled = YES;
+    }else {
+        _collectionView.userInteractionEnabled = NO;
+    }
+    return _collectionView.userInteractionEnabled;
+}
+
 -(BKCycleCollectionViewFlowLayout *)resetLayout
 {
     CGFloat left_right_inset = (self.frame.size.width - self.itemWidth)/2;
@@ -478,13 +493,15 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.bounces = NO;
         _collectionView.decelerationRate = 0;
-//        _collectionView.scrollEnabled = NO; //如果不喜欢layout动画 可以解注释 和手势的注释
+        //        _collectionView.scrollEnabled = NO; //如果不喜欢layout动画 可以解注释 和手势的注释
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
         [_collectionView registerClass:[BKCycleScrollCollectionViewCell class] forCellWithReuseIdentifier:@"BKCycleScrollCollectionViewCell"];
         
         [_collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+        
+        [self checkData];
         
         if (_pageControl) {
             [self insertSubview:_collectionView belowSubview:_pageControl];
@@ -497,7 +514,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.displayDataArr count] == 0 ? 0 : AllCount;
+    return kAllCount;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -514,7 +531,9 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
     
     cell.radius = self.radius;
     cell.placeholderImage = self.placeholderImage;
-    cell.dataObj = self.displayDataArr[selectIndex];
+    if ([self.displayDataArr count] > selectIndex) {
+        cell.dataObj = self.displayDataArr[selectIndex];
+    }
     
     return cell;
 }
@@ -522,7 +541,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self invalidateTimer];
-    [self timer];
+    [self initTimer];
     
     NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:indexPath];
     if (self.selectItemAction) {
@@ -532,7 +551,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 /**
  获取目标indexPath显示的index
-
+ 
  @param indexPath 无线循环view上的目标显示的indexPath
  @return 实际显示的index数据
  */
@@ -564,7 +583,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    [self timer];
+    [self initTimer];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
@@ -596,7 +615,7 @@ NSInteger const MiddleCount = AllCount/2-1;//item中间数
                 *stop = YES;
             }
         }];
-
+        
         if (!isExist) {
             self.displayIndexPath = self.beginIndexPath;
             [self.collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
