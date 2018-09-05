@@ -421,7 +421,10 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 
 -(void)initTimer
 {
-    
+    BOOL isHaveData = [self checkData];
+    if (isHaveData) {
+        [self timer];
+    }
 }
 
 -(NSTimer*)timer
