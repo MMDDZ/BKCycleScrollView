@@ -495,7 +495,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         _collectionView.backgroundColor = self.displayBackgroundColor?self.displayBackgroundColor:[UIColor clearColor];
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.bounces = NO;
-        _collectionView.decelerationRate = 0;
+        _collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
         //        _collectionView.scrollEnabled = NO; //如果不喜欢layout动画 可以解注释 和手势的注释
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
