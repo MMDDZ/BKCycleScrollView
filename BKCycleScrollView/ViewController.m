@@ -55,7 +55,7 @@
         _cycleScrollView1.radius = 12;
         [self.view addSubview:_cycleScrollView1];
 
-        [_cycleScrollView1 setSelectItemAction:^(NSInteger index) {
+        [_cycleScrollView1 setSelectItemAction:^(NSInteger index, UIImageView *imageView) {
             NSLog(@"点击了 _cycleScrollView1 上 索引%ld的item",index);
         }];
     }
@@ -73,7 +73,7 @@
         _cycleScrollView2.pageControlStyle = BKCycleScrollPageControlStyleNormalDots;
         [self.view addSubview:_cycleScrollView2];
         
-        [_cycleScrollView2 setSelectItemAction:^(NSInteger index) {
+        [_cycleScrollView2 setSelectItemAction:^(NSInteger index, UIImageView *imageView) {
             NSLog(@"点击了 _cycleScrollView2 上 索引%ld的item",index);
         }];
     }
@@ -98,7 +98,7 @@
         _cycleScrollView3.selectDotColor = [UIColor brownColor];
         [self.view addSubview:_cycleScrollView3];
         
-        [_cycleScrollView3 setSelectItemAction:^(NSInteger index) {
+        [_cycleScrollView3 setSelectItemAction:^(NSInteger index, UIImageView *imageView) {
             NSLog(@"点击了 _cycleScrollView3 上 索引%ld的item",index);
         }];
     }

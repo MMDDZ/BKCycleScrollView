@@ -90,6 +90,7 @@ typedef NS_ENUM(NSUInteger, BKCycleScrollPageControlStyle) {
 
 #pragma mark - 创建方法
 
+-(instancetype)initWithFrame:(CGRect)frame;
 -(instancetype)initWithFrame:(CGRect)frame displayDataArr:(NSArray*)displayDataArr;
 -(instancetype)initWithFrame:(CGRect)frame delegate:(id<BKCycleScrollViewDelegate>)delegate;
 -(instancetype)initWithFrame:(CGRect)frame delegate:(id<BKCycleScrollViewDelegate>)delegate displayDataArr:(NSArray*)displayDataArr;
@@ -98,6 +99,6 @@ typedef NS_ENUM(NSUInteger, BKCycleScrollPageControlStyle) {
  点击item方法
  index 点中的索引
  */
-@property (nonatomic,copy) void (^selectItemAction)(NSInteger index);
+@property (nonatomic,copy) void (^selectItemAction)(NSInteger index, UIImageView * imageView);
 
 @end

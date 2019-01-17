@@ -42,9 +42,16 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        [self cutRadius:_radius];
+//        [self cutRadius:_radius];
     }
     return self;
+}
+
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    _displayImageView.frame = self.bounds;
 }
 
 #pragma mark - displayImageView

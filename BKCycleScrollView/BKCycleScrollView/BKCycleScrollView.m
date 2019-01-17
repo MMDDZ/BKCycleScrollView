@@ -47,17 +47,14 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     _displayDataArr = displayDataArr;
     
     if (_collectionView) {
-        
         self.currentIndex = 0;
         [self.collectionView reloadData];
         
         [self invalidateTimer];
         [self initTimer];
     }
-    if (_pageControl) {
-        self.pageControl.numberOfPages = [_displayDataArr count];
-        self.pageControl.currentPage = 0;
-    }
+    self.pageControl.numberOfPages = [_displayDataArr count];
+    self.pageControl.currentPage = 0;
 }
 
 -(void)setAutoScrollTime:(CGFloat)autoScrollTime
@@ -210,6 +207,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     [super layoutSubviews];
     
     if (!_collectionView) {
+        self.itemWidth = self.itemWidth == 0 ? self.frame.size.width : self.itemWidth;
         
         self.currentIndex = 0;
         [self collectionView];
@@ -217,9 +215,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         [self invalidateTimer];
         [self initTimer];
     }
-    if (!_pageControl) {
-        [self pageControl];
-    }
+    _pageControl.frame = CGRectMake(0, self.frame.size.height - self.dotBottomInset - self.dotHeight, self.frame.size.width, self.dotHeight);
 }
 
 -(instancetype)initWithFrame:(CGRect)frame
@@ -235,7 +231,6 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
         [self initData];
         
         self.displayDataArr = displayDataArr;
@@ -247,7 +242,6 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
         [self initData];
         
         self.delegate = delegate;
@@ -259,7 +253,6 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 {
     self = [super initWithFrame:frame];
     if (self) {
-        
         [self initData];
         
         self.delegate = delegate;
@@ -532,7 +525,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         return cell;
     }
     
-    cell.radius = self.radius;
+//    cell.radius = self.radius;
     cell.placeholderImage = self.placeholderImage;
     if ([self.displayDataArr count] > selectIndex) {
         cell.dataObj = self.displayDataArr[selectIndex];
@@ -547,8 +540,9 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     [self initTimer];
     
     NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:indexPath];
+    BKCycleScrollCollectionViewCell * cell = (BKCycleScrollCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
     if (self.selectItemAction) {
-        self.selectItemAction(selectIndex);
+        self.selectItemAction(selectIndex, cell.displayImageView);
     }
 }
 
@@ -568,12 +562,16 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     }
     
     NSInteger count = [self.displayDataArr count];
-    if (selectIndex < 0) {
-        selectIndex = (count + selectIndex % count) % count;
-    }else if (selectIndex > count - 1) {
-        selectIndex = selectIndex % count;
+    if (count == 0) {
+        selectIndex = 0;
+    }else {
+        if (selectIndex < 0) {
+            selectIndex = (count + selectIndex % count) % count;
+        }else if (selectIndex > count - 1) {
+            selectIndex = selectIndex % count;
+        }
     }
-    
+
     return selectIndex;
 }
 

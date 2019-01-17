@@ -72,6 +72,12 @@
     return self;
 }
 
+-(void)layoutSubviews
+{
+    [super layoutSubviews];
+    [self resetUI];
+}
+
 #pragma mark - UI
 
 -(void)resetUI

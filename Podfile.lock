@@ -1,0 +1,28 @@
+PODS:
+  - FLAnimatedImage (1.0.12)
+  - SDWebImage (4.4.2):
+    - SDWebImage/Core (= 4.4.2)
+  - SDWebImage/Core (4.4.2)
+  - ZFPlayer (3.2.2):
+    - ZFPlayer/Core (= 3.2.2)
+  - ZFPlayer/Core (3.2.2)
+
+DEPENDENCIES:
+  - FLAnimatedImage (~> 1.0.12)
+  - SDWebImage (~> 4.4.1)
+  - ZFPlayer (~> 3.2.2)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - FLAnimatedImage
+    - SDWebImage
+    - ZFPlayer
+
+SPEC CHECKSUMS:
+  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
+  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
+  ZFPlayer: 8547effaab9e2764c2e9f72ecf32530d6bd96165
+
+PODFILE CHECKSUM: fb9498b265fba6a4e1449f61cb502e3b4a3be0cf
+
+COCOAPODS: 1.5.3
