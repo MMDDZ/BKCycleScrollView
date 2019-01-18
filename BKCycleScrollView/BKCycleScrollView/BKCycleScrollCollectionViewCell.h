@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BKCycleScrollView.h"
 #import "BKCycleScrollImageView.h"
+#import "BKCycleScrollDataModel.h"
 
 @interface BKCycleScrollCollectionViewCell : UICollectionViewCell
 
+/**
+ 显示的imageView
+ */
 @property (nonatomic,strong) BKCycleScrollImageView * displayImageView;
 
 /** cell圆角度数 */
@@ -19,6 +22,13 @@
 /** 占位图 无默认 */
 @property (nonatomic,strong) UIImage * placeholderImage;
 /** 数据 */
-@property (nonatomic,strong) NSObject * dataObj;
+@property (nonatomic,strong) BKCycleScrollDataModel * dataObj;
+/** 当前cell的indexPath */
+@property (nonatomic,assign) NSUInteger currentIndex;
+
+/**
+ 点击播放回调
+ */
+@property (nonatomic,copy) void (^clickPlayBtnCallBack)(NSUInteger currentIndex);
 
 @end

@@ -30,11 +30,39 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
     NSURL * imageUrl = [[NSBundle mainBundle] URLForResource:@"4" withExtension:@"gif"];
-    self.localImageArr = @[[UIImage imageNamed:@"1"], [UIImage imageNamed:@"2"], UIImageJPEGRepresentation([UIImage imageNamed:@"3"], 1), [NSData dataWithContentsOfURL:imageUrl]];
+    NSArray * images1 = @[[UIImage imageNamed:@"1"], [UIImage imageNamed:@"2"], [UIImage imageNamed:@"5"], UIImageJPEGRepresentation([UIImage imageNamed:@"3"], 1), [NSData dataWithContentsOfURL:imageUrl]];
+    NSMutableArray * datas1 = [NSMutableArray array];
+    for (int i = 0; i < [images1 count]; i++) {
+        BKCycleScrollDataModel * dataModel = [[BKCycleScrollDataModel alloc] init];
+        if (i == 0 || i == 1) {
+            dataModel.image = images1[i];
+        }else if (i == 2) {
+            dataModel.image = images1[i];
+            dataModel.videoUrl = @"http://flv3.bn.netease.com/tvmrepo/2018/6/H/9/EDJTRBEH9/SD/EDJTRBEH9-mobile.mp4";
+        }else {
+            dataModel.imageData = images1[i];
+        }
+        [datas1 addObject:dataModel];
+    }
+    self.localImageArr = [datas1 copy];
     
-    self.netImageArr = @[@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528368399685&di=d6d322d6cf932ebbf569303d0bade418&imgtype=0&src=http%3A%2F%2Fpic1.16pic.com%2F00%2F07%2F66%2F16pic_766152_b.jpg",@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528368294842&di=5de9f86a4001b2f04d04b65e1573122d&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F13%2F71%2F35%2F24k58PICSiB_1024.jpg",@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528368334917&di=fc058e94d3951768c4151104f707a347&imgtype=0&src=http%3A%2F%2Fimg1.3lian.com%2F2015%2Fa1%2F63%2Fd%2F121.jpg"];
+    NSArray * images2 = @[@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528368399685&di=d6d322d6cf932ebbf569303d0bade418&imgtype=0&src=http%3A%2F%2Fpic1.16pic.com%2F00%2F07%2F66%2F16pic_766152_b.jpg",@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528368294842&di=5de9f86a4001b2f04d04b65e1573122d&imgtype=0&src=http%3A%2F%2Fpic.qiantucdn.com%2F58pic%2F13%2F71%2F35%2F24k58PICSiB_1024.jpg",@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1528368334917&di=fc058e94d3951768c4151104f707a347&imgtype=0&src=http%3A%2F%2Fimg1.3lian.com%2F2015%2Fa1%2F63%2Fd%2F121.jpg"];
+    NSMutableArray * datas2 = [NSMutableArray array];
+    for (int i = 0; i < [images2 count]; i++) {
+        BKCycleScrollDataModel * dataModel = [[BKCycleScrollDataModel alloc] init];
+        dataModel.imageUrl = images2[i];
+        [datas2 addObject:dataModel];
+    }
+    self.netImageArr = [datas2 copy];
     
-    self.netImageArr2 = @[@"http://img.taopic.com/uploads/allimg/140118/234914-14011PZ32692.jpg",@"http://pic1.win4000.com/wallpaper/5/58c74e21e2228.jpg",@"http://imgsrc.baidu.com/imgad/pic/item/42a98226cffc1e17d453210c4190f603738de91b.jpg",@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529388176527&di=7a047e6e2c065af002f71b594793d777&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01c3cf5544d0c70000019ae97686ea.jpg",@"http://img.mp.sohu.com/upload/20170801/8b8854e3a09245b68e2058fc8b30fc02_th.png"];
+    NSArray * images3 = @[@"http://img.taopic.com/uploads/allimg/140118/234914-14011PZ32692.jpg",@"http://pic1.win4000.com/wallpaper/5/58c74e21e2228.jpg",@"http://imgsrc.baidu.com/imgad/pic/item/42a98226cffc1e17d453210c4190f603738de91b.jpg",@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1529388176527&di=7a047e6e2c065af002f71b594793d777&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01c3cf5544d0c70000019ae97686ea.jpg",@"http://img.mp.sohu.com/upload/20170801/8b8854e3a09245b68e2058fc8b30fc02_th.png"];
+    NSMutableArray * datas3 = [NSMutableArray array];
+    for (int i = 0; i < [images3 count]; i++) {
+        BKCycleScrollDataModel * dataModel = [[BKCycleScrollDataModel alloc] init];
+        dataModel.imageUrl = images3[i];
+        [datas3 addObject:dataModel];
+    }
+    self.netImageArr2 = [datas3 copy];
     
     [self cycleScrollView1];
     [self cycleScrollView2];
@@ -69,6 +97,7 @@
     if (!_cycleScrollView2) {
         
         _cycleScrollView2 = [[BKCycleScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.cycleScrollView1.frame) + 40, self.view.frame.size.width, 150) displayDataArr:self.localImageArr];
+        _cycleScrollView2.isAutoScroll = NO;
         _cycleScrollView2.layoutStyle = BKDisplayCellLayoutStyleNormal;
         _cycleScrollView2.pageControlStyle = BKCycleScrollPageControlStyleNormalDots;
         [self.view addSubview:_cycleScrollView2];

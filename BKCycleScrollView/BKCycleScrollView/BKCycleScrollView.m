@@ -10,6 +10,9 @@
 #import "BKCycleCollectionViewFlowLayout.h"
 #import "BKCycleScrollCollectionViewCell.h"
 #import "BKCycleScrollPageControl.h"
+#import <ZFPlayer/ZFPlayer.h>
+#import <ZFPlayer/ZFAVPlayerManager.h>
+#import "BKCycleScrollVideoContentView.h"
 
 NSInteger const kAllCount = 99999;//初始item数量
 NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
@@ -28,6 +31,9 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 
 //@property (nonatomic,strong) UIPanGestureRecognizer * panGesture;
 
+@property (nonatomic,strong) ZFPlayerController * player;
+@property (nonatomic,strong) BKCycleScrollVideoContentView * videoContentView;
+
 @end
 
 @implementation BKCycleScrollView
@@ -42,7 +48,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     }
 }
 
--(void)setDisplayDataArr:(NSArray *)displayDataArr
+-(void)setDisplayDataArr:(NSArray<BKCycleScrollDataModel *> *)displayDataArr
 {
     _displayDataArr = displayDataArr;
     
@@ -52,9 +58,21 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         
         [self invalidateTimer];
         [self initTimer];
+        
+        [self assignPlayerData];
     }
     self.pageControl.numberOfPages = [_displayDataArr count];
     self.pageControl.currentPage = 0;
+}
+
+-(void)setIsAutoScroll:(BOOL)isAutoScroll
+{
+    _isAutoScroll = isAutoScroll;
+    
+    [self invalidateTimer];
+    if (_isAutoScroll) {
+        [self initTimer];
+    }
 }
 
 -(void)setAutoScrollTime:(CGFloat)autoScrollTime
@@ -166,7 +184,6 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 -(void)resetLayoutProperty
 {
     if (_collectionView) {
-        
         [_collectionView removeFromSuperview];
         _collectionView = nil;
         
@@ -174,6 +191,8 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         [self resetCurrentIndex:0 displayIndexPath:_beginIndexPath];
         [self collectionView];
         [self initTimer];
+        
+        [self assignPlayerData];
     }
     if (_pageControl) {
         self.pageControl.numberOfPages = [_displayDataArr count];
@@ -214,6 +233,8 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         
         [self invalidateTimer];
         [self initTimer];
+        
+        [self assignPlayerData];
     }
     _pageControl.frame = CGRectMake(0, self.frame.size.height - self.dotBottomInset - self.dotHeight, self.frame.size.width, self.dotHeight);
 }
@@ -268,6 +289,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 {
     self.backgroundColor = [UIColor clearColor];
     self.displayBackgroundColor = [UIColor clearColor];
+    self.isAutoScroll = YES;
     self.autoScrollTime = 5;
     
     self.beginIndexPath = [NSIndexPath indexPathForItem:kMiddleCount inSection:0];
@@ -315,6 +337,57 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 -(void)didBecomeActiveNotification:(NSNotification*)notification
 {
     [self initTimer];
+}
+
+#pragma mark - 视频
+
+-(ZFPlayerController*)player
+{
+    if (!_player) {
+        ZFAVPlayerManager * playerManager = [[ZFAVPlayerManager alloc] init];
+        _player = [ZFPlayerController playerWithScrollView:self.collectionView playerManager:playerManager containerViewTag:99999];
+        _player.controlView = self.videoContentView;
+        _player.shouldAutoPlay = NO;
+        _player.playerDisapperaPercent = 1;
+        __weak typeof(self) weakSelf = self;
+        [_player setPlayerPlayStateChanged:^(id<ZFPlayerMediaPlayback>  _Nonnull asset, ZFPlayerPlaybackState playState) {
+            NSLog(@"%@",weakSelf.videoContentView);
+        }];
+    }
+    return _player;
+}
+
+-(void)assignPlayerData
+{
+    NSMutableArray * videoUrls = [NSMutableArray array];
+    for (BKCycleScrollDataModel * dataModel in self.displayDataArr) {
+        if (dataModel.isVideo) {
+            [videoUrls addObject:[NSURL URLWithString:dataModel.videoUrl]];
+        }
+    }
+    self.player = nil;
+    self.player.assetURLs = [videoUrls copy];
+}
+
+-(void)playVideoWithIndex:(NSUInteger)index
+{
+    BKCycleScrollDataModel * dataModel = self.displayDataArr[index];
+    [self.player.assetURLs enumerateObjectsUsingBlock:^(NSURL * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        if ([obj.absoluteString isEqualToString:dataModel.videoUrl]) {
+            [self.player playTheIndex:idx];
+            *stop = YES;
+        }
+    }];
+}
+
+#pragma mark - BKCycleScrollVideoContentView
+
+-(BKCycleScrollVideoContentView*)videoContentView
+{
+    if (!_videoContentView) {
+        _videoContentView = [[BKCycleScrollVideoContentView alloc] init];
+    }
+    return _videoContentView;
 }
 
 //#pragma mark - UIPanGestureRecognizer
@@ -414,6 +487,10 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 
 -(void)initTimer
 {
+    if (!self.isAutoScroll) {
+        return;
+    }
+    
     BOOL isHaveData = [self checkData];
     if (isHaveData) {
         [self timer];
@@ -516,6 +593,10 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     BKCycleScrollCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BKCycleScrollCollectionViewCell" forIndexPath:indexPath];
+    __weak typeof(self) weakSelf = self;
+    [cell setClickPlayBtnCallBack:^(NSUInteger currentIndex) {
+        [weakSelf playVideoWithIndex:currentIndex];
+    }];
     
     NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:indexPath];
     
@@ -525,9 +606,10 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         return cell;
     }
     
-//    cell.radius = self.radius;
+    cell.radius = self.radius;
     cell.placeholderImage = self.placeholderImage;
     if ([self.displayDataArr count] > selectIndex) {
+        cell.currentIndex = selectIndex;
         cell.dataObj = self.displayDataArr[selectIndex];
     }
     
@@ -577,14 +659,26 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 
 #pragma mark - UIScrollViewDelegate
 
+- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+{
+    [scrollView zf_scrollViewDidScrollToTop];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    [scrollView zf_scrollViewDidScroll];
+}
+
 - (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     [self invalidateTimer];
+    [scrollView zf_scrollViewWillBeginDragging];
 }
 
 - (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
     [self initTimer];
+    [scrollView zf_scrollViewDidEndDraggingWillDecelerate:decelerate];
 }
 
 - (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
@@ -600,6 +694,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
     [self scrollViewDidEndScrollingAnimation:scrollView];
+    [scrollView zf_scrollViewDidEndDecelerating];
 }
 
 - (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView

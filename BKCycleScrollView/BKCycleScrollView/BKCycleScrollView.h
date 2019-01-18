@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BKCycleScrollDataModel.h"
 @class BKCycleScrollView;
 
 typedef NS_ENUM(NSUInteger, BKDisplayCellLayoutStyle) {
@@ -41,10 +42,12 @@ typedef NS_ENUM(NSUInteger, BKCycleScrollPageControlStyle) {
 
 /** 背景颜色 默认透明 */
 @property (nonatomic,strong) UIColor * displayBackgroundColor;
-/** 图片数组 网络图片传String 本地图片传Image或者data */
-@property (nonatomic,strong) NSArray * displayDataArr;
+/** 图片数组 */
+@property (nonatomic,strong) NSArray<BKCycleScrollDataModel*> * displayDataArr;
 /** 占位图 无默认 */
 @property (nonatomic,strong) UIImage * placeholderImage;
+/** 是否自动滚动 默认是 */
+@property (nonatomic,assign) BOOL isAutoScroll;
 /** 自动滚动时间 默认5s */
 @property (nonatomic,assign) CGFloat autoScrollTime;
 

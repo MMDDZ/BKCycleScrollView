@@ -12,6 +12,9 @@
 		1D5D55DD21F05E3400D3B15F /* BKCycleScrollCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D721F05E3300D3B15F /* BKCycleScrollCollectionViewCell.m */; };
 		1D5D55DE21F05E3400D3B15F /* BKCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D821F05E3300D3B15F /* BKCycleScrollView.m */; };
 		1D5D55DF21F05E3400D3B15F /* BKCycleScrollPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D921F05E3300D3B15F /* BKCycleScrollPageControl.m */; };
+		1D5D55E221F065C900D3B15F /* BKCycleScrollDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55E121F065C900D3B15F /* BKCycleScrollDataModel.m */; };
+		1D5D55E521F07ECA00D3B15F /* BKCycleScrollVideoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55E421F07ECA00D3B15F /* BKCycleScrollVideoContentView.m */; };
+		1D5D55E721F0827B00D3B15F /* BKCycleScrollView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D5D55E621F0827B00D3B15F /* BKCycleScrollView.bundle */; };
 		1DAC8CEC20C916FE00687320 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DAC8CEB20C916FE00687320 /* AppDelegate.m */; };
 		1DAC8CEF20C916FE00687320 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DAC8CEE20C916FE00687320 /* ViewController.m */; };
 		1DAC8CF420C916FE00687320 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DAC8CF320C916FE00687320 /* Assets.xcassets */; };
@@ -31,6 +34,11 @@
 		1D5D55D821F05E3300D3B15F /* BKCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollView.m; sourceTree = "<group>"; };
 		1D5D55D921F05E3300D3B15F /* BKCycleScrollPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollPageControl.m; sourceTree = "<group>"; };
 		1D5D55DA21F05E3400D3B15F /* BKCycleScrollImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollImageView.h; sourceTree = "<group>"; };
+		1D5D55E021F065C900D3B15F /* BKCycleScrollDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollDataModel.h; sourceTree = "<group>"; };
+		1D5D55E121F065C900D3B15F /* BKCycleScrollDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollDataModel.m; sourceTree = "<group>"; };
+		1D5D55E321F07ECA00D3B15F /* BKCycleScrollVideoContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollVideoContentView.h; sourceTree = "<group>"; };
+		1D5D55E421F07ECA00D3B15F /* BKCycleScrollVideoContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollVideoContentView.m; sourceTree = "<group>"; };
+		1D5D55E621F0827B00D3B15F /* BKCycleScrollView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BKCycleScrollView.bundle; sourceTree = "<group>"; };
 		1DAC8CE720C916FE00687320 /* BKCycleScrollView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKCycleScrollView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1DAC8CEA20C916FE00687320 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1DAC8CEB20C916FE00687320 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -60,12 +68,17 @@
 		1D5D55C121F05DEE00D3B15F /* BKCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
+				1D5D55E621F0827B00D3B15F /* BKCycleScrollView.bundle */,
 				1D5D55D221F05E3300D3B15F /* BKCycleScrollView.h */,
 				1D5D55D821F05E3300D3B15F /* BKCycleScrollView.m */,
+				1D5D55E021F065C900D3B15F /* BKCycleScrollDataModel.h */,
+				1D5D55E121F065C900D3B15F /* BKCycleScrollDataModel.m */,
 				1D5D55D621F05E3300D3B15F /* BKCycleCollectionViewFlowLayout.h */,
 				1D5D55D321F05E3300D3B15F /* BKCycleCollectionViewFlowLayout.m */,
 				1D5D55D421F05E3300D3B15F /* BKCycleScrollCollectionViewCell.h */,
 				1D5D55D721F05E3300D3B15F /* BKCycleScrollCollectionViewCell.m */,
+				1D5D55E321F07ECA00D3B15F /* BKCycleScrollVideoContentView.h */,
+				1D5D55E421F07ECA00D3B15F /* BKCycleScrollVideoContentView.m */,
 				1D5D55DA21F05E3400D3B15F /* BKCycleScrollImageView.h */,
 				1D5D55D521F05E3300D3B15F /* BKCycleScrollImageView.m */,
 				1D5D55D121F05E3300D3B15F /* BKCycleScrollPageControl.h */,
@@ -144,6 +157,7 @@
 				1DAC8CE320C916FE00687320 /* Sources */,
 				1DAC8CE420C916FE00687320 /* Frameworks */,
 				1DAC8CE520C916FE00687320 /* Resources */,
+				4322863F3DBE83F778166B3D /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -193,6 +207,7 @@
 			files = (
 				1DAC8D5A20C9265F00687320 /* 4.gif in Resources */,
 				1DAC8CF420C916FE00687320 /* Assets.xcassets in Resources */,
+				1D5D55E721F0827B00D3B15F /* BKCycleScrollView.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -217,6 +232,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		4322863F3DBE83F778166B3D /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-BKCycleScrollView/Pods-BKCycleScrollView-resources.sh",
+				"${PODS_ROOT}/ZFPlayer/ZFPlayer/Classes/ControlView/ZFPlayer.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZFPlayer.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BKCycleScrollView/Pods-BKCycleScrollView-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -229,7 +262,9 @@
 				1DAC8CFA20C916FF00687320 /* main.m in Sources */,
 				1D5D55DB21F05E3400D3B15F /* BKCycleCollectionViewFlowLayout.m in Sources */,
 				1D5D55DE21F05E3400D3B15F /* BKCycleScrollView.m in Sources */,
+				1D5D55E221F065C900D3B15F /* BKCycleScrollDataModel.m in Sources */,
 				1DAC8CEC20C916FE00687320 /* AppDelegate.m in Sources */,
+				1D5D55E521F07ECA00D3B15F /* BKCycleScrollVideoContentView.m in Sources */,
 				1D5D55DD21F05E3400D3B15F /* BKCycleScrollCollectionViewCell.m in Sources */,
 				1D5D55DF21F05E3400D3B15F /* BKCycleScrollPageControl.m in Sources */,
 			);
