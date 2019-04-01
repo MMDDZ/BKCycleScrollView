@@ -51,7 +51,7 @@
         [self cutRadius:_radius];
         
         [self addSubview:self.displayImageView];
-        [self addSubview:self.playBtn];
+        [self.displayImageView addSubview:self.playBtn];
     }
     return self;
 }
@@ -72,6 +72,7 @@
         _displayImageView = [[BKCycleScrollImageView alloc] initWithFrame:self.bounds];
         _displayImageView.clipsToBounds = YES;
         _displayImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _displayImageView.userInteractionEnabled = YES;
         _displayImageView.tag = 99999;
         //        _displayImageView.runLoopMode = NSDefaultRunLoopMode;//滑动时gif不进行动画 为了滑动流畅
     }
@@ -84,7 +85,7 @@
 {
     if (!_playBtn) {
         _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _playBtn.frame = CGRectMake((self.frame.size.width - 44)/2, (self.frame.size.height - 44)/2, 44, 44);
+        _playBtn.frame = CGRectMake((self.displayImageView.bounds.size.width - 44)/2, (self.displayImageView.bounds.size.height - 44)/2, 44, 44);
         [_playBtn setBackgroundImage:[self imageWithCycleScrollImageName:@"BK_start"] forState:UIControlStateNormal];
         [_playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
     }
@@ -97,7 +98,7 @@
 {
     if (self.dataObj.isVideo) {
         if (self.clickPlayBtnCallBack) {
-            self.clickPlayBtnCallBack(self.currentIndex);
+            self.clickPlayBtnCallBack(self.currentIndex, self.currentIndexPath);
         }
     }
 }

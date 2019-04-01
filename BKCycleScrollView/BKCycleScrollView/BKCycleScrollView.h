@@ -43,7 +43,7 @@ typedef NS_ENUM(NSUInteger, BKCycleScrollPageControlStyle) {
 /** 背景颜色 默认透明 */
 @property (nonatomic,strong) UIColor * displayBackgroundColor;
 /** 图片数组 */
-@property (nonatomic,strong) NSArray<BKCycleScrollDataModel*> * displayDataArr;
+@property (nonatomic,copy) NSArray<BKCycleScrollDataModel*> * displayDataArr;
 /** 占位图 无默认 */
 @property (nonatomic,strong) UIImage * placeholderImage;
 /** 是否自动滚动 默认是 */
@@ -66,6 +66,15 @@ typedef NS_ENUM(NSUInteger, BKCycleScrollPageControlStyle) {
 @property (nonatomic,assign) CGFloat itemReduceScale;
 /** cell圆角度数 默认0 */
 @property (nonatomic,assign) CGFloat radius;
+
+#pragma mark - 视频播放属性
+
+/** 进度条背景颜色 默认[UIColor colorWithWhite:1 alpha:0.3]*/
+@property (nonatomic,strong) UIColor * progressColor;
+/** 进度条加载颜色 默认[UIColor colorWithWhite:1 alpha:0.6]*/
+@property (nonatomic,strong) UIColor * bufferColor;
+/** 进度条当前播放颜色 默认[UIColor colorWithWhite:1 alpha:1]*/
+@property (nonatomic,strong) UIColor * currentColor;
 
 #pragma mark - 小圆点属性
 

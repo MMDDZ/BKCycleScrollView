@@ -29,10 +29,9 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 
 @property (nonatomic,strong) NSTimer * timer;
 
-//@property (nonatomic,strong) UIPanGestureRecognizer * panGesture;
-
 @property (nonatomic,strong) ZFPlayerController * player;
 @property (nonatomic,strong) BKCycleScrollVideoContentView * videoContentView;
+@property (nonatomic,assign) NSUInteger playIndex;//播放所在的索引
 
 @end
 
@@ -51,6 +50,8 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 -(void)setDisplayDataArr:(NSArray<BKCycleScrollDataModel *> *)displayDataArr
 {
     _displayDataArr = displayDataArr;
+    
+    [self.player stopCurrentPlayingCell];
     
     if (_collectionView) {
         self.currentIndex = 0;
@@ -115,6 +116,26 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     if (_collectionView) {
         [_collectionView reloadData];
     }
+}
+
+/******************************************************************************/
+
+-(void)setProgressColor:(UIColor *)progressColor
+{
+    _progressColor = progressColor;
+    self.videoContentView.progressColor = _progressColor;
+}
+
+-(void)setBufferColor:(UIColor *)bufferColor
+{
+    _bufferColor = bufferColor;
+    self.videoContentView.bufferColor = _bufferColor;
+}
+
+-(void)setCurrentColor:(UIColor *)currentColor
+{
+    _currentColor = currentColor;
+    self.videoContentView.currentColor = _currentColor;
 }
 
 /******************************************************************************/
@@ -296,8 +317,6 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     self.displayIndexPath = self.beginIndexPath;
     self.currentIndex = 0;
     
-    //    [self panGesture];
-    
     self.itemSpace = 0;
     self.itemWidth = self.frame.size.width;
     self.itemReduceScale = 0.1;
@@ -348,10 +367,27 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         _player = [ZFPlayerController playerWithScrollView:self.collectionView playerManager:playerManager containerViewTag:99999];
         _player.controlView = self.videoContentView;
         _player.shouldAutoPlay = NO;
-        _player.playerDisapperaPercent = 1;
+        _player.stopWhileNotVisible = YES;
+        _player.playerDisapperaPercent = 1.0f;
         __weak typeof(self) weakSelf = self;
-        [_player setPlayerPlayStateChanged:^(id<ZFPlayerMediaPlayback>  _Nonnull asset, ZFPlayerPlaybackState playState) {
-            NSLog(@"%@",weakSelf.videoContentView);
+        [_player setPlayerPlayTimeChanged:^(id<ZFPlayerMediaPlayback>  _Nonnull asset, NSTimeInterval currentTime, NSTimeInterval duration) {
+            if (asset.currentTime != 0) {
+                BKCycleScrollDataModel * model = weakSelf.displayDataArr[weakSelf.playIndex];
+                model.currentTime = currentTime;
+                model.totalTime = duration;
+                NSMutableArray * dataArr = [weakSelf.displayDataArr mutableCopy];
+                [dataArr replaceObjectAtIndex:weakSelf.playIndex withObject:model];
+                [weakSelf assignDisplayDataArr:[dataArr copy]];
+            }
+        }];
+        [_player setPlayerDidToEnd:^(id<ZFPlayerMediaPlayback>  _Nonnull asset) {
+            [weakSelf.player stopCurrentPlayingCell];
+            BKCycleScrollDataModel * model = weakSelf.displayDataArr[weakSelf.playIndex];
+            model.currentTime = 0;
+            model.totalTime = 0;
+            NSMutableArray * dataArr = [weakSelf.displayDataArr mutableCopy];
+            [dataArr replaceObjectAtIndex:weakSelf.playIndex withObject:model];
+            [weakSelf assignDisplayDataArr:[dataArr copy]];
         }];
     }
     return _player;
@@ -369,15 +405,29 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     self.player.assetURLs = [videoUrls copy];
 }
 
--(void)playVideoWithIndex:(NSUInteger)index
+-(void)playVideoWithIndex:(NSUInteger)index cellForItemAtIndexPath:(NSIndexPath*)indexPath
 {
     BKCycleScrollDataModel * dataModel = self.displayDataArr[index];
-    [self.player.assetURLs enumerateObjectsUsingBlock:^(NSURL * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        if ([obj.absoluteString isEqualToString:dataModel.videoUrl]) {
-            [self.player playTheIndex:idx];
-            *stop = YES;
+    if ([dataModel.videoUrl length] > 0) {
+        [self.player playTheIndexPath:indexPath assetURL:[NSURL URLWithString:dataModel.videoUrl] scrollToTop:NO];
+        if (dataModel.currentTime != 0) {
+            [self.player.currentPlayerManager seekToTime:dataModel.currentTime completionHandler:nil];
         }
-    }];
+        self.videoContentView.dataObj = dataModel;
+        self.playIndex = index;
+    }
+}
+
+#pragma mark - 修改displayDataArr数据(不走setter的赋值)
+
+/**
+ 修改displayDataArr数据(不走setter的赋值)
+ 
+ @param dataArr 数据
+ */
+-(void)assignDisplayDataArr:(NSArray*)dataArr
+{
+    _displayDataArr = [dataArr copy];
 }
 
 #pragma mark - BKCycleScrollVideoContentView
@@ -389,99 +439,6 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     }
     return _videoContentView;
 }
-
-//#pragma mark - UIPanGestureRecognizer
-//
-//-(UIPanGestureRecognizer *)panGesture
-//{
-//    if (!_panGesture) {
-//        _panGesture = [[UIPanGestureRecognizer alloc] initWithTarget:self action:@selector(selfPanGesture:)];
-//        _panGesture.delegate = self;
-//        _panGesture.minimumNumberOfTouches = 1;
-//        _panGesture.maximumNumberOfTouches = 1;
-//        [self addGestureRecognizer:_panGesture];
-//    }
-//    return _panGesture;
-//}
-//
-//-(void)selfPanGesture:(UIPanGestureRecognizer*)panGesture
-//{
-//    CGPoint velocity = [panGesture velocityInView:panGesture.view];
-//
-//    switch (panGesture.state) {
-//        case UIGestureRecognizerStateBegan:
-//        {
-//            [self invalidateTimer];
-//        }
-//            break;
-//        case UIGestureRecognizerStateChanged:
-//        {
-//            CGFloat transitionX = [panGesture translationInView:panGesture.view].x;
-//            [self.collectionView setContentOffset:CGPointMake(self.collectionView.contentOffset.x - transitionX, self.collectionView.contentOffset.y) animated:NO];
-//        }
-//            break;
-//        case UIGestureRecognizerStateEnded:
-//        case UIGestureRecognizerStateCancelled:
-//        case UIGestureRecognizerStateFailed:
-//        {
-//            [self initTimer];
-//
-//            NSIndexPath * targetIndexPath = nil;//滑动目标IndexPath
-//
-//            if (velocity.x > 300) {//往右划,显示左边
-//                targetIndexPath = [NSIndexPath indexPathForItem:self.displayIndexPath.item - 1 inSection:0];
-//            }else if (velocity.x < -300) {//往左划,显示右边
-//                targetIndexPath = [NSIndexPath indexPathForItem:self.displayIndexPath.item + 1 inSection:0];
-//            }else{//移动量小于半屏回归原位 ; 大于半屏时 如果是负的往右划,显示左边 如果是正的往左划,显示右边
-//
-//                BKCycleScrollCollectionViewCell * cell = (BKCycleScrollCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:self.displayIndexPath];
-//                CGFloat screen_space = (self.collectionView.width - self.layout.itemSize.width) / 2;//item距屏幕的间距
-//                CGFloat beginX = cell.frame.origin.x - screen_space;//手势滑动前初始的contentOffset.x
-//                CGFloat scrollOffset = self.collectionView.contentOffset.x - beginX;//手势滑动结束时滑动的偏移量
-//                CGFloat halfWidth = self.collectionView.frame.size.width/2;//屏幕的一半
-//
-//                if (scrollOffset > halfWidth) {
-//                    targetIndexPath = [NSIndexPath indexPathForItem:self.displayIndexPath.item + 1 inSection:0];
-//                }else if (scrollOffset < -halfWidth) {
-//                    targetIndexPath = [NSIndexPath indexPathForItem:self.displayIndexPath.item - 1 inSection:0];
-//                }else{
-//                    targetIndexPath = self.displayIndexPath;
-//                }
-//            }
-//
-//            [self.collectionView scrollToItemAtIndexPath:targetIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:YES];
-//
-//            NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:targetIndexPath];
-//            [self resetCurrentIndex:selectIndex displayIndexPath:targetIndexPath];
-//        }
-//            break;
-//        default:
-//            break;
-//    }
-//
-//    [panGesture setTranslation:CGPointZero inView:panGesture.view];
-//}
-//
-//#pragma mark - UIGestureRecognizerDelegate
-//
-//- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
-//{
-//    if (gestureRecognizer == self.panGesture) {
-//        CGPoint point = [self.panGesture translationInView:self.panGesture.view];
-//        if (fabs(point.y) > fabs(point.x)) {
-//            self.panGesture.enabled = NO;
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                self.panGesture.enabled = YES;
-//            });
-//        }else {
-//            otherGestureRecognizer.enabled = NO;
-//            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-//                otherGestureRecognizer.enabled = YES;
-//            });
-//        }
-//    }
-//    return NO;
-//}
 
 #pragma mark - NSTimer
 
@@ -566,6 +523,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.bounces = NO;
         _collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
+        _collectionView.zf_scrollViewDerection = ZFPlayerScrollViewDerectionHorizontal;
         //        _collectionView.scrollEnabled = NO; //如果不喜欢layout动画 可以解注释 和手势的注释
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
@@ -594,8 +552,8 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 {
     BKCycleScrollCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"BKCycleScrollCollectionViewCell" forIndexPath:indexPath];
     __weak typeof(self) weakSelf = self;
-    [cell setClickPlayBtnCallBack:^(NSUInteger currentIndex) {
-        [weakSelf playVideoWithIndex:currentIndex];
+    [cell setClickPlayBtnCallBack:^(NSUInteger currentIndex, NSIndexPath *currentIndexPath) {
+        [weakSelf playVideoWithIndex:currentIndex cellForItemAtIndexPath:indexPath];
     }];
     
     NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:indexPath];
@@ -608,9 +566,16 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     
     cell.radius = self.radius;
     cell.placeholderImage = self.placeholderImage;
+    cell.currentIndexPath = indexPath;
     if ([self.displayDataArr count] > selectIndex) {
         cell.currentIndex = selectIndex;
         cell.dataObj = self.displayDataArr[selectIndex];
+//        if (cell.dataObj.isVideo) {
+//            double currentTime = [self.playTimes[selectIndex] doubleValue];
+//            if (currentTime > 0) {
+//                [self playVideoWithIndex:selectIndex cellForItemAtIndexPath:indexPath];
+//            }
+//        }
     }
     
     return cell;
@@ -659,29 +624,30 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 
 #pragma mark - UIScrollViewDelegate
 
-- (void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
+-(void)scrollViewDidScrollToTop:(UIScrollView *)scrollView
 {
     [scrollView zf_scrollViewDidScrollToTop];
 }
 
-- (void)scrollViewDidScroll:(UIScrollView *)scrollView
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [scrollView zf_scrollViewDidScroll];
+    [self stopCurrentPlaying];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+-(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
-    [self invalidateTimer];
     [scrollView zf_scrollViewWillBeginDragging];
+    [self invalidateTimer];
 }
 
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
+-(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
-    [self initTimer];
     [scrollView zf_scrollViewDidEndDraggingWillDecelerate:decelerate];
+    [self initTimer];
 }
 
-- (void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
+-(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
     //因为偏移量最终位置collectionView一屏中显示3个item 滚动停止后targetContentOffset肯定比目前显示cell的item小1 所以偏移量x调成了中心
     //因为缩放原因 cell的y值不一定为0 所以把偏移量y调成了中心
@@ -693,11 +659,13 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-    [self scrollViewDidEndScrollingAnimation:scrollView];
     [scrollView zf_scrollViewDidEndDecelerating];
+    [self scrollViewDidEndScrollingAnimation:scrollView];
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+#pragma mark - 停止滚动后 修改当前所在indexPath
+
+-(void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
 {
     //延迟0s 防止定时器动画结束刹那闪屏现象
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
@@ -717,6 +685,27 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
             [self.collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
         }
     });
+}
+
+#pragma mark - 停止播放
+
+/**
+ 停止播放
+ ZFAVPlayerManager中playerDisapperaPercent==1.0时停止播放 collectionView滚动停止有时playerDisapperaPercent!=1.0 在scrollViewDidScroll中自己判断一下防止不停止播放
+ */
+-(void)stopCurrentPlaying
+{
+    __block BOOL isExist = NO;
+    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(__kindof UICollectionViewCell * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        BKCycleScrollCollectionViewCell * cell = (BKCycleScrollCollectionViewCell*)obj;
+        if (cell.currentIndex == self.playIndex) {
+            isExist = YES;
+            *stop = YES;
+        }
+    }];
+    if (!isExist) {
+        [self.player stopCurrentPlayingCell];
+    }
 }
 
 #pragma mark - BKCycleScrollPageControl

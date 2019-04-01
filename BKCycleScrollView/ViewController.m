@@ -38,7 +38,7 @@
             dataModel.image = images1[i];
         }else if (i == 2) {
             dataModel.image = images1[i];
-            dataModel.videoUrl = @"http://flv3.bn.netease.com/tvmrepo/2018/6/H/9/EDJTRBEH9/SD/EDJTRBEH9-mobile.mp4";
+            dataModel.videoUrl = @"https://vd4.bdstatic.com/mda-ie76sgt45m94hzaw/logo/sc/mda-ie76sgt45m94hzaw.mp4";
         }else {
             dataModel.imageData = images1[i];
         }
@@ -66,7 +66,7 @@
     
     [self cycleScrollView1];
     [self cycleScrollView2];
-    [self cycleScrollView3];
+//    [self cycleScrollView3];
 }
 
 #pragma mark - BKCycleScrollView1
@@ -81,6 +81,7 @@
         _cycleScrollView1.itemWidth = self.view.frame.size.width - 40;
         _cycleScrollView1.itemReduceScale = 0.1;
         _cycleScrollView1.radius = 12;
+        _cycleScrollView1.isAutoScroll = NO;
         [self.view addSubview:_cycleScrollView1];
 
         [_cycleScrollView1 setSelectItemAction:^(NSInteger index, UIImageView *imageView) {
@@ -100,6 +101,7 @@
         _cycleScrollView2.isAutoScroll = NO;
         _cycleScrollView2.layoutStyle = BKDisplayCellLayoutStyleNormal;
         _cycleScrollView2.pageControlStyle = BKCycleScrollPageControlStyleNormalDots;
+        _cycleScrollView2.progressColor = [UIColor brownColor];
         [self.view addSubview:_cycleScrollView2];
         
         [_cycleScrollView2 setSelectItemAction:^(NSInteger index, UIImageView *imageView) {

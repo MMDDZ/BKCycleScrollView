@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1D160AA92251ACBA00C9DC84 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160AA82251ACBA00C9DC84 /* libsqlite3.tbd */; };
+		1D160AAB2251ACC200C9DC84 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160AAA2251ACC200C9DC84 /* SystemConfiguration.framework */; };
+		1D160AAD2251ACC700C9DC84 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160AAC2251ACC700C9DC84 /* VideoToolbox.framework */; };
+		1D160AAE2251ACCF00C9DC84 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160A9F2251A03400C9DC84 /* libstdc++.6.tbd */; };
+		1D160AB02251ACD800C9DC84 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160AAF2251ACD800C9DC84 /* libbz2.tbd */; };
+		1D160AB22251ACDF00C9DC84 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160AB12251ACDE00C9DC84 /* libz.tbd */; };
+		1D160AB52251D95C00C9DC84 /* BKCycleScrollVideoProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D160AB42251D95C00C9DC84 /* BKCycleScrollVideoProgressView.m */; };
 		1D5D55DB21F05E3400D3B15F /* BKCycleCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D321F05E3300D3B15F /* BKCycleCollectionViewFlowLayout.m */; };
 		1D5D55DC21F05E3400D3B15F /* BKCycleScrollImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D521F05E3300D3B15F /* BKCycleScrollImageView.m */; };
 		1D5D55DD21F05E3400D3B15F /* BKCycleScrollCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D721F05E3300D3B15F /* BKCycleScrollCollectionViewCell.m */; };
@@ -24,6 +31,16 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		1D160A9B2251A01200C9DC84 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
+		1D160A9D2251A02B00C9DC84 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
+		1D160A9F2251A03400C9DC84 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
+		1D160AA82251ACBA00C9DC84 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
+		1D160AAA2251ACC200C9DC84 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		1D160AAC2251ACC700C9DC84 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
+		1D160AAF2251ACD800C9DC84 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
+		1D160AB12251ACDE00C9DC84 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		1D160AB32251D95C00C9DC84 /* BKCycleScrollVideoProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollVideoProgressView.h; sourceTree = "<group>"; };
+		1D160AB42251D95C00C9DC84 /* BKCycleScrollVideoProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollVideoProgressView.m; sourceTree = "<group>"; };
 		1D5D55D121F05E3300D3B15F /* BKCycleScrollPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollPageControl.h; sourceTree = "<group>"; };
 		1D5D55D221F05E3300D3B15F /* BKCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollView.h; sourceTree = "<group>"; };
 		1D5D55D321F05E3300D3B15F /* BKCycleCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleCollectionViewFlowLayout.m; sourceTree = "<group>"; };
@@ -58,6 +75,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1D160AB22251ACDF00C9DC84 /* libz.tbd in Frameworks */,
+				1D160AB02251ACD800C9DC84 /* libbz2.tbd in Frameworks */,
+				1D160AAE2251ACCF00C9DC84 /* libstdc++.6.tbd in Frameworks */,
+				1D160AAD2251ACC700C9DC84 /* VideoToolbox.framework in Frameworks */,
+				1D160AAB2251ACC200C9DC84 /* SystemConfiguration.framework in Frameworks */,
+				1D160AA92251ACBA00C9DC84 /* libsqlite3.tbd in Frameworks */,
 				B1539CF99749AAD13D61C9E8 /* libPods-BKCycleScrollView.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -79,6 +102,8 @@
 				1D5D55D721F05E3300D3B15F /* BKCycleScrollCollectionViewCell.m */,
 				1D5D55E321F07ECA00D3B15F /* BKCycleScrollVideoContentView.h */,
 				1D5D55E421F07ECA00D3B15F /* BKCycleScrollVideoContentView.m */,
+				1D160AB32251D95C00C9DC84 /* BKCycleScrollVideoProgressView.h */,
+				1D160AB42251D95C00C9DC84 /* BKCycleScrollVideoProgressView.m */,
 				1D5D55DA21F05E3400D3B15F /* BKCycleScrollImageView.h */,
 				1D5D55D521F05E3300D3B15F /* BKCycleScrollImageView.m */,
 				1D5D55D121F05E3300D3B15F /* BKCycleScrollPageControl.h */,
@@ -132,6 +157,14 @@
 		468717D761B98E2F86AF4A44 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1D160AB12251ACDE00C9DC84 /* libz.tbd */,
+				1D160AAF2251ACD800C9DC84 /* libbz2.tbd */,
+				1D160AAC2251ACC700C9DC84 /* VideoToolbox.framework */,
+				1D160AAA2251ACC200C9DC84 /* SystemConfiguration.framework */,
+				1D160AA82251ACBA00C9DC84 /* libsqlite3.tbd */,
+				1D160A9F2251A03400C9DC84 /* libstdc++.6.tbd */,
+				1D160A9D2251A02B00C9DC84 /* libstdc++.6.dylib */,
+				1D160A9B2251A01200C9DC84 /* libstdc++.6.0.9.tbd */,
 				9C07BCCE51790B58CD24BB59 /* libPods-BKCycleScrollView.a */,
 			);
 			name = Frameworks;
@@ -263,6 +296,7 @@
 				1D5D55DB21F05E3400D3B15F /* BKCycleCollectionViewFlowLayout.m in Sources */,
 				1D5D55DE21F05E3400D3B15F /* BKCycleScrollView.m in Sources */,
 				1D5D55E221F065C900D3B15F /* BKCycleScrollDataModel.m in Sources */,
+				1D160AB52251D95C00C9DC84 /* BKCycleScrollVideoProgressView.m in Sources */,
 				1DAC8CEC20C916FE00687320 /* AppDelegate.m in Sources */,
 				1D5D55E521F07ECA00D3B15F /* BKCycleScrollVideoContentView.m in Sources */,
 				1D5D55DD21F05E3400D3B15F /* BKCycleScrollCollectionViewCell.m in Sources */,
@@ -391,6 +425,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 779S864B3K;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/BKCycleScrollView/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -411,6 +446,7 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 779S864B3K;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "$(SRCROOT)/BKCycleScrollView/Supporting Files/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (

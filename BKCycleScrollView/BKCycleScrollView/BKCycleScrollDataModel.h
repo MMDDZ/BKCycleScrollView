@@ -34,10 +34,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic,copy) NSString * videoUrl;
 /**
- 该视频播放了多长时间
+ 视频当前播放时间
  */
 @property (nonatomic,assign) NSTimeInterval currentTime;
-
+/**
+ 视频总时间
+ */
+@property (nonatomic,assign) NSTimeInterval totalTime;
 
 @end
 

@@ -21,14 +21,16 @@
 @property (nonatomic,assign) CGFloat radius;
 /** 占位图 无默认 */
 @property (nonatomic,strong) UIImage * placeholderImage;
+/** 当前cell的indexPath */
+@property (nonatomic,strong) NSIndexPath * currentIndexPath;
 /** 数据 */
 @property (nonatomic,strong) BKCycleScrollDataModel * dataObj;
-/** 当前cell的indexPath */
+/** 当前cell数据的索引 */
 @property (nonatomic,assign) NSUInteger currentIndex;
 
 /**
  点击播放回调
  */
-@property (nonatomic,copy) void (^clickPlayBtnCallBack)(NSUInteger currentIndex);
+@property (nonatomic,copy) void (^clickPlayBtnCallBack)(NSUInteger currentIndex, NSIndexPath * currentIndexPath);
 
 @end
