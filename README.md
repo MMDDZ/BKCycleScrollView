@@ -24,6 +24,7 @@ NSLog(@"点击了 cycleScrollView 上 索引%ld的item",index);
 - [SDWebImage](https://github.com/rs/SDWebImage)
 
 ## 版本记录
-    1.0 无限轮播第一版完成
-    1.1 修复创建时不赋值崩溃bug，优化无数据时滚动视图不能滑动
-    1.2 添加视频显示
+    1.0    无限轮播第一版完成
+    1.1    修复创建时不赋值崩溃bug，优化无数据时滚动视图不能滑动
+    1.2    添加视频显示
+    1.2.1  细节修改

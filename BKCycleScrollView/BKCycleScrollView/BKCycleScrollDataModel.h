@@ -26,19 +26,19 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @property (nonatomic,strong) NSData * imageData;
 /**
- 数据类型是否为视频
- */
-@property (nonatomic,assign,readonly) BOOL isVideo;
-/**
  视频链接
  */
 @property (nonatomic,copy) NSString * videoUrl;
 /**
- 视频当前播放时间
+ 数据类型是否为视频(不用传)
+ */
+@property (nonatomic,assign,readonly) BOOL isVideo;
+/**
+ 视频当前播放时间(不用传)
  */
 @property (nonatomic,assign) NSTimeInterval currentTime;
 /**
- 视频总时间
+ 视频总时间(不用传)
  */
 @property (nonatomic,assign) NSTimeInterval totalTime;
 

@@ -57,6 +57,12 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         self.currentIndex = 0;
         [self.collectionView reloadData];
         
+        if ([_displayDataArr count] > 0) {
+            _collectionView.userInteractionEnabled = YES;
+        }else {
+            _collectionView.userInteractionEnabled = NO;
+        }
+        
         [self invalidateTimer];
         [self initTimer];
         
@@ -447,9 +453,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     if (!self.isAutoScroll) {
         return;
     }
-    
-    BOOL isHaveData = [self checkData];
-    if (isHaveData) {
+    if ([self.displayDataArr count] > 0) {
         [self timer];
     }
 }
@@ -487,16 +491,6 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
 
 #pragma mark - UICollectionView
 
--(BOOL)checkData
-{
-    if ([self.displayDataArr count] > 0) {
-        _collectionView.userInteractionEnabled = YES;
-    }else {
-        _collectionView.userInteractionEnabled = NO;
-    }
-    return _collectionView.userInteractionEnabled;
-}
-
 -(BKCycleCollectionViewFlowLayout *)resetLayout
 {
     CGFloat left_right_inset = (self.frame.size.width - self.itemWidth)/2;
@@ -524,7 +518,6 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         _collectionView.bounces = NO;
         _collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
         _collectionView.zf_scrollViewDerection = ZFPlayerScrollViewDerectionHorizontal;
-        //        _collectionView.scrollEnabled = NO; //如果不喜欢layout动画 可以解注释 和手势的注释
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -532,7 +525,11 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         
         [_collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
         
-        [self checkData];
+        if ([self.displayDataArr count] > 0) {
+            _collectionView.userInteractionEnabled = YES;
+        }else {
+            _collectionView.userInteractionEnabled = NO;
+        }
         
         if (_pageControl) {
             [self insertSubview:_collectionView belowSubview:_pageControl];
@@ -570,12 +567,6 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
     if ([self.displayDataArr count] > selectIndex) {
         cell.currentIndex = selectIndex;
         cell.dataObj = self.displayDataArr[selectIndex];
-//        if (cell.dataObj.isVideo) {
-//            double currentTime = [self.playTimes[selectIndex] doubleValue];
-//            if (currentTime > 0) {
-//                [self playVideoWithIndex:selectIndex cellForItemAtIndexPath:indexPath];
-//            }
-//        }
     }
     
     return cell;
@@ -618,7 +609,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
             selectIndex = selectIndex % count;
         }
     }
-
+    
     return selectIndex;
 }
 
