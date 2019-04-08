@@ -34,9 +34,6 @@
 #import "ZFSmallFloatControlView.h"
 #import <ZFPlayer/ZFPlayer.h>
 
-static const CGFloat ZFPlayerAnimationTimeInterval              = 2.5f;
-static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
-
 @interface ZFPlayerControlView () <ZFSliderViewDelegate>
 /// 竖屏控制层的View
 @property (nonatomic, strong) ZFPortraitControlView *portraitControlView;
@@ -73,6 +70,10 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
 
 @property (nonatomic, strong) ZFVolumeBrightnessView *volumeBrightnessView;
 
+@property (nonatomic, strong) UIImageView *bgImgView;
+
+@property (nonatomic, strong) UIView *effectView;
+
 @end
 
 @implementation ZFPlayerControlView
@@ -84,6 +85,10 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
         [self addAllSubViews];
         self.landScapeControlView.hidden = YES;
         self.floatControlView.hidden = YES;
+        self.seekToPlay = YES;
+        self.effectViewShow = YES;
+        self.autoFadeTimeInterval = 0.25;
+        self.autoHiddenTimeInterval = 2.5;
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(volumeChanged:)
                                                      name:@"AVSystemController_SystemVolumeDidChangeNotification"
@@ -106,7 +111,9 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
     self.portraitControlView.frame = self.bounds;
     self.landScapeControlView.frame = self.bounds;
     self.floatControlView.frame = self.bounds;
-    self.coverImageView.frame = self.player.currentPlayerManager.view.bounds;
+    self.coverImageView.frame = self.bounds;
+    self.bgImgView.frame = self.bounds;
+    self.effectView.frame = self.bounds;
     
     min_w = 80;
     min_h = 80;
@@ -154,7 +161,6 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
     min_h = 40;
     self.volumeBrightnessView.frame = CGRectMake(min_x, min_y, min_w, min_h);
     self.volumeBrightnessView.center = self.center;
-    
 }
 
 - (void)dealloc {
@@ -167,10 +173,8 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
     [self addSubview:self.portraitControlView];
     [self addSubview:self.landScapeControlView];
     [self addSubview:self.floatControlView];
-    
     [self addSubview:self.activity];
     [self addSubview:self.failBtn];
-    
     [self addSubview:self.fastView];
     [self.fastView addSubview:self.fastImageView];
     [self.fastView addSubview:self.fastTimeLabel];
@@ -187,7 +191,7 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
         @strongify(self)
         [self hideControlViewWithAnimated:YES];
     });
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(ZFPlayerAnimationTimeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(),self.afterBlock);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.autoHiddenTimeInterval * NSEC_PER_SEC)), dispatch_get_main_queue(),self.afterBlock);
 }
 
 /// 取消延时隐藏controlView的方法
@@ -201,7 +205,10 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
 /// 隐藏控制层
 - (void)hideControlViewWithAnimated:(BOOL)animated {
     self.controlViewAppeared = NO;
-    [UIView animateWithDuration:animated?ZFPlayerControlViewAutoFadeOutTimeInterval:0 animations:^{
+    if (self.controlViewAppearedCallback) {
+        self.controlViewAppearedCallback(NO);
+    }
+    [UIView animateWithDuration:animated ? self.autoFadeTimeInterval : 0 animations:^{
         if (self.player.isFullScreen) {
             [self.landScapeControlView hideControlView];
         } else {
@@ -217,7 +224,11 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
 /// 显示控制层
 - (void)showControlViewWithAnimated:(BOOL)animated {
     self.controlViewAppeared = YES;
-    [UIView animateWithDuration:animated?ZFPlayerControlViewAutoFadeOutTimeInterval:0 animations:^{
+    if (self.controlViewAppearedCallback) {
+        self.controlViewAppearedCallback(YES);
+    }
+    [self autoFadeOutControlView];
+    [UIView animateWithDuration:animated ? self.autoFadeTimeInterval : 0 animations:^{
         if (self.player.isFullScreen) {
             [self.landScapeControlView showControlView];
         } else {
@@ -227,7 +238,6 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
         }
     } completion:^(BOOL finished) {
         self.bottomPgrogress.hidden = YES;
-        [self autoFadeOutControlView];
     }];
 }
 
@@ -269,6 +279,7 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
     [self.portraitControlView showTitle:title fullScreenMode:fullScreenMode];
     [self.landScapeControlView showTitle:title fullScreenMode:fullScreenMode];
     [self.coverImageView setImageWithURLString:coverUrl placeholder:self.placeholderImage];
+    [self.bgImgView setImageWithURLString:coverUrl placeholder:self.placeholderImage];
 }
 
 /// 设置标题、UIImage封面、全屏模式
@@ -279,6 +290,7 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
     [self.portraitControlView showTitle:title fullScreenMode:fullScreenMode];
     [self.landScapeControlView showTitle:title fullScreenMode:fullScreenMode];
     self.coverImageView.image = image;
+    self.bgImgView.image = image;
 }
 
 #pragma mark - ZFPlayerControlViewDelegate
@@ -367,6 +379,9 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
             [self.landScapeControlView sliderChangeEnded];
             [self autoFadeOutControlView];
         }];
+        if (self.seekToPlay) {
+            [self.player.currentPlayerManager play];
+        }
         self.sumTime = 0;
     }
 }
@@ -391,9 +406,15 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
         [self.portraitControlView playBtnSelectedState:YES];
         [self.landScapeControlView playBtnSelectedState:YES];
         self.failBtn.hidden = YES;
+        /// 开始播放时候判断是否显示loading
+        if (videoPlayer.currentPlayerManager.loadState == ZFPlayerLoadStateStalled) {
+            [self.activity startAnimating];
+        }
     } else if (state == ZFPlayerPlayStatePaused) {
         [self.portraitControlView playBtnSelectedState:NO];
         [self.landScapeControlView playBtnSelectedState:NO];
+        /// 暂停的时候隐藏loading
+        [self.activity stopAnimating];
         self.failBtn.hidden = YES;
     } else if (state == ZFPlayerPlayStatePlayFailed) {
         self.failBtn.hidden = NO;
@@ -405,10 +426,16 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer loadStateChanged:(ZFPlayerLoadState)state {
     if (state == ZFPlayerLoadStatePrepare) {
         self.coverImageView.hidden = NO;
-    } else if (state == ZFPlayerLoadStatePlaythroughOK) {
+    } else if (state == ZFPlayerLoadStatePlaythroughOK || state == ZFPlayerLoadStatePlayable) {
         self.coverImageView.hidden = YES;
+        if (self.effectViewShow) {
+            self.effectView.hidden = NO;
+        } else {
+            self.effectView.hidden = YES;
+            self.player.currentPlayerManager.view.backgroundColor = [UIColor blackColor];
+        }
     }
-    if (state == ZFPlayerLoadStateStalled || state == ZFPlayerLoadStatePrepare) {
+    if (state == ZFPlayerLoadStateStalled && videoPlayer.currentPlayerManager.isPlaying) {
         [self.activity startAnimating];
     } else {
         [self.activity stopAnimating];
@@ -427,6 +454,10 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
     [self.portraitControlView videoPlayer:videoPlayer bufferTime:bufferTime];
     [self.landScapeControlView videoPlayer:videoPlayer bufferTime:bufferTime];
     self.bottomPgrogress.bufferValue = videoPlayer.bufferProgress;
+}
+
+- (void)videoPlayer:(ZFPlayerController *)videoPlayer presentationSizeChanged:(CGSize)size {
+    [self.landScapeControlView videoPlayer:videoPlayer presentationSizeChanged:size];
 }
 
 /// 视频view即将旋转
@@ -537,13 +568,56 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
     _player = player;
     self.landScapeControlView.player = player;
     self.portraitControlView.player = player;
-    /// 封面图加到播放视图底部了，解决播放时候黑屏闪一下问题
-    [player.currentPlayerManager.view insertSubview:self.coverImageView atIndex:0];
+    /// 解决播放时候黑屏闪一下问题
+    [player.currentPlayerManager.view insertSubview:self.bgImgView atIndex:0];
+    [self.bgImgView addSubview:self.effectView];
+    [player.currentPlayerManager.view insertSubview:self.coverImageView atIndex:1];
     self.coverImageView.frame = player.currentPlayerManager.view.bounds;
+    self.coverImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.bgImgView.frame = player.currentPlayerManager.view.bounds;
+    self.bgImgView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    self.effectView.frame = self.bgImgView.bounds;
     self.coverImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 }
 
+- (void)setSeekToPlay:(BOOL)seekToPlay {
+    _seekToPlay = seekToPlay;
+    self.portraitControlView.seekToPlay = seekToPlay;
+    self.landScapeControlView.seekToPlay = seekToPlay;
+}
+
+- (void)setEffectViewShow:(BOOL)effectViewShow {
+    _effectViewShow = effectViewShow;
+    if (effectViewShow) {
+        self.bgImgView.hidden = NO;
+    } else {
+        self.bgImgView.hidden = YES;
+    }
+}
+
 #pragma mark - getter
+
+- (UIImageView *)bgImgView {
+    if (!_bgImgView) {
+        _bgImgView = [[UIImageView alloc] init];
+        _bgImgView.userInteractionEnabled = YES;
+    }
+    return _bgImgView;
+}
+
+- (UIView *)effectView {
+    if (!_effectView) {
+        if (@available(iOS 8.0, *)) {
+            UIBlurEffect *effect = [UIBlurEffect effectWithStyle:UIBlurEffectStyleDark];
+            _effectView = [[UIVisualEffectView alloc] initWithEffect:effect];
+        } else {
+            UIToolbar *effectView = [[UIToolbar alloc] init];
+            effectView.barStyle = UIBarStyleBlackTranslucent;
+            _effectView = effectView;
+        }
+    }
+    return _effectView;
+}
 
 - (ZFPortraitControlView *)portraitControlView {
     if (!_portraitControlView) {
@@ -653,8 +727,7 @@ static const CGFloat ZFPlayerControlViewAutoFadeOutTimeInterval = 0.25f;
     if (!_coverImageView) {
         _coverImageView = [[UIImageView alloc] init];
         _coverImageView.userInteractionEnabled = YES;
-        _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _coverImageView.clipsToBounds = YES;
+        _coverImageView.contentMode = UIViewContentModeScaleAspectFit;
     }
     return _coverImageView;
 }

@@ -33,7 +33,7 @@
 /*!
  *  Refresh interval for timed observations of AVPlayer
  */
-static float const kTimeRefreshInterval          = 0.5;
+static float const kTimeRefreshInterval          = 0.1;
 static NSString *const kStatus                   = @"status";
 static NSString *const kLoadedTimeRanges         = @"loadedTimeRanges";
 static NSString *const kPlaybackBufferEmpty      = @"playbackBufferEmpty";
@@ -92,6 +92,7 @@ static NSString *const kPresentationSize         = @"presentationSize";
 @property (nonatomic, strong, readonly) AVPlayer *player;
 @property (nonatomic, strong) AVPlayerLayer *playerLayer;
 @property (nonatomic, assign) BOOL isBuffering;
+@property (nonatomic, assign) BOOL isReadyToPlay;
 
 @end
 
@@ -120,6 +121,7 @@ static NSString *const kPresentationSize         = @"presentationSize";
 @synthesize isPreparedToPlay               = _isPreparedToPlay;
 @synthesize scalingMode                    = _scalingMode;
 @synthesize playerPlayFailed               = _playerPlayFailed;
+@synthesize presentationSizeChanged        = _presentationSizeChanged;
 
 - (instancetype)init {
     self = [super init];
@@ -133,9 +135,9 @@ static NSString *const kPresentationSize         = @"presentationSize";
     if (!_assetURL) return;
     _isPreparedToPlay = YES;
     [self initializePlayer];
+    [self play];
     self.loadState = ZFPlayerLoadStatePrepare;
     if (_playerPrepareToPlay) _playerPrepareToPlay(self, self.assetURL);
-    [self play];
 }
 
 - (void)reloadPlayer {
@@ -158,23 +160,29 @@ static NSString *const kPresentationSize         = @"presentationSize";
     [self.player pause];
     self->_isPlaying = NO;
     self.playState = ZFPlayerPlayStatePaused;
+    [_playerItem cancelPendingSeeks];
+    [_asset cancelLoading];
 }
 
 - (void)stop {
     [_playerItemKVO safelyRemoveAllObservers];
-    self.playState = ZFPlayerPlayStatePlayStopped;
     self.loadState = ZFPlayerLoadStateUnknown;
     if (self.player.rate != 0) [self.player pause];
     [self.player removeTimeObserver:_timeObserver];
+    [self.player replaceCurrentItemWithPlayerItem:nil];
     _timeObserver = nil;
     [[NSNotificationCenter defaultCenter] removeObserver:_itemEndObserver name:AVPlayerItemDidPlayToEndTimeNotification object:self.playerItem];
     _itemEndObserver = nil;
     _isPlaying = NO;
     _player = nil;
     _assetURL = nil;
+    _playerItem = nil;
+    _isPreparedToPlay = NO;
     self->_currentTime = 0;
     self->_totalTime = 0;
     self->_bufferTime = 0;
+    self.isReadyToPlay = NO;
+    self.playState = ZFPlayerPlayStatePlayStopped;
 }
 
 - (void)replay {
@@ -192,7 +200,6 @@ static NSString *const kPresentationSize         = @"presentationSize";
 
 - (void)seekToTime:(NSTimeInterval)time completionHandler:(void (^ __nullable)(BOOL finished))completionHandler {
     CMTime seekTime = CMTimeMake(time, 1);
-    [_playerItem cancelPendingSeeks];
     [_player seekToTime:seekTime toleranceBefore:kCMTimeZero toleranceAfter:kCMTimeZero completionHandler:completionHandler];
 }
 
@@ -244,7 +251,6 @@ static NSString *const kPresentationSize         = @"presentationSize";
     _asset = [AVURLAsset assetWithURL:self.assetURL];
     _playerItem = [AVPlayerItem playerItemWithAsset:_asset];
     _player = [AVPlayer playerWithPlayerItem:_playerItem];
-    _player.actionAtItemEnd = AVPlayerActionAtItemEndPause;
     [self enableAudioTracks:YES inPlayerItem:_playerItem];
     
     ZFPlayerPresentView *presentView = (ZFPlayerPresentView *)self.view;
@@ -254,7 +260,7 @@ static NSString *const kPresentationSize         = @"presentationSize";
         _playerItem.canUseNetworkResourcesForLiveStreamingWhilePaused = NO;
     }
     if (@available(iOS 10.0, *)) {
-        _playerItem.preferredForwardBufferDuration = 1;
+        _playerItem.preferredForwardBufferDuration = 5;
         _player.automaticallyWaitsToMinimizeStalling = NO;
     }
     [self itemObserving];
@@ -274,7 +280,7 @@ static NSString *const kPresentationSize         = @"presentationSize";
  */
 - (void)bufferingSomeSecond {
     // playbackBufferEmpty会反复进入，因此在bufferingOneSecond延时播放执行完之前再调用bufferingSomeSecond都忽略
-    if (self.isBuffering) return;
+    if (self.isBuffering || self.playState == ZFPlayerPlayStatePlayStopped) return;
     self.isBuffering = YES;
     
     // 需要先暂停一小会之后再播放，否则网络状况不好的时候时间在走，声音播放不出来
@@ -322,6 +328,11 @@ static NSString *const kPresentationSize         = @"presentationSize";
         @strongify(self)
         if (!self) return;
         NSArray *loadedRanges = self.playerItem.seekableTimeRanges;
+        /// 大于0才把状态改为可以播放，解决黑屏问题
+        if (CMTimeGetSeconds(time) > 0 && !self.isReadyToPlay) {
+            self.isReadyToPlay = YES;
+            self.loadState = ZFPlayerLoadStatePlaythroughOK;
+        }
         if (loadedRanges.count > 0) {
             if (self.playerPlayTimeChanged) self.playerPlayTimeChanged(self, self.currentTime, self.totalTime);
         }
@@ -343,8 +354,6 @@ static NSString *const kPresentationSize         = @"presentationSize";
                 if (self.loadState == ZFPlayerLoadStatePrepare) {
                     if (self.playerPrepareToPlay) self.playerReadyToPlay(self, self.assetURL);
                 }
-                
-                self.loadState = ZFPlayerLoadStatePlaythroughOK;
                 if (self.seekTime) {
                     [self seekToTime:self.seekTime completionHandler:nil];
                     self.seekTime = 0;
@@ -371,14 +380,17 @@ static NSString *const kPresentationSize         = @"presentationSize";
             // When the buffer is good
             if (self.playerItem.playbackLikelyToKeepUp) {
                 self.loadState = ZFPlayerLoadStatePlayable;
+                if (self.isPlaying) [self play];
             }
         } else if ([keyPath isEqualToString:kLoadedTimeRanges]) {
-            if (self.isPlaying && self.playerItem.playbackLikelyToKeepUp) [self play];
             NSTimeInterval bufferTime = [self availableDuration];
             self->_bufferTime = bufferTime;
             if (self.playerBufferTimeChanged) self.playerBufferTimeChanged(self, bufferTime);
         } else if ([keyPath isEqualToString:kPresentationSize]) {
             self->_presentationSize = self.playerItem.presentationSize;
+            if (self.presentationSizeChanged) {
+                self.presentationSizeChanged(self, self->_presentationSize);
+            }
         } else {
             [super observeValueForKeyPath:keyPath ofObject:object change:change context:context];
         }
@@ -408,7 +420,7 @@ static NSString *const kPresentationSize         = @"presentationSize";
 
 - (NSTimeInterval)currentTime {
     NSTimeInterval sec = CMTimeGetSeconds(self.playerItem.currentTime);
-    if (isnan(sec)) {
+    if (isnan(sec) || sec < 0) {
         return 0;
     }
     return sec;

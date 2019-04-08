@@ -189,9 +189,11 @@
             @strongify(self)
             if (finished) {
                 self.slider.isdragging = NO;
-                [self.player.currentPlayerManager play];
             }
         }];
+        if (self.seekToPlay) {
+            [self.player.currentPlayerManager play];
+        }
     } else {
         self.slider.isdragging = NO;
     }
@@ -283,6 +285,10 @@
         return NO;
     }
     return YES;
+}
+
+- (void)videoPlayer:(ZFPlayerController *)videoPlayer presentationSizeChanged:(CGSize)size {
+    self.lockBtn.hidden = self.player.orientationObserver.fullScreenMode == ZFFullScreenModePortrait;
 }
 
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer currentTime:(NSTimeInterval)currentTime totalTime:(NSTimeInterval)totalTime {

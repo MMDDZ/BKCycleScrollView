@@ -112,6 +112,13 @@ NS_ASSUME_NONNULL_BEGIN
  */
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer reachabilityChanged:(ZFReachabilityStatus)status;
 
+#pragma mark - The video size changed
+
+/**
+ When the video size changed
+ */
+- (void)videoPlayer:(ZFPlayerController *)videoPlayer presentationSizeChanged:(CGSize)size;
+
 #pragma mark - Gesture
 
 /**

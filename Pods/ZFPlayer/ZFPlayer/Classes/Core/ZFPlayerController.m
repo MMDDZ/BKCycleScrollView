@@ -1,5 +1,5 @@
 //
-//  ZFPlayer.m
+//  ZFPlayerController.m
 //  ZFPlayer
 //
 // Copyright (c) 2016年 任子丰 ( http://github.com/renzifeng )
@@ -26,7 +26,6 @@
 #import <objc/runtime.h>
 #import <MediaPlayer/MediaPlayer.h>
 #import <AVFoundation/AVFoundation.h>
-#import "ZFPlayerNotification.h"
 #import "UIScrollView+ZFPlayer.h"
 #import "ZFReachabilityManager.h"
 #import "ZFPlayer.h"
@@ -68,9 +67,6 @@
             break;
         }
     }
-    // Apps using this category don't mute when the phone's mute button is turned on, but play sound when the phone is silent
-    [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
-    [[AVAudioSession sharedInstance] setActive:YES error:nil];
 }
 
 - (void)dealloc {
@@ -92,23 +88,6 @@
     player.containerView = containerView;
     player.currentPlayerManager = playerManager;
     return player;
-}
-
-- (void)updateScrollViewPlayerToCell {
-    if (self.currentPlayerManager.view && self.playingIndexPath && self.containerViewTag) {
-        UIView *cell = [self.scrollView zf_getCellForIndexPath:self.playingIndexPath];
-        self.containerView = [cell viewWithTag:self.containerViewTag];
-        [self.orientationObserver cellModelRotateView:self.currentPlayerManager.view rotateViewAtCell:cell playerViewTag:self.containerViewTag];
-        [self layoutPlayerSubViews];
-    }
-}
-
-- (void)updateNoramlPlayerWithContainerView:(UIView *)containerView {
-    if (self.currentPlayerManager.view && self.containerView) {
-        self.containerView = containerView;
-        [self.orientationObserver cellOtherModelRotateView:self.currentPlayerManager.view containerView:self.containerView];
-        [self layoutPlayerSubViews];
-    }
 }
 
 - (instancetype)initWithScrollView:(UIScrollView *)scrollView playerManager:(id<ZFPlayerMediaPlayback>)playerManager containerViewTag:(NSInteger)containerViewTag {
@@ -136,6 +115,11 @@
     self.currentPlayerManager.playerReadyToPlay = ^(id<ZFPlayerMediaPlayback>  _Nonnull asset, NSURL * _Nonnull assetURL) {
         @strongify(self)
         if (self.playerReadyToPlay) self.playerReadyToPlay(asset,assetURL);
+        if (!self.customAudioSession) {
+            // Apps using this category don't mute when the phone's mute button is turned on, but play sound when the phone is silent
+            [[AVAudioSession sharedInstance] setCategory:AVAudioSessionCategoryPlayback withOptions:AVAudioSessionCategoryOptionAllowBluetooth error:nil];
+            [[AVAudioSession sharedInstance] setActive:YES error:nil];
+        }
     };
     
     self.currentPlayerManager.playerPlayTimeChanged = ^(id<ZFPlayerMediaPlayback>  _Nonnull asset, NSTimeInterval currentTime, NSTimeInterval duration) {
@@ -157,6 +141,11 @@
     self.currentPlayerManager.playerPlayStateChanged = ^(id  _Nonnull asset, ZFPlayerPlaybackState playState) {
         @strongify(self)
         if (self.playerPlayStateChanged) self.playerPlayStateChanged(asset, playState);
+        if (playState != ZFPlayerPlayStatePlaying && !self.customAudioSession) {
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                [[AVAudioSession sharedInstance] setActive:NO withOptions:AVAudioSessionSetActiveOptionNotifyOthersOnDeactivation error:nil];
+            });
+        }
         if ([self.controlView respondsToSelector:@selector(videoPlayer:playStateChanged:)]) {
             [self.controlView videoPlayer:self playStateChanged:playState];
         }
@@ -183,6 +172,21 @@
         if (self.playerPlayFailed) self.playerPlayFailed(asset, error);
         if ([self.controlView respondsToSelector:@selector(videoPlayerPlayFailed:error:)]) {
             [self.controlView videoPlayerPlayFailed:self error:error];
+        }
+    };
+    
+    self.currentPlayerManager.presentationSizeChanged = ^(id<ZFPlayerMediaPlayback>  _Nonnull asset, CGSize size){
+        @strongify(self)
+        if (self.orientationObserver.fullScreenMode == ZFFullScreenModeAutomatic) {
+            if (size.width > size.height) {
+                self.orientationObserver.fullScreenMode = ZFFullScreenModeLandscape;
+            } else {
+                self.orientationObserver.fullScreenMode = ZFFullScreenModePortrait;
+            }
+        }
+        if (self.presentationSizeChanged) self.presentationSizeChanged(asset, size);
+        if ([self.controlView respondsToSelector:@selector(videoPlayer:presentationSizeChanged:)]) {
+            [self.controlView videoPlayer:self presentationSizeChanged:size];
         }
     };
 }
@@ -219,6 +223,10 @@
             }
             if (self.isFullScreen && !self.isLockedScreen) self.orientationObserver.lockedScreen = YES;
             [[UIApplication sharedApplication].keyWindow endEditing:YES];
+            if (!self.pauseWhenAppResignActive) {
+                [[UIApplication sharedApplication] beginReceivingRemoteControlEvents];
+                [[AVAudioSession sharedInstance] setActive:YES error:nil];
+            }
         };
         _notification.didBecomeActive = ^(ZFPlayerNotification * _Nonnull registrar) {
             @strongify(self)
@@ -442,11 +450,19 @@
     return objc_getAssociatedObject(self, _cmd);
 }
 
+- (void (^)(id<ZFPlayerMediaPlayback> _Nonnull, CGSize ))presentationSizeChanged {
+    return objc_getAssociatedObject(self, _cmd);
+}
+
 - (NSInteger)currentPlayIndex {
     return [objc_getAssociatedObject(self, _cmd) integerValue];
 }
 
 - (BOOL)isViewControllerDisappear {
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
+}
+
+- (BOOL)customAudioSession {
     return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
@@ -469,7 +485,9 @@
 
 - (void)setMuted:(BOOL)muted {
     if (muted) {
-        self.lastVolumeValue = self.volumeViewSlider.value;
+        if (self.volumeViewSlider.value > 0) {
+            self.lastVolumeValue = self.volumeViewSlider.value;
+        }
         self.volumeViewSlider.value = 0;
     } else {
         self.volumeViewSlider.value = self.lastVolumeValue;
@@ -531,12 +549,17 @@
     objc_setAssociatedObject(self, @selector(playerPlayFailed), playerPlayFailed, OBJC_ASSOCIATION_COPY);
 }
 
+- (void)setPresentationSizeChanged:(void (^)(id<ZFPlayerMediaPlayback> _Nonnull, CGSize))presentationSizeChanged {
+    objc_setAssociatedObject(self, @selector(presentationSizeChanged), presentationSizeChanged, OBJC_ASSOCIATION_COPY);
+}
+
 - (void)setCurrentPlayIndex:(NSInteger)currentPlayIndex {
     objc_setAssociatedObject(self, @selector(currentPlayIndex), @(currentPlayIndex), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)setViewControllerDisappear:(BOOL)viewControllerDisappear {
     objc_setAssociatedObject(self, @selector(isViewControllerDisappear), @(viewControllerDisappear), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    if (self.scrollView) self.scrollView.zf_viewControllerDisappear = viewControllerDisappear;
     if (!self.currentPlayerManager.isPreparedToPlay) return;
     if (viewControllerDisappear) {
         [self removeDeviceOrientationObserver];
@@ -545,6 +568,10 @@
         if (self.isPauseByEvent) self.pauseByEvent = NO;
         [self addDeviceOrientationObserver];
     }
+}
+
+- (void)setCustomAudioSession:(BOOL)customAudioSession {
+    objc_setAssociatedObject(self, @selector(customAudioSession), @(customAudioSession), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 @end
@@ -579,7 +606,8 @@
     }
 }
 
-- (BOOL)isNeedAdaptiveiOS8Rotation {
+- (BOOL)shouldForceDeviceOrientation {
+    if (self.forceDeviceOrientation) return YES;
     NSArray<NSString *> *versionStrArr = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
     int firstVer = [[versionStrArr objectAtIndex:0] intValue];
     int secondVer = [[versionStrArr objectAtIndex:1] intValue];
@@ -644,7 +672,7 @@
 }
 
 - (BOOL)shouldAutorotate {
-    return [self isNeedAdaptiveiOS8Rotation];
+    return [self shouldForceDeviceOrientation];
 }
 
 - (BOOL)allowOrentitaionRotation {
@@ -652,6 +680,10 @@
     if (number) return number.boolValue;
     self.allowOrentitaionRotation = YES;
     return YES;
+}
+
+- (BOOL)forceDeviceOrientation {
+    return [objc_getAssociatedObject(self, _cmd) boolValue];
 }
 
 #pragma mark - setter
@@ -680,6 +712,11 @@
 - (void)setAllowOrentitaionRotation:(BOOL)allowOrentitaionRotation {
     objc_setAssociatedObject(self, @selector(allowOrentitaionRotation), @(allowOrentitaionRotation), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
     self.orientationObserver.allowOrentitaionRotation = allowOrentitaionRotation;
+}
+
+- (void)setForceDeviceOrientation:(BOOL)forceDeviceOrientation {
+    objc_setAssociatedObject(self, @selector(forceDeviceOrientation), @(forceDeviceOrientation), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+    self.orientationObserver.forceDeviceOrientation = forceDeviceOrientation;
 }
 
 @end
@@ -923,10 +960,14 @@
 }
 
 - (void)setPlayerDisapperaPercent:(CGFloat)playerDisapperaPercent {
+    playerDisapperaPercent = MIN(MAX(0.0, playerDisapperaPercent), 1.0);
+    self.scrollView.zf_playerDisapperaPercent = playerDisapperaPercent;
     objc_setAssociatedObject(self, @selector(playerDisapperaPercent), @(playerDisapperaPercent), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (void)setPlayerApperaPercent:(CGFloat)playerApperaPercent {
+    playerApperaPercent = MIN(MAX(0.0, playerApperaPercent), 1.0);
+    self.scrollView.zf_playerApperaPercent = playerApperaPercent;
     objc_setAssociatedObject(self, @selector(playerApperaPercent), @(playerApperaPercent), OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
@@ -1051,6 +1092,27 @@
 
 #pragma mark - Public method
 
+- (void)stopCurrentPlayingCell {
+    if (self.scrollView.zf_playingIndexPath) {
+        [self stop];
+        self.isSmallFloatViewShow = NO;
+        self.scrollView.zf_playingIndexPath = nil;
+        if (self.smallFloatView) self.smallFloatView.hidden = YES;
+    }
+}
+
+- (void)playTheIndexPath:(NSIndexPath *)indexPath {
+    self.playingIndexPath = indexPath;
+    NSURL *assetURL;
+    if (self.sectionAssetURLs.count) {
+        assetURL = self.sectionAssetURLs[indexPath.section][indexPath.row];
+    } else if (self.assetURLs.count) {
+        assetURL = self.assetURLs[indexPath.row];
+        self.currentPlayIndex = indexPath.row;
+    }
+    self.assetURL = assetURL;
+}
+
 - (void)playTheIndexPath:(NSIndexPath *)indexPath scrollToTop:(BOOL)scrollToTop completionHandler:(void (^ _Nullable)(void))completionHandler {
     NSURL *assetURL;
     if (self.sectionAssetURLs.count) {
@@ -1075,17 +1137,14 @@
 }
 
 - (void)playTheIndexPath:(NSIndexPath *)indexPath scrollToTop:(BOOL)scrollToTop {
-    self.playingIndexPath = indexPath;
-    NSURL *assetURL;
-    if (self.sectionAssetURLs.count) {
-        assetURL = self.sectionAssetURLs[indexPath.section][indexPath.row];
-    } else if (self.assetURLs.count) {
-        assetURL = self.assetURLs[indexPath.row];
-        self.currentPlayIndex = indexPath.row;
-    }
-    self.assetURL = assetURL;
     if (scrollToTop) {
-        [self.scrollView zf_scrollToRowAtIndexPath:indexPath completionHandler:nil];
+        @weakify(self)
+        [self.scrollView zf_scrollToRowAtIndexPath:indexPath completionHandler:^{
+            @strongify(self)
+            [self playTheIndexPath:indexPath];
+        }];
+    } else {
+        [self playTheIndexPath:indexPath];
     }
 }
 
@@ -1097,12 +1156,20 @@
     }
 }
 
-- (void)stopCurrentPlayingCell {
-    if (self.scrollView.zf_playingIndexPath) {
-        [self stop];
-        self.isSmallFloatViewShow = NO;
-        self.scrollView.zf_playingIndexPath = nil;
-        if (self.smallFloatView) self.smallFloatView.hidden = YES;
+- (void)updateScrollViewPlayerToCell {
+    if (self.currentPlayerManager.view && self.playingIndexPath && self.containerViewTag) {
+        UIView *cell = [self.scrollView zf_getCellForIndexPath:self.playingIndexPath];
+        self.containerView = [cell viewWithTag:self.containerViewTag];
+        [self.orientationObserver cellModelRotateView:self.currentPlayerManager.view rotateViewAtCell:cell playerViewTag:self.containerViewTag];
+        [self layoutPlayerSubViews];
+    }
+}
+
+- (void)updateNoramlPlayerWithContainerView:(UIView *)containerView {
+    if (self.currentPlayerManager.view && self.containerView) {
+        self.containerView = containerView;
+        [self.orientationObserver cellOtherModelRotateView:self.currentPlayerManager.view containerView:self.containerView];
+        [self layoutPlayerSubViews];
     }
 }
 

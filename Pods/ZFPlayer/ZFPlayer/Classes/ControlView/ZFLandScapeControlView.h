@@ -55,6 +55,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) void(^sliderValueChanged)(CGFloat value);
 /// 返回按钮点击回调
 @property (nonatomic, copy) void(^backBtnClickCallback)(void);
+/// 如果是暂停状态，seek完是否播放，默认YES
+@property (nonatomic, assign) BOOL seekToPlay;
 
 /// 重置控制层
 - (void)resetControlView;
@@ -68,6 +70,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)videoPlayer:(ZFPlayerController *)videoPlayer bufferTime:(NSTimeInterval)bufferTime;
 /// 是否响应该手势
 - (BOOL)shouldResponseGestureWithPoint:(CGPoint)point withGestureType:(ZFPlayerGestureType)type touch:(nonnull UITouch *)touch;
+/// 视频尺寸改变
+- (void)videoPlayer:(ZFPlayerController *)videoPlayer presentationSizeChanged:(CGSize)size;
 /// 标题和全屏模式
 - (void)showTitle:(NSString *_Nullable)title fullScreenMode:(ZFFullScreenMode)fullScreenMode;
 /// 根据当前播放状态取反

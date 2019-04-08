@@ -517,7 +517,7 @@ NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
         _collectionView.showsHorizontalScrollIndicator = NO;
         _collectionView.bounces = NO;
         _collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
-        _collectionView.zf_scrollViewDerection = ZFPlayerScrollViewDerectionHorizontal;
+        _collectionView.zf_scrollViewDirection = ZFPlayerScrollViewDirectionHorizontal;
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }

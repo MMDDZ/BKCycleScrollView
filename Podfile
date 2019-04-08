@@ -9,8 +9,8 @@ target 'BKCycleScrollView' do
 
 pod 'SDWebImage', '~> 4.4.1'
 pod 'FLAnimatedImage', '~> 1.0.12'
-pod 'ZFPlayer', '~> 3.2.2'
-pod 'ZFPlayer/ControlView', '~> 3.2.2'
-pod 'ZFPlayer/AVPlayer', '~> 3.2.2'
+pod 'ZFPlayer', '~> 3.2.8'
+pod 'ZFPlayer/ControlView', '~> 3.2.8'
+pod 'ZFPlayer/AVPlayer', '~> 3.2.8'
 
 end

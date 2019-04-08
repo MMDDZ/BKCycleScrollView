@@ -27,30 +27,30 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /*
- * The scroll derection of scrollView.
+ * The scroll direction of scrollView.
  */
-typedef NS_ENUM(NSUInteger, ZFPlayerScrollDerection) {
-    ZFPlayerScrollDerectionNone,
-    ZFPlayerScrollDerectionUp,         // Scroll up
-    ZFPlayerScrollDerectionDown,       // Scroll Down
-    ZFPlayerScrollDerectionLeft,       // Scroll left
-    ZFPlayerScrollDerectionRight       // Scroll right
+typedef NS_ENUM(NSUInteger, ZFPlayerScrollDirection) {
+    ZFPlayerScrollDirectionNone,
+    ZFPlayerScrollDirectionUp,         // Scroll up
+    ZFPlayerScrollDirectionDown,       // Scroll Down
+    ZFPlayerScrollDirectionLeft,       // Scroll left
+    ZFPlayerScrollDirectionRight       // Scroll right
 };
 
 /*
- * The scrollView derection.
+ * The scrollView direction.
  */
-typedef NS_ENUM(NSInteger, ZFPlayerScrollViewDerection) {
-    ZFPlayerScrollViewDerectionVertical,
-    ZFPlayerScrollViewDerectionHorizontal
+typedef NS_ENUM(NSInteger, ZFPlayerScrollViewDirection) {
+    ZFPlayerScrollViewDirectionVertical,
+    ZFPlayerScrollViewDirectionHorizontal
 };
 
 @interface UIScrollView (ZFPlayer)
 
-/// When the ZFPlayerScrollViewDerection is ZFPlayerScrollViewDerectionVertical,the property has value.
+/// When the ZFPlayerScrollViewDirection is ZFPlayerScrollViewDirectionVertical,the property has value.
 @property (nonatomic, readonly) CGFloat zf_lastOffsetY;
 
-/// When the ZFPlayerScrollViewDerection is ZFPlayerScrollViewDerectionHorizontal,the property has value.
+/// When the ZFPlayerScrollViewDirection is ZFPlayerScrollViewDirectionHorizontal,the property has value.
 @property (nonatomic, readonly) CGFloat zf_lastOffsetX;
 
 /// The indexPath is playing.
@@ -68,13 +68,13 @@ typedef NS_ENUM(NSInteger, ZFPlayerScrollViewDerection) {
 /// The view tag that the player display in scrollView.
 @property (nonatomic) NSInteger zf_containerViewTag;
 
-/// The scrollView scroll direction, default is ZFPlayerScrollViewDerectionVertical.
-@property (nonatomic) ZFPlayerScrollViewDerection zf_scrollViewDerection;
+/// The scrollView scroll direction, default is ZFPlayerScrollViewDirectionVertical.
+@property (nonatomic) ZFPlayerScrollViewDirection zf_scrollViewDirection;
 
-/// The scroll derection of scrollView while scrolling.
-/// When the ZFPlayerScrollViewDerection is ZFPlayerScrollViewDerectionVertical，this value can only be ZFPlayerScrollDerectionUp or ZFPlayerScrollDerectionDown.
-/// When the ZFPlayerScrollViewDerection is ZFPlayerScrollViewDerectionVertical，this value can only be ZFPlayerScrollDerectionLeft or ZFPlayerScrollDerectionRight.
-@property (nonatomic, readonly) ZFPlayerScrollDerection zf_scrollDerection;
+/// The scroll direction of scrollView while scrolling.
+/// When the ZFPlayerScrollViewDirection is ZFPlayerScrollViewDirectionVertical，this value can only be ZFPlayerScrollDirectionUp or ZFPlayerScrollDirectionDown.
+/// When the ZFPlayerScrollViewDirection is ZFPlayerScrollViewDirectionVertical，this value can only be ZFPlayerScrollDirectionLeft or ZFPlayerScrollDirectionRight.
+@property (nonatomic, readonly) ZFPlayerScrollDirection zf_scrollDirection;
 
 /// The currently playing cell stop playing when the cell has out off the screen，defalut is YES.
 @property (nonatomic) BOOL zf_stopWhileNotVisible;
@@ -96,6 +96,14 @@ typedef NS_ENUM(NSInteger, ZFPlayerScrollViewDerection) {
 
 /// Scroll to indexPath with animations.
 - (void)zf_scrollToRowAtIndexPath:(NSIndexPath *)indexPath completionHandler:(void (^ __nullable)(void))completionHandler;
+
+/// add in 3.2.4 version.
+/// Scroll to indexPath with animations.
+- (void)zf_scrollToRowAtIndexPath:(NSIndexPath *)indexPath animated:(BOOL)animated completionHandler:(void (^ __nullable)(void))completionHandler;
+
+/// add in 3.2.8 version.
+/// Scroll to indexPath with animations duration.
+- (void)zf_scrollToRowAtIndexPath:(NSIndexPath *)indexPath animateWithDuration:(NSTimeInterval)duration completionHandler:(void (^ __nullable)(void))completionHandler;
 
 ///------------------------------------
 /// The following method must be implemented in UIScrollViewDelegate.
@@ -137,6 +145,24 @@ typedef NS_ENUM(NSInteger, ZFPlayerScrollViewDerection) {
 
 /// The block invoked When the player did disappeared.
 @property (nonatomic, copy, nullable) void(^zf_playerDidDisappearInScrollView)(NSIndexPath *indexPath);
+
+/// The current player scroll slides off the screen percent.
+/// the property used when the `stopWhileNotVisible` is YES, stop the current playing player.
+/// the property used when the `stopWhileNotVisible` is NO, the current playing player add to small container view.
+/// 0.0~1.0, defalut is 0.5.
+/// 0.0 is the player will disappear.
+/// 1.0 is the player did disappear.
+@property (nonatomic) CGFloat zf_playerDisapperaPercent;
+
+/// The current player scroll to the screen percent.
+/// the property is only used when the `stopWhileNotVisible` is NO.
+/// 0.0~1.0, defalut is 0.0.
+/// 0.0 is the player will appear.
+/// 1.0 is the player did appear.
+@property (nonatomic) CGFloat zf_playerApperaPercent;
+
+/// The current player controller is disappear, not dealloc
+@property (nonatomic) BOOL zf_viewControllerDisappear;
 
 @end
 

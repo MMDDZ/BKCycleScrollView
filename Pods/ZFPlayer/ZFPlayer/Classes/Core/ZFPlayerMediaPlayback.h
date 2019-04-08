@@ -28,7 +28,7 @@
 NS_ASSUME_NONNULL_BEGIN
 
 typedef NS_ENUM(NSUInteger, ZFPlayerPlaybackState) {
-    ZFPlayerPlayStateUnknown = 0,
+    ZFPlayerPlayStateUnknown,
     ZFPlayerPlayStatePlaying,
     ZFPlayerPlayStatePaused,
     ZFPlayerPlayStatePlayFailed,
@@ -57,7 +57,7 @@ typedef NS_ENUM(NSInteger, ZFPlayerScalingMode) {
 @property (nonatomic) ZFPlayerView *view;
 
 @optional
-/// The player volume, 0...1.0
+/// The player volume.
 /// Only affects audio volume for the player instance and not for the device.
 /// You can change device volume or player volume as needed,change the player volume you can folllow the `ZFPlayerMediaPlayback` protocol.
 @property (nonatomic) float volume;
@@ -138,6 +138,9 @@ typedef NS_ENUM(NSInteger, ZFPlayerScalingMode) {
 
 /// The block invoked when the player play end.
 @property (nonatomic, copy, nullable) void(^playerDidToEnd)(id<ZFPlayerMediaPlayback> asset);
+
+// The block invoked when video size changed.
+@property (nonatomic, copy, nullable) void(^presentationSizeChanged)(id<ZFPlayerMediaPlayback> asset, CGSize size);
 
 ///------------------------------------
 /// end

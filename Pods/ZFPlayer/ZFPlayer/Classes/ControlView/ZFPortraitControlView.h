@@ -51,6 +51,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, nullable) void(^sliderValueChanging)(CGFloat value,BOOL forward);
 /// slider滑动结束
 @property (nonatomic, copy, nullable) void(^sliderValueChanged)(CGFloat value);
+/// 如果是暂停状态，seek完是否播放，默认YES
+@property (nonatomic, assign) BOOL seekToPlay;
 
 /// 重置控制层
 - (void)resetControlView;

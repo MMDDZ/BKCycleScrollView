@@ -28,3 +28,4 @@ NSLog(@"点击了 cycleScrollView 上 索引%ld的item",index);
     1.1    修复创建时不赋值崩溃bug，优化无数据时滚动视图不能滑动
     1.2    添加视频显示
     1.2.1  细节修改
+    1.2.2  更新ZFPlayer
