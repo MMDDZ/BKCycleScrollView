@@ -1,34 +1,28 @@
 PODS:
-  - FLAnimatedImage (1.0.12)
-  - SDWebImage (4.4.2):
-    - SDWebImage/Core (= 4.4.2)
-  - SDWebImage/Core (4.4.2)
-  - ZFPlayer (3.2.8):
-    - ZFPlayer/Core (= 3.2.8)
-  - ZFPlayer/AVPlayer (3.2.8):
-    - ZFPlayer/Core
-  - ZFPlayer/ControlView (3.2.8):
-    - ZFPlayer/Core
-  - ZFPlayer/Core (3.2.8)
+  - BKTimer (1.0.0)
+  - PLPlayerKit (3.4.3):
+    - PLPlayerKit/iphoneos (= 3.4.3)
+  - PLPlayerKit/iphoneos (3.4.3)
+  - SDWebImage (5.1.1):
+    - SDWebImage/Core (= 5.1.1)
+  - SDWebImage/Core (5.1.1)
 
 DEPENDENCIES:
-  - FLAnimatedImage (~> 1.0.12)
-  - SDWebImage (~> 4.4.1)
-  - ZFPlayer (~> 3.2.8)
-  - ZFPlayer/AVPlayer (~> 3.2.8)
-  - ZFPlayer/ControlView (~> 3.2.8)
+  - BKTimer (~> 1.0.0)
+  - PLPlayerKit (~> 3.4.1)
+  - SDWebImage (~> 5.1.0)
 
 SPEC REPOS:
   https://github.com/cocoapods/specs.git:
-    - FLAnimatedImage
+    - BKTimer
+    - PLPlayerKit
     - SDWebImage
-    - ZFPlayer
 
 SPEC CHECKSUMS:
-  FLAnimatedImage: 4a0b56255d9b05f18b6dd7ee06871be5d3b89e31
-  SDWebImage: 624d6e296c69b244bcede364c72ae0430ac14681
-  ZFPlayer: 768bb514447884e59fbbc96c8b206cdc70ab7009
+  BKTimer: 67bc409e17be8282f46d309611f6cd871ad1d467
+  PLPlayerKit: a44734dc78c1f8f9fb22c537fa1916612fa46b06
+  SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
 
-PODFILE CHECKSUM: 60a705202df3b1038ca783af66b8744f5460d9d0
+PODFILE CHECKSUM: 78afbb9aabd4ceab5f79d9d967b2126ebfb2a77a
 
-COCOAPODS: 1.5.3
+COCOAPODS: 1.7.3

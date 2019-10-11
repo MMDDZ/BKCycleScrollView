@@ -1,0 +1,6 @@
+framework module BKTimer {
+  umbrella header "BKTimer-umbrella.h"
+
+  export *
+  module * { export * }
+}

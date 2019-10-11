@@ -1,0 +1,4 @@
+${PODS_ROOT}/Target Support Files/Pods-BKCycleScrollViewDemo/Pods-BKCycleScrollViewDemo-frameworks.sh
+${BUILT_PRODUCTS_DIR}/BKTimer/BKTimer.framework
+${PODS_ROOT}/PLPlayerKit/Pod/Library/PLPlayerKit.framework
+${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework

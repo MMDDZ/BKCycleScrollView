@@ -7,190 +7,155 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D160AA92251ACBA00C9DC84 /* libsqlite3.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160AA82251ACBA00C9DC84 /* libsqlite3.tbd */; };
-		1D160AAB2251ACC200C9DC84 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160AAA2251ACC200C9DC84 /* SystemConfiguration.framework */; };
-		1D160AAD2251ACC700C9DC84 /* VideoToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160AAC2251ACC700C9DC84 /* VideoToolbox.framework */; };
-		1D160AAE2251ACCF00C9DC84 /* libstdc++.6.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160A9F2251A03400C9DC84 /* libstdc++.6.tbd */; };
-		1D160AB02251ACD800C9DC84 /* libbz2.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160AAF2251ACD800C9DC84 /* libbz2.tbd */; };
-		1D160AB22251ACDF00C9DC84 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D160AB12251ACDE00C9DC84 /* libz.tbd */; };
-		1D160AB52251D95C00C9DC84 /* BKCycleScrollVideoProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D160AB42251D95C00C9DC84 /* BKCycleScrollVideoProgressView.m */; };
-		1D5D55DB21F05E3400D3B15F /* BKCycleCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D321F05E3300D3B15F /* BKCycleCollectionViewFlowLayout.m */; };
-		1D5D55DC21F05E3400D3B15F /* BKCycleScrollImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D521F05E3300D3B15F /* BKCycleScrollImageView.m */; };
-		1D5D55DD21F05E3400D3B15F /* BKCycleScrollCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D721F05E3300D3B15F /* BKCycleScrollCollectionViewCell.m */; };
-		1D5D55DE21F05E3400D3B15F /* BKCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D821F05E3300D3B15F /* BKCycleScrollView.m */; };
-		1D5D55DF21F05E3400D3B15F /* BKCycleScrollPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55D921F05E3300D3B15F /* BKCycleScrollPageControl.m */; };
-		1D5D55E221F065C900D3B15F /* BKCycleScrollDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55E121F065C900D3B15F /* BKCycleScrollDataModel.m */; };
-		1D5D55E521F07ECA00D3B15F /* BKCycleScrollVideoContentView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D5D55E421F07ECA00D3B15F /* BKCycleScrollVideoContentView.m */; };
-		1D5D55E721F0827B00D3B15F /* BKCycleScrollView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D5D55E621F0827B00D3B15F /* BKCycleScrollView.bundle */; };
-		1DAC8CEC20C916FE00687320 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DAC8CEB20C916FE00687320 /* AppDelegate.m */; };
-		1DAC8CEF20C916FE00687320 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DAC8CEE20C916FE00687320 /* ViewController.m */; };
-		1DAC8CF420C916FE00687320 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1DAC8CF320C916FE00687320 /* Assets.xcassets */; };
-		1DAC8CFA20C916FF00687320 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1DAC8CF920C916FF00687320 /* main.m */; };
-		1DAC8D5A20C9265F00687320 /* 4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1DAC8D5920C9265F00687320 /* 4.gif */; };
-		B1539CF99749AAD13D61C9E8 /* libPods-BKCycleScrollView.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9C07BCCE51790B58CD24BB59 /* libPods-BKCycleScrollView.a */; };
+		1D99FC562350637E00C5A9E5 /* BKCycleScrollView.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1D99FC482350637E00C5A9E5 /* BKCycleScrollView.bundle */; };
+		1D99FC6F2350638D00C5A9E5 /* BKCycleScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D99FC632350638D00C5A9E5 /* BKCycleScrollView.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D99FC702350638D00C5A9E5 /* BKCycleScrollPageControl.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D99FC642350638D00C5A9E5 /* BKCycleScrollPageControl.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D99FC712350638D00C5A9E5 /* BKCycleScrollDataModel.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D99FC652350638D00C5A9E5 /* BKCycleScrollDataModel.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		1D99FC722350638D00C5A9E5 /* BKCycleScrollImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D99FC662350638D00C5A9E5 /* BKCycleScrollImageView.m */; };
+		1D99FC732350638D00C5A9E5 /* BKCycleScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D99FC672350638D00C5A9E5 /* BKCycleScrollView.m */; };
+		1D99FC742350638D00C5A9E5 /* BKCycleScrollDataModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D99FC682350638D00C5A9E5 /* BKCycleScrollDataModel.m */; };
+		1D99FC752350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D99FC692350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.m */; };
+		1D99FC762350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D99FC6A2350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.h */; };
+		1D99FC772350638D00C5A9E5 /* BKCycleScrollImageView.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D99FC6B2350638D00C5A9E5 /* BKCycleScrollImageView.h */; };
+		1D99FC782350638D00C5A9E5 /* BKCycleScrollPageControl.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D99FC6C2350638D00C5A9E5 /* BKCycleScrollPageControl.m */; };
+		1D99FC792350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D99FC6D2350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.m */; };
+		1D99FC7A2350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.h in Headers */ = {isa = PBXBuildFile; fileRef = 1D99FC6E2350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.h */; };
+		85DCE6B79D68E213327763D6 /* Pods_BKCycleScrollView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 85DBB94DDFA76A28A5D0E0B9 /* Pods_BKCycleScrollView.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		1D160A9B2251A01200C9DC84 /* libstdc++.6.0.9.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.0.9.tbd"; path = "usr/lib/libstdc++.6.0.9.tbd"; sourceTree = SDKROOT; };
-		1D160A9D2251A02B00C9DC84 /* libstdc++.6.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libstdc++.6.dylib"; path = "usr/lib/libstdc++.6.dylib"; sourceTree = SDKROOT; };
-		1D160A9F2251A03400C9DC84 /* libstdc++.6.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.6.tbd"; path = "usr/lib/libstdc++.6.tbd"; sourceTree = SDKROOT; };
-		1D160AA82251ACBA00C9DC84 /* libsqlite3.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libsqlite3.tbd; path = usr/lib/libsqlite3.tbd; sourceTree = SDKROOT; };
-		1D160AAA2251ACC200C9DC84 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		1D160AAC2251ACC700C9DC84 /* VideoToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = VideoToolbox.framework; path = System/Library/Frameworks/VideoToolbox.framework; sourceTree = SDKROOT; };
-		1D160AAF2251ACD800C9DC84 /* libbz2.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libbz2.tbd; path = usr/lib/libbz2.tbd; sourceTree = SDKROOT; };
-		1D160AB12251ACDE00C9DC84 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
-		1D160AB32251D95C00C9DC84 /* BKCycleScrollVideoProgressView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollVideoProgressView.h; sourceTree = "<group>"; };
-		1D160AB42251D95C00C9DC84 /* BKCycleScrollVideoProgressView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollVideoProgressView.m; sourceTree = "<group>"; };
-		1D5D55D121F05E3300D3B15F /* BKCycleScrollPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollPageControl.h; sourceTree = "<group>"; };
-		1D5D55D221F05E3300D3B15F /* BKCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollView.h; sourceTree = "<group>"; };
-		1D5D55D321F05E3300D3B15F /* BKCycleCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleCollectionViewFlowLayout.m; sourceTree = "<group>"; };
-		1D5D55D421F05E3300D3B15F /* BKCycleScrollCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollCollectionViewCell.h; sourceTree = "<group>"; };
-		1D5D55D521F05E3300D3B15F /* BKCycleScrollImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollImageView.m; sourceTree = "<group>"; };
-		1D5D55D621F05E3300D3B15F /* BKCycleCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleCollectionViewFlowLayout.h; sourceTree = "<group>"; };
-		1D5D55D721F05E3300D3B15F /* BKCycleScrollCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollCollectionViewCell.m; sourceTree = "<group>"; };
-		1D5D55D821F05E3300D3B15F /* BKCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollView.m; sourceTree = "<group>"; };
-		1D5D55D921F05E3300D3B15F /* BKCycleScrollPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollPageControl.m; sourceTree = "<group>"; };
-		1D5D55DA21F05E3400D3B15F /* BKCycleScrollImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollImageView.h; sourceTree = "<group>"; };
-		1D5D55E021F065C900D3B15F /* BKCycleScrollDataModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollDataModel.h; sourceTree = "<group>"; };
-		1D5D55E121F065C900D3B15F /* BKCycleScrollDataModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollDataModel.m; sourceTree = "<group>"; };
-		1D5D55E321F07ECA00D3B15F /* BKCycleScrollVideoContentView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollVideoContentView.h; sourceTree = "<group>"; };
-		1D5D55E421F07ECA00D3B15F /* BKCycleScrollVideoContentView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollVideoContentView.m; sourceTree = "<group>"; };
-		1D5D55E621F0827B00D3B15F /* BKCycleScrollView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BKCycleScrollView.bundle; sourceTree = "<group>"; };
-		1DAC8CE720C916FE00687320 /* BKCycleScrollView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKCycleScrollView.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1DAC8CEA20C916FE00687320 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		1DAC8CEB20C916FE00687320 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1DAC8CED20C916FE00687320 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		1DAC8CEE20C916FE00687320 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		1DAC8CF320C916FE00687320 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1DAC8CF820C916FE00687320 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1DAC8CF920C916FF00687320 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1DAC8D5920C9265F00687320 /* 4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 4.gif; sourceTree = "<group>"; };
-		22FA079D8998E9380B05ABAF /* Pods-BKCycleScrollView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKCycleScrollView.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BKCycleScrollView/Pods-BKCycleScrollView.debug.xcconfig"; sourceTree = "<group>"; };
-		68424250A21FC54CFE779A6A /* Pods-BKCycleScrollView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKCycleScrollView.release.xcconfig"; path = "Pods/Target Support Files/Pods-BKCycleScrollView/Pods-BKCycleScrollView.release.xcconfig"; sourceTree = "<group>"; };
-		9C07BCCE51790B58CD24BB59 /* libPods-BKCycleScrollView.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BKCycleScrollView.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D99FC202350609200C5A9E5 /* BKCycleScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = BKCycleScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D99FC2B235060B300C5A9E5 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D99FC482350637E00C5A9E5 /* BKCycleScrollView.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BKCycleScrollView.bundle; sourceTree = "<group>"; };
+		1D99FC632350638D00C5A9E5 /* BKCycleScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollView.h; sourceTree = "<group>"; };
+		1D99FC642350638D00C5A9E5 /* BKCycleScrollPageControl.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollPageControl.h; sourceTree = "<group>"; };
+		1D99FC652350638D00C5A9E5 /* BKCycleScrollDataModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollDataModel.h; sourceTree = "<group>"; };
+		1D99FC662350638D00C5A9E5 /* BKCycleScrollImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollImageView.m; sourceTree = "<group>"; };
+		1D99FC672350638D00C5A9E5 /* BKCycleScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollView.m; sourceTree = "<group>"; };
+		1D99FC682350638D00C5A9E5 /* BKCycleScrollDataModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollDataModel.m; sourceTree = "<group>"; };
+		1D99FC692350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollCollectionViewCell.m; sourceTree = "<group>"; };
+		1D99FC6A2350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollCollectionViewCell.h; sourceTree = "<group>"; };
+		1D99FC6B2350638D00C5A9E5 /* BKCycleScrollImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollImageView.h; sourceTree = "<group>"; };
+		1D99FC6C2350638D00C5A9E5 /* BKCycleScrollPageControl.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollPageControl.m; sourceTree = "<group>"; };
+		1D99FC6D2350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleCollectionViewFlowLayout.m; sourceTree = "<group>"; };
+		1D99FC6E2350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleCollectionViewFlowLayout.h; sourceTree = "<group>"; };
+		4EFB7A5AF65C87B2498DACFA /* Pods-BKCycleScrollView.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKCycleScrollView.release.xcconfig"; path = "Target Support Files/Pods-BKCycleScrollView/Pods-BKCycleScrollView.release.xcconfig"; sourceTree = "<group>"; };
+		85DBB94DDFA76A28A5D0E0B9 /* Pods_BKCycleScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKCycleScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF4372B4B206C4BAD879798B /* Pods-BKCycleScrollView.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKCycleScrollView.debug.xcconfig"; path = "Target Support Files/Pods-BKCycleScrollView/Pods-BKCycleScrollView.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1DAC8CE420C916FE00687320 /* Frameworks */ = {
+		1D99FC1D2350609200C5A9E5 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D160AB22251ACDF00C9DC84 /* libz.tbd in Frameworks */,
-				1D160AB02251ACD800C9DC84 /* libbz2.tbd in Frameworks */,
-				1D160AAE2251ACCF00C9DC84 /* libstdc++.6.tbd in Frameworks */,
-				1D160AAD2251ACC700C9DC84 /* VideoToolbox.framework in Frameworks */,
-				1D160AAB2251ACC200C9DC84 /* SystemConfiguration.framework in Frameworks */,
-				1D160AA92251ACBA00C9DC84 /* libsqlite3.tbd in Frameworks */,
-				B1539CF99749AAD13D61C9E8 /* libPods-BKCycleScrollView.a in Frameworks */,
+				85DCE6B79D68E213327763D6 /* Pods_BKCycleScrollView.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1D5D55C121F05DEE00D3B15F /* BKCycleScrollView */ = {
+		1D99FC162350609200C5A9E5 = {
 			isa = PBXGroup;
 			children = (
-				1D5D55E621F0827B00D3B15F /* BKCycleScrollView.bundle */,
-				1D5D55D221F05E3300D3B15F /* BKCycleScrollView.h */,
-				1D5D55D821F05E3300D3B15F /* BKCycleScrollView.m */,
-				1D5D55E021F065C900D3B15F /* BKCycleScrollDataModel.h */,
-				1D5D55E121F065C900D3B15F /* BKCycleScrollDataModel.m */,
-				1D5D55D621F05E3300D3B15F /* BKCycleCollectionViewFlowLayout.h */,
-				1D5D55D321F05E3300D3B15F /* BKCycleCollectionViewFlowLayout.m */,
-				1D5D55D421F05E3300D3B15F /* BKCycleScrollCollectionViewCell.h */,
-				1D5D55D721F05E3300D3B15F /* BKCycleScrollCollectionViewCell.m */,
-				1D5D55E321F07ECA00D3B15F /* BKCycleScrollVideoContentView.h */,
-				1D5D55E421F07ECA00D3B15F /* BKCycleScrollVideoContentView.m */,
-				1D160AB32251D95C00C9DC84 /* BKCycleScrollVideoProgressView.h */,
-				1D160AB42251D95C00C9DC84 /* BKCycleScrollVideoProgressView.m */,
-				1D5D55DA21F05E3400D3B15F /* BKCycleScrollImageView.h */,
-				1D5D55D521F05E3300D3B15F /* BKCycleScrollImageView.m */,
-				1D5D55D121F05E3300D3B15F /* BKCycleScrollPageControl.h */,
-				1D5D55D921F05E3300D3B15F /* BKCycleScrollPageControl.m */,
-			);
-			path = BKCycleScrollView;
-			sourceTree = "<group>";
-		};
-		1DAC8CDE20C916FE00687320 = {
-			isa = PBXGroup;
-			children = (
-				1DAC8CE920C916FE00687320 /* BKCycleScrollView */,
-				1DAC8CE820C916FE00687320 /* Products */,
-				77EE1092A46A763D3A459382 /* Pods */,
-				468717D761B98E2F86AF4A44 /* Frameworks */,
+				1D99FC2B235060B300C5A9E5 /* Info.plist */,
+				1D99FC222350609200C5A9E5 /* BKCycleScrollView */,
+				1D99FC212350609200C5A9E5 /* Products */,
+				4DAD2A7C32EA689EF6EB1EAC /* Pods */,
+				BB63215B96240163BE965548 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		1DAC8CE820C916FE00687320 /* Products */ = {
+		1D99FC212350609200C5A9E5 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1DAC8CE720C916FE00687320 /* BKCycleScrollView.app */,
+				1D99FC202350609200C5A9E5 /* BKCycleScrollView.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1DAC8CE920C916FE00687320 /* BKCycleScrollView */ = {
+		1D99FC222350609200C5A9E5 /* BKCycleScrollView */ = {
 			isa = PBXGroup;
 			children = (
-				1D5D55C121F05DEE00D3B15F /* BKCycleScrollView */,
-				1DAC8CEA20C916FE00687320 /* AppDelegate.h */,
-				1DAC8CEB20C916FE00687320 /* AppDelegate.m */,
-				1DAC8CED20C916FE00687320 /* ViewController.h */,
-				1DAC8CEE20C916FE00687320 /* ViewController.m */,
-				1DAC8D5820C919F700687320 /* Supporting Files */,
+				1D99FC472350637E00C5A9E5 /* Assets */,
+				1D99FC492350637E00C5A9E5 /* Classes */,
 			);
 			path = BKCycleScrollView;
 			sourceTree = "<group>";
 		};
-		1DAC8D5820C919F700687320 /* Supporting Files */ = {
+		1D99FC472350637E00C5A9E5 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
-				1DAC8CF320C916FE00687320 /* Assets.xcassets */,
-				1DAC8D5920C9265F00687320 /* 4.gif */,
-				1DAC8CF820C916FE00687320 /* Info.plist */,
-				1DAC8CF920C916FF00687320 /* main.m */,
+				1D99FC482350637E00C5A9E5 /* BKCycleScrollView.bundle */,
 			);
-			path = "Supporting Files";
+			path = Assets;
 			sourceTree = "<group>";
 		};
-		468717D761B98E2F86AF4A44 /* Frameworks */ = {
+		1D99FC492350637E00C5A9E5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				1D160AB12251ACDE00C9DC84 /* libz.tbd */,
-				1D160AAF2251ACD800C9DC84 /* libbz2.tbd */,
-				1D160AAC2251ACC700C9DC84 /* VideoToolbox.framework */,
-				1D160AAA2251ACC200C9DC84 /* SystemConfiguration.framework */,
-				1D160AA82251ACBA00C9DC84 /* libsqlite3.tbd */,
-				1D160A9F2251A03400C9DC84 /* libstdc++.6.tbd */,
-				1D160A9D2251A02B00C9DC84 /* libstdc++.6.dylib */,
-				1D160A9B2251A01200C9DC84 /* libstdc++.6.0.9.tbd */,
-				9C07BCCE51790B58CD24BB59 /* libPods-BKCycleScrollView.a */,
+				1D99FC6E2350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.h */,
+				1D99FC6D2350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.m */,
+				1D99FC6A2350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.h */,
+				1D99FC692350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.m */,
+				1D99FC652350638D00C5A9E5 /* BKCycleScrollDataModel.h */,
+				1D99FC682350638D00C5A9E5 /* BKCycleScrollDataModel.m */,
+				1D99FC6B2350638D00C5A9E5 /* BKCycleScrollImageView.h */,
+				1D99FC662350638D00C5A9E5 /* BKCycleScrollImageView.m */,
+				1D99FC642350638D00C5A9E5 /* BKCycleScrollPageControl.h */,
+				1D99FC6C2350638D00C5A9E5 /* BKCycleScrollPageControl.m */,
+				1D99FC632350638D00C5A9E5 /* BKCycleScrollView.h */,
+				1D99FC672350638D00C5A9E5 /* BKCycleScrollView.m */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		4DAD2A7C32EA689EF6EB1EAC /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				DF4372B4B206C4BAD879798B /* Pods-BKCycleScrollView.debug.xcconfig */,
+				4EFB7A5AF65C87B2498DACFA /* Pods-BKCycleScrollView.release.xcconfig */,
+			);
+			path = Pods;
+			sourceTree = "<group>";
+		};
+		BB63215B96240163BE965548 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				85DBB94DDFA76A28A5D0E0B9 /* Pods_BKCycleScrollView.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		77EE1092A46A763D3A459382 /* Pods */ = {
-			isa = PBXGroup;
-			children = (
-				22FA079D8998E9380B05ABAF /* Pods-BKCycleScrollView.debug.xcconfig */,
-				68424250A21FC54CFE779A6A /* Pods-BKCycleScrollView.release.xcconfig */,
-			);
-			name = Pods;
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
+/* Begin PBXHeadersBuildPhase section */
+		1D99FC1B2350609200C5A9E5 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1D99FC6F2350638D00C5A9E5 /* BKCycleScrollView.h in Headers */,
+				1D99FC702350638D00C5A9E5 /* BKCycleScrollPageControl.h in Headers */,
+				1D99FC712350638D00C5A9E5 /* BKCycleScrollDataModel.h in Headers */,
+				1D99FC772350638D00C5A9E5 /* BKCycleScrollImageView.h in Headers */,
+				1D99FC762350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.h in Headers */,
+				1D99FC7A2350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
 /* Begin PBXNativeTarget section */
-		1DAC8CE620C916FE00687320 /* BKCycleScrollView */ = {
+		1D99FC1F2350609200C5A9E5 /* BKCycleScrollView */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1DAC8CFD20C916FF00687320 /* Build configuration list for PBXNativeTarget "BKCycleScrollView" */;
+			buildConfigurationList = 1D99FC282350609200C5A9E5 /* Build configuration list for PBXNativeTarget "BKCycleScrollView" */;
 			buildPhases = (
-				11504AFEA1656CC04C5649A8 /* [CP] Check Pods Manifest.lock */,
-				1DAC8CE320C916FE00687320 /* Sources */,
-				1DAC8CE420C916FE00687320 /* Frameworks */,
-				1DAC8CE520C916FE00687320 /* Resources */,
-				4322863F3DBE83F778166B3D /* [CP] Copy Pods Resources */,
+				5484147C864637F0F489CE7F /* [CP] Check Pods Manifest.lock */,
+				1D99FC1B2350609200C5A9E5 /* Headers */,
+				1D99FC1C2350609200C5A9E5 /* Sources */,
+				1D99FC1D2350609200C5A9E5 /* Frameworks */,
+				1D99FC1E2350609200C5A9E5 /* Resources */,
 			);
 			buildRules = (
 			);
@@ -198,24 +163,24 @@
 			);
 			name = BKCycleScrollView;
 			productName = BKCycleScrollView;
-			productReference = 1DAC8CE720C916FE00687320 /* BKCycleScrollView.app */;
-			productType = "com.apple.product-type.application";
+			productReference = 1D99FC202350609200C5A9E5 /* BKCycleScrollView.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1DAC8CDF20C916FE00687320 /* Project object */ = {
+		1D99FC172350609200C5A9E5 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = BIKE;
 				TargetAttributes = {
-					1DAC8CE620C916FE00687320 = {
-						CreatedOnToolsVersion = 9.4;
+					1D99FC1F2350609200C5A9E5 = {
+						CreatedOnToolsVersion = 11.1;
 					};
 				};
 			};
-			buildConfigurationList = 1DAC8CE220C916FE00687320 /* Build configuration list for PBXProject "BKCycleScrollView" */;
+			buildConfigurationList = 1D99FC1A2350609200C5A9E5 /* Build configuration list for PBXProject "BKCycleScrollView" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -223,40 +188,42 @@
 				en,
 				Base,
 			);
-			mainGroup = 1DAC8CDE20C916FE00687320;
-			productRefGroup = 1DAC8CE820C916FE00687320 /* Products */;
+			mainGroup = 1D99FC162350609200C5A9E5;
+			productRefGroup = 1D99FC212350609200C5A9E5 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1DAC8CE620C916FE00687320 /* BKCycleScrollView */,
+				1D99FC1F2350609200C5A9E5 /* BKCycleScrollView */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1DAC8CE520C916FE00687320 /* Resources */ = {
+		1D99FC1E2350609200C5A9E5 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DAC8D5A20C9265F00687320 /* 4.gif in Resources */,
-				1DAC8CF420C916FE00687320 /* Assets.xcassets in Resources */,
-				1D5D55E721F0827B00D3B15F /* BKCycleScrollView.bundle in Resources */,
+				1D99FC562350637E00C5A9E5 /* BKCycleScrollView.bundle in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		11504AFEA1656CC04C5649A8 /* [CP] Check Pods Manifest.lock */ = {
+		5484147C864637F0F489CE7F /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			inputFileListPaths = (
 			);
 			inputPaths = (
 				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
 				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
 			outputPaths = (
 				"$(DERIVED_FILE_DIR)/Pods-BKCycleScrollView-checkManifestLockResult.txt",
 			);
@@ -265,49 +232,26 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		4322863F3DBE83F778166B3D /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-BKCycleScrollView/Pods-BKCycleScrollView-resources.sh",
-				"${PODS_ROOT}/ZFPlayer/ZFPlayer/Classes/ControlView/ZFPlayer.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/ZFPlayer.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-BKCycleScrollView/Pods-BKCycleScrollView-resources.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1DAC8CE320C916FE00687320 /* Sources */ = {
+		1D99FC1C2350609200C5A9E5 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1DAC8CEF20C916FE00687320 /* ViewController.m in Sources */,
-				1D5D55DC21F05E3400D3B15F /* BKCycleScrollImageView.m in Sources */,
-				1DAC8CFA20C916FF00687320 /* main.m in Sources */,
-				1D5D55DB21F05E3400D3B15F /* BKCycleCollectionViewFlowLayout.m in Sources */,
-				1D5D55DE21F05E3400D3B15F /* BKCycleScrollView.m in Sources */,
-				1D5D55E221F065C900D3B15F /* BKCycleScrollDataModel.m in Sources */,
-				1D160AB52251D95C00C9DC84 /* BKCycleScrollVideoProgressView.m in Sources */,
-				1DAC8CEC20C916FE00687320 /* AppDelegate.m in Sources */,
-				1D5D55E521F07ECA00D3B15F /* BKCycleScrollVideoContentView.m in Sources */,
-				1D5D55DD21F05E3400D3B15F /* BKCycleScrollCollectionViewCell.m in Sources */,
-				1D5D55DF21F05E3400D3B15F /* BKCycleScrollPageControl.m in Sources */,
+				1D99FC722350638D00C5A9E5 /* BKCycleScrollImageView.m in Sources */,
+				1D99FC752350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.m in Sources */,
+				1D99FC792350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.m in Sources */,
+				1D99FC732350638D00C5A9E5 /* BKCycleScrollView.m in Sources */,
+				1D99FC782350638D00C5A9E5 /* BKCycleScrollPageControl.m in Sources */,
+				1D99FC742350638D00C5A9E5 /* BKCycleScrollDataModel.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		1DAC8CFB20C916FF00687320 /* Debug */ = {
+		1D99FC262350609200C5A9E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -339,8 +283,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -358,14 +302,17 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				MTL_ENABLE_DEBUG_INFO = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Debug;
 		};
-		1DAC8CFC20C916FF00687320 /* Release */ = {
+		1D99FC272350609200C5A9E5 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -397,8 +344,8 @@
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -410,77 +357,88 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
 			};
 			name = Release;
 		};
-		1DAC8CFE20C916FF00687320 /* Debug */ = {
+		1D99FC292350609200C5A9E5 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 22FA079D8998E9380B05ABAF /* Pods-BKCycleScrollView.debug.xcconfig */;
+			baseConfigurationReference = DF4372B4B206C4BAD879798B /* Pods-BKCycleScrollView.debug.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 779S864B3K;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/BKCycleScrollView/Supporting Files/Info.plist";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = BIKE.BKCycleScrollView;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
-		1DAC8CFF20C916FF00687320 /* Release */ = {
+		1D99FC2A2350609200C5A9E5 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 68424250A21FC54CFE779A6A /* Pods-BKCycleScrollView.release.xcconfig */;
+			baseConfigurationReference = 4EFB7A5AF65C87B2498DACFA /* Pods-BKCycleScrollView.release.xcconfig */;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 779S864B3K;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
-				INFOPLIST_FILE = "$(SRCROOT)/BKCycleScrollView/Supporting Files/Info.plist";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = BIKE.BKCycleScrollView;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = 1;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1DAC8CE220C916FE00687320 /* Build configuration list for PBXProject "BKCycleScrollView" */ = {
+		1D99FC1A2350609200C5A9E5 /* Build configuration list for PBXProject "BKCycleScrollView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DAC8CFB20C916FF00687320 /* Debug */,
-				1DAC8CFC20C916FF00687320 /* Release */,
+				1D99FC262350609200C5A9E5 /* Debug */,
+				1D99FC272350609200C5A9E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1DAC8CFD20C916FF00687320 /* Build configuration list for PBXNativeTarget "BKCycleScrollView" */ = {
+		1D99FC282350609200C5A9E5 /* Build configuration list for PBXNativeTarget "BKCycleScrollView" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1DAC8CFE20C916FF00687320 /* Debug */,
-				1DAC8CFF20C916FF00687320 /* Release */,
+				1D99FC292350609200C5A9E5 /* Debug */,
+				1D99FC2A2350609200C5A9E5 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1DAC8CDF20C916FE00687320 /* Project object */;
+	rootObject = 1D99FC172350609200C5A9E5 /* Project object */;
 }

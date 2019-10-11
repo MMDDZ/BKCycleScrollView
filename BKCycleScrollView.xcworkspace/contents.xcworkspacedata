@@ -2,6 +2,9 @@
 <Workspace
    version = "1.0">
    <FileRef
+      location = "group:BKCycleScrollViewDemo/BKCycleScrollViewDemo.xcodeproj">
+   </FileRef>
+   <FileRef
       location = "group:BKCycleScrollView.xcodeproj">
    </FileRef>
    <FileRef

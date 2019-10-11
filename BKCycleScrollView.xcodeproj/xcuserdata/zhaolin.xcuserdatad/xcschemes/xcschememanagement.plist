@@ -4,23 +4,10 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
-		<key>BKCycleScrollView.xcscheme</key>
-		<dict>
-			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
 		<key>BKCycleScrollView.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>0</integer>
-		</dict>
-	</dict>
-	<key>SuppressBuildableAutocreation</key>
-	<dict>
-		<key>1DAC8CE620C916FE00687320</key>
-		<dict>
-			<key>primary</key>
-			<true/>
+			<integer>6</integer>
 		</dict>
 	</dict>
 </dict>
