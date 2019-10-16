@@ -177,6 +177,7 @@ NS_ASSUME_NONNULL_BEGIN
  imageView 显示的图片 非自定义cell时有值
  */
 @property (nonatomic,copy) void (^clickItemCallBack)(NSInteger index, UIImageView * _Nullable imageView);
+
 /**
  切换item回调
  */

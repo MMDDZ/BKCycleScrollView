@@ -69,9 +69,9 @@
     }
     self.netImageArr2 = [datas3 copy];
         
-//    [self.view addSubview:self.cycleScrollView1];
+    [self.view addSubview:self.cycleScrollView1];
     [self.view addSubview:self.cycleScrollView2];
-//    [self cycleScrollView3];
+    [self.view addSubview:self.cycleScrollView3];
 }
 
 #pragma mark - BKCycleScrollView1
@@ -90,7 +90,7 @@
         _cycleScrollView1.isAutoScroll = NO;
         
         [_cycleScrollView1 setClickItemCallBack:^(NSInteger index, UIImageView * _Nullable imageView) {
-            NSLog(@"点击了 _cycleScrollView1 上 索引%ld的item",index);
+            NSLog(@"点击了 _cycleScrollView1 上 索引%ld的item",(long)index);
         }];
     }
     return _cycleScrollView1;
@@ -101,8 +101,7 @@
 -(BKCycleScrollView*)cycleScrollView2
 {
     if (!_cycleScrollView2) {
-       //CGRectGetMaxY(self.cycleScrollView1.frame) + 40
-        _cycleScrollView2 = [[BKCycleScrollView alloc] initWithFrame:CGRectMake(0, [UIApplication sharedApplication].statusBarFrame.size.height + 20, self.view.frame.size.width, 150)];
+        _cycleScrollView2 = [[BKCycleScrollView alloc] initWithFrame:CGRectMake(0, CGRectGetMaxY(self.cycleScrollView1.frame) + 40, self.view.frame.size.width, 150)];
         _cycleScrollView2.delegate = self;
         _cycleScrollView2.displayDataArr = self.localImageArr;
         _cycleScrollView2.isAutoScroll = NO;
@@ -111,7 +110,7 @@
         _cycleScrollView2.pageControl.alignment = BKCycleScrollPageAlignmentRight;
         
         [_cycleScrollView2 setClickItemCallBack:^(NSInteger index, UIImageView * _Nullable imageView) {
-            NSLog(@"点击了 _cycleScrollView2 上 索引%ld的item",index);
+            NSLog(@"点击了 _cycleScrollView2 上 索引%ld的item",(long)index);
         }];
     }
     return _cycleScrollView2;
@@ -134,10 +133,9 @@
         _cycleScrollView3.pageControl.style = BKCycleScrollPageControlStyleLongDots;
         _cycleScrollView3.pageControl.normalPageColor = [UIColor yellowColor];
         _cycleScrollView3.pageControl.selectPageColor = [UIColor brownColor];
-        [self.view addSubview:_cycleScrollView3];
         
         [_cycleScrollView3 setClickItemCallBack:^(NSInteger index, UIImageView * _Nullable imageView) {
-            NSLog(@"点击了 _cycleScrollView3 上 索引%ld的item",index);
+            NSLog(@"点击了 _cycleScrollView3 上 索引%ld的item",(long)index);
         }];
     }
     return _cycleScrollView3;

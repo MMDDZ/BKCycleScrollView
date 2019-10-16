@@ -311,6 +311,8 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     self.pageControlHeight = 7;
     self.pageControlContentInset = UIEdgeInsetsMake(0, 10, 10, 10);
     
+    self.playIndex = kBKCycleScrollViewNoPlayIndex;
+    
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }

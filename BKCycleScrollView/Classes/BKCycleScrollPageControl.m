@@ -152,14 +152,14 @@
         if (self.style == BKCycleScrollPageControlStyleNumberLab) {
           
             UILabel * titleLab = [[UILabel alloc] init];
-            titleLab.text = [NSString stringWithFormat:@"  %lu/%lu   ", self.numberOfPages, self.numberOfPages];
+            titleLab.text = [NSString stringWithFormat:@"  %lu/%lu   ", (unsigned long)self.numberOfPages, (unsigned long)self.numberOfPages];
             titleLab.textColor = self.pageTitleColor;
             titleLab.font = self.pageTitleFont;
             titleLab.backgroundColor = self.pageBgColor;
             titleLab.textAlignment = NSTextAlignmentCenter;
             [self addSubview:titleLab];
             [titleLab sizeToFit];
-            titleLab.text = [NSString stringWithFormat:@"%lu/%lu", self.currentPage+1, self.numberOfPages];
+            titleLab.text = [NSString stringWithFormat:@"%lu/%lu", (unsigned long)(self.currentPage+1), (unsigned long)self.numberOfPages];
             CGFloat beginX = 0;
             if (self.alignment == BKCycleScrollPageAlignmentLeft) {
                 beginX = 0;
