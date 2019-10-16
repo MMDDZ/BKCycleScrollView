@@ -95,6 +95,8 @@
 		1D99FC492350637E00C5A9E5 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				1D99FC632350638D00C5A9E5 /* BKCycleScrollView.h */,
+				1D99FC672350638D00C5A9E5 /* BKCycleScrollView.m */,
 				1D99FC6E2350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.h */,
 				1D99FC6D2350638D00C5A9E5 /* BKCycleCollectionViewFlowLayout.m */,
 				1D99FC6A2350638D00C5A9E5 /* BKCycleScrollCollectionViewCell.h */,
@@ -105,8 +107,6 @@
 				1D99FC662350638D00C5A9E5 /* BKCycleScrollImageView.m */,
 				1D99FC642350638D00C5A9E5 /* BKCycleScrollPageControl.h */,
 				1D99FC6C2350638D00C5A9E5 /* BKCycleScrollPageControl.m */,
-				1D99FC632350638D00C5A9E5 /* BKCycleScrollView.h */,
-				1D99FC672350638D00C5A9E5 /* BKCycleScrollView.m */,
 			);
 			path = Classes;
 			sourceTree = "<group>";

@@ -7,24 +7,29 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		1D99FBFF2350600700C5A9E5 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D99FBFE2350600700C5A9E5 /* AppDelegate.m */; };
-		1D99FC052350600700C5A9E5 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D99FC042350600700C5A9E5 /* ViewController.m */; };
-		1D99FC0A2350600800C5A9E5 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D99FC092350600800C5A9E5 /* Assets.xcassets */; };
-		1D99FC0D2350600800C5A9E5 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D99FC0B2350600800C5A9E5 /* LaunchScreen.storyboard */; };
-		1D99FC102350600800C5A9E5 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D99FC0F2350600800C5A9E5 /* main.m */; };
-		1D99FC7C2350665900C5A9E5 /* BKCycleScrollView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D99FC7B2350665900C5A9E5 /* BKCycleScrollView.framework */; };
-		1D99FC7D2350665900C5A9E5 /* BKCycleScrollView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1D99FC7B2350665900C5A9E5 /* BKCycleScrollView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		1FCAF982AE6F4654EE725B58 /* Pods_BKCycleScrollViewDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5A224C2C4EBD9ACA1B3DF83C /* Pods_BKCycleScrollViewDemo.framework */; };
+		1D8CF56B2351865B00E35BB4 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8CF56A2351865B00E35BB4 /* AppDelegate.m */; };
+		1D8CF5712351865B00E35BB4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8CF5702351865B00E35BB4 /* ViewController.m */; };
+		1D8CF5762351865B00E35BB4 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1D8CF5752351865B00E35BB4 /* Assets.xcassets */; };
+		1D8CF5792351865B00E35BB4 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1D8CF5772351865B00E35BB4 /* LaunchScreen.storyboard */; };
+		1D8CF57C2351865B00E35BB4 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D8CF57B2351865B00E35BB4 /* main.m */; };
+		1D8CF5832351A31900E35BB4 /* 4.gif in Resources */ = {isa = PBXBuildFile; fileRef = 1D8CF5822351A31900E35BB4 /* 4.gif */; };
+		1D8CF5852351AB7F00E35BB4 /* BKCycleScrollView.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D8CF5842351AB7F00E35BB4 /* BKCycleScrollView.framework */; };
+		1D8CF5862351AB7F00E35BB4 /* BKCycleScrollView.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1D8CF5842351AB7F00E35BB4 /* BKCycleScrollView.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		1D960D5A2356C0960046CD2C /* BKCycleScrollPlayerFailureView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D960D522356C0950046CD2C /* BKCycleScrollPlayerFailureView.m */; };
+		1D960D5B2356C0960046CD2C /* BKCycleScrollPlayerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D960D532356C0950046CD2C /* BKCycleScrollPlayerView.m */; };
+		1D960D5C2356C0960046CD2C /* BKCycleScrollPlayerLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D960D542356C0960046CD2C /* BKCycleScrollPlayerLoadingView.m */; };
+		1D960D5D2356C0960046CD2C /* BKCycleScrollPlayerProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D960D562356C0960046CD2C /* BKCycleScrollPlayerProgressView.m */; };
+		D5219B6B22E8668EDDE445DA /* Pods_BKCycleScrollViewDemo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 851B4D97960C6D465273155F /* Pods_BKCycleScrollViewDemo.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
-		1D99FC7E2350665900C5A9E5 /* Embed Frameworks */ = {
+		1D8CF5872351AB7F00E35BB4 /* Embed Frameworks */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				1D99FC7D2350665900C5A9E5 /* BKCycleScrollView.framework in Embed Frameworks */,
+				1D8CF5862351AB7F00E35BB4 /* BKCycleScrollView.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -32,99 +37,125 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		1D99FBFA2350600700C5A9E5 /* BKCycleScrollViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKCycleScrollViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1D99FBFD2350600700C5A9E5 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
-		1D99FBFE2350600700C5A9E5 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1D99FC032350600700C5A9E5 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		1D99FC042350600700C5A9E5 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
-		1D99FC092350600800C5A9E5 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		1D99FC0C2350600800C5A9E5 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		1D99FC0E2350600800C5A9E5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		1D99FC0F2350600800C5A9E5 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
-		1D99FC7B2350665900C5A9E5 /* BKCycleScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BKCycleScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5A224C2C4EBD9ACA1B3DF83C /* Pods_BKCycleScrollViewDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKCycleScrollViewDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		D1C89B517A8304166FF63CCB /* Pods-BKCycleScrollViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKCycleScrollViewDemo.release.xcconfig"; path = "Target Support Files/Pods-BKCycleScrollViewDemo/Pods-BKCycleScrollViewDemo.release.xcconfig"; sourceTree = "<group>"; };
-		FB2085D6626BEE7534D0363C /* Pods-BKCycleScrollViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKCycleScrollViewDemo.debug.xcconfig"; path = "Target Support Files/Pods-BKCycleScrollViewDemo/Pods-BKCycleScrollViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		1D1A436559DD7D6142A5E4DA /* Pods-BKCycleScrollViewDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKCycleScrollViewDemo.debug.xcconfig"; path = "Target Support Files/Pods-BKCycleScrollViewDemo/Pods-BKCycleScrollViewDemo.debug.xcconfig"; sourceTree = "<group>"; };
+		1D8CF5662351865B00E35BB4 /* BKCycleScrollViewDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BKCycleScrollViewDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D8CF5692351865B00E35BB4 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1D8CF56A2351865B00E35BB4 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1D8CF56F2351865B00E35BB4 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
+		1D8CF5702351865B00E35BB4 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		1D8CF5752351865B00E35BB4 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		1D8CF5782351865B00E35BB4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		1D8CF57A2351865B00E35BB4 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1D8CF57B2351865B00E35BB4 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		1D8CF5822351A31900E35BB4 /* 4.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = 4.gif; sourceTree = "<group>"; };
+		1D8CF5842351AB7F00E35BB4 /* BKCycleScrollView.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = BKCycleScrollView.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D960D522356C0950046CD2C /* BKCycleScrollPlayerFailureView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollPlayerFailureView.m; sourceTree = "<group>"; };
+		1D960D532356C0950046CD2C /* BKCycleScrollPlayerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollPlayerView.m; sourceTree = "<group>"; };
+		1D960D542356C0960046CD2C /* BKCycleScrollPlayerLoadingView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollPlayerLoadingView.m; sourceTree = "<group>"; };
+		1D960D552356C0960046CD2C /* BKCycleScrollPlayerLoadingView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollPlayerLoadingView.h; sourceTree = "<group>"; };
+		1D960D562356C0960046CD2C /* BKCycleScrollPlayerProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BKCycleScrollPlayerProgressView.m; sourceTree = "<group>"; };
+		1D960D572356C0960046CD2C /* BKCycleScrollPlayerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollPlayerView.h; sourceTree = "<group>"; };
+		1D960D582356C0960046CD2C /* BKCycleScrollPlayerFailureView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollPlayerFailureView.h; sourceTree = "<group>"; };
+		1D960D592356C0960046CD2C /* BKCycleScrollPlayerProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BKCycleScrollPlayerProgressView.h; sourceTree = "<group>"; };
+		851B4D97960C6D465273155F /* Pods_BKCycleScrollViewDemo.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BKCycleScrollViewDemo.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		D4AE32FE15D0978B57B571D9 /* Pods-BKCycleScrollViewDemo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BKCycleScrollViewDemo.release.xcconfig"; path = "Target Support Files/Pods-BKCycleScrollViewDemo/Pods-BKCycleScrollViewDemo.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
-		1D99FBF72350600700C5A9E5 /* Frameworks */ = {
+		1D8CF5632351865B00E35BB4 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D99FC7C2350665900C5A9E5 /* BKCycleScrollView.framework in Frameworks */,
-				1FCAF982AE6F4654EE725B58 /* Pods_BKCycleScrollViewDemo.framework in Frameworks */,
+				1D8CF5852351AB7F00E35BB4 /* BKCycleScrollView.framework in Frameworks */,
+				D5219B6B22E8668EDDE445DA /* Pods_BKCycleScrollViewDemo.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		1D99FBF12350600700C5A9E5 = {
+		1D8CF55D2351865B00E35BB4 = {
 			isa = PBXGroup;
 			children = (
-				1D99FBFC2350600700C5A9E5 /* BKCycleScrollViewDemo */,
-				1D99FBFB2350600700C5A9E5 /* Products */,
-				4D86BBB0102FC28D0D51EF6B /* Pods */,
-				3B5B4AA8E6C59F1FF9B7AF8F /* Frameworks */,
+				1D8CF5682351865B00E35BB4 /* BKCycleScrollViewDemo */,
+				1D8CF5672351865B00E35BB4 /* Products */,
+				90955D57A55A1B03F5C8A99C /* Pods */,
+				DF6C1695446270ECC3EC99BC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
-		1D99FBFB2350600700C5A9E5 /* Products */ = {
+		1D8CF5672351865B00E35BB4 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D99FBFA2350600700C5A9E5 /* BKCycleScrollViewDemo.app */,
+				1D8CF5662351865B00E35BB4 /* BKCycleScrollViewDemo.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		1D99FBFC2350600700C5A9E5 /* BKCycleScrollViewDemo */ = {
+		1D8CF5682351865B00E35BB4 /* BKCycleScrollViewDemo */ = {
 			isa = PBXGroup;
 			children = (
-				1D99FBFD2350600700C5A9E5 /* AppDelegate.h */,
-				1D99FBFE2350600700C5A9E5 /* AppDelegate.m */,
-				1D99FC032350600700C5A9E5 /* ViewController.h */,
-				1D99FC042350600700C5A9E5 /* ViewController.m */,
-				1D99FC092350600800C5A9E5 /* Assets.xcassets */,
-				1D99FC0B2350600800C5A9E5 /* LaunchScreen.storyboard */,
-				1D99FC0E2350600800C5A9E5 /* Info.plist */,
-				1D99FC0F2350600800C5A9E5 /* main.m */,
+				1D960D512356C0700046CD2C /* Player */,
+				1D8CF5822351A31900E35BB4 /* 4.gif */,
+				1D8CF5692351865B00E35BB4 /* AppDelegate.h */,
+				1D8CF56A2351865B00E35BB4 /* AppDelegate.m */,
+				1D8CF56F2351865B00E35BB4 /* ViewController.h */,
+				1D8CF5702351865B00E35BB4 /* ViewController.m */,
+				1D8CF5752351865B00E35BB4 /* Assets.xcassets */,
+				1D8CF5772351865B00E35BB4 /* LaunchScreen.storyboard */,
+				1D8CF57A2351865B00E35BB4 /* Info.plist */,
+				1D8CF57B2351865B00E35BB4 /* main.m */,
 			);
 			path = BKCycleScrollViewDemo;
 			sourceTree = "<group>";
 		};
-		3B5B4AA8E6C59F1FF9B7AF8F /* Frameworks */ = {
+		1D960D512356C0700046CD2C /* Player */ = {
 			isa = PBXGroup;
 			children = (
-				1D99FC7B2350665900C5A9E5 /* BKCycleScrollView.framework */,
-				5A224C2C4EBD9ACA1B3DF83C /* Pods_BKCycleScrollViewDemo.framework */,
+				1D960D572356C0960046CD2C /* BKCycleScrollPlayerView.h */,
+				1D960D532356C0950046CD2C /* BKCycleScrollPlayerView.m */,
+				1D960D552356C0960046CD2C /* BKCycleScrollPlayerLoadingView.h */,
+				1D960D542356C0960046CD2C /* BKCycleScrollPlayerLoadingView.m */,
+				1D960D592356C0960046CD2C /* BKCycleScrollPlayerProgressView.h */,
+				1D960D562356C0960046CD2C /* BKCycleScrollPlayerProgressView.m */,
+				1D960D582356C0960046CD2C /* BKCycleScrollPlayerFailureView.h */,
+				1D960D522356C0950046CD2C /* BKCycleScrollPlayerFailureView.m */,
 			);
-			name = Frameworks;
+			path = Player;
 			sourceTree = "<group>";
 		};
-		4D86BBB0102FC28D0D51EF6B /* Pods */ = {
+		90955D57A55A1B03F5C8A99C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				FB2085D6626BEE7534D0363C /* Pods-BKCycleScrollViewDemo.debug.xcconfig */,
-				D1C89B517A8304166FF63CCB /* Pods-BKCycleScrollViewDemo.release.xcconfig */,
+				1D1A436559DD7D6142A5E4DA /* Pods-BKCycleScrollViewDemo.debug.xcconfig */,
+				D4AE32FE15D0978B57B571D9 /* Pods-BKCycleScrollViewDemo.release.xcconfig */,
 			);
 			name = Pods;
 			path = ../Pods;
 			sourceTree = "<group>";
 		};
+		DF6C1695446270ECC3EC99BC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				1D8CF5842351AB7F00E35BB4 /* BKCycleScrollView.framework */,
+				851B4D97960C6D465273155F /* Pods_BKCycleScrollViewDemo.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		1D99FBF92350600700C5A9E5 /* BKCycleScrollViewDemo */ = {
+		1D8CF5652351865B00E35BB4 /* BKCycleScrollViewDemo */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 1D99FC132350600800C5A9E5 /* Build configuration list for PBXNativeTarget "BKCycleScrollViewDemo" */;
+			buildConfigurationList = 1D8CF57F2351865B00E35BB4 /* Build configuration list for PBXNativeTarget "BKCycleScrollViewDemo" */;
 			buildPhases = (
-				1A252AFE8010C515DA45AF4F /* [CP] Check Pods Manifest.lock */,
-				1D99FBF62350600700C5A9E5 /* Sources */,
-				1D99FBF72350600700C5A9E5 /* Frameworks */,
-				1D99FBF82350600700C5A9E5 /* Resources */,
-				1536E9F80A7B4E42AD9E3AF6 /* [CP] Embed Pods Frameworks */,
-				1D99FC7E2350665900C5A9E5 /* Embed Frameworks */,
+				DEFCB2B8C7EAD05C6F68C420 /* [CP] Check Pods Manifest.lock */,
+				1D8CF5622351865B00E35BB4 /* Sources */,
+				1D8CF5632351865B00E35BB4 /* Frameworks */,
+				1D8CF5642351865B00E35BB4 /* Resources */,
+				46073F5FF05AD9AA6AEBBA37 /* [CP] Embed Pods Frameworks */,
+				1D8CF5872351AB7F00E35BB4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -132,24 +163,24 @@
 			);
 			name = BKCycleScrollViewDemo;
 			productName = BKCycleScrollViewDemo;
-			productReference = 1D99FBFA2350600700C5A9E5 /* BKCycleScrollViewDemo.app */;
+			productReference = 1D8CF5662351865B00E35BB4 /* BKCycleScrollViewDemo.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
-		1D99FBF22350600700C5A9E5 /* Project object */ = {
+		1D8CF55E2351865B00E35BB4 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 1110;
 				ORGANIZATIONNAME = BIKE;
 				TargetAttributes = {
-					1D99FBF92350600700C5A9E5 = {
+					1D8CF5652351865B00E35BB4 = {
 						CreatedOnToolsVersion = 11.1;
 					};
 				};
 			};
-			buildConfigurationList = 1D99FBF52350600700C5A9E5 /* Build configuration list for PBXProject "BKCycleScrollViewDemo" */;
+			buildConfigurationList = 1D8CF5612351865B00E35BB4 /* Build configuration list for PBXProject "BKCycleScrollViewDemo" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -157,30 +188,31 @@
 				en,
 				Base,
 			);
-			mainGroup = 1D99FBF12350600700C5A9E5;
-			productRefGroup = 1D99FBFB2350600700C5A9E5 /* Products */;
+			mainGroup = 1D8CF55D2351865B00E35BB4;
+			productRefGroup = 1D8CF5672351865B00E35BB4 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				1D99FBF92350600700C5A9E5 /* BKCycleScrollViewDemo */,
+				1D8CF5652351865B00E35BB4 /* BKCycleScrollViewDemo */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
-		1D99FBF82350600700C5A9E5 /* Resources */ = {
+		1D8CF5642351865B00E35BB4 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D99FC0D2350600800C5A9E5 /* LaunchScreen.storyboard in Resources */,
-				1D99FC0A2350600800C5A9E5 /* Assets.xcassets in Resources */,
+				1D8CF5792351865B00E35BB4 /* LaunchScreen.storyboard in Resources */,
+				1D8CF5832351A31900E35BB4 /* 4.gif in Resources */,
+				1D8CF5762351865B00E35BB4 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1536E9F80A7B4E42AD9E3AF6 /* [CP] Embed Pods Frameworks */ = {
+		46073F5FF05AD9AA6AEBBA37 /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -197,7 +229,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-BKCycleScrollViewDemo/Pods-BKCycleScrollViewDemo-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		1A252AFE8010C515DA45AF4F /* [CP] Check Pods Manifest.lock */ = {
+		DEFCB2B8C7EAD05C6F68C420 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -222,23 +254,27 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
-		1D99FBF62350600700C5A9E5 /* Sources */ = {
+		1D8CF5622351865B00E35BB4 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1D99FC052350600700C5A9E5 /* ViewController.m in Sources */,
-				1D99FBFF2350600700C5A9E5 /* AppDelegate.m in Sources */,
-				1D99FC102350600800C5A9E5 /* main.m in Sources */,
+				1D960D5D2356C0960046CD2C /* BKCycleScrollPlayerProgressView.m in Sources */,
+				1D8CF5712351865B00E35BB4 /* ViewController.m in Sources */,
+				1D8CF56B2351865B00E35BB4 /* AppDelegate.m in Sources */,
+				1D960D5B2356C0960046CD2C /* BKCycleScrollPlayerView.m in Sources */,
+				1D960D5A2356C0960046CD2C /* BKCycleScrollPlayerFailureView.m in Sources */,
+				1D960D5C2356C0960046CD2C /* BKCycleScrollPlayerLoadingView.m in Sources */,
+				1D8CF57C2351865B00E35BB4 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		1D99FC0B2350600800C5A9E5 /* LaunchScreen.storyboard */ = {
+		1D8CF5772351865B00E35BB4 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
-				1D99FC0C2350600800C5A9E5 /* Base */,
+				1D8CF5782351865B00E35BB4 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -246,7 +282,7 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
-		1D99FC112350600800C5A9E5 /* Debug */ = {
+		1D8CF57D2351865B00E35BB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -304,7 +340,7 @@
 			};
 			name = Debug;
 		};
-		1D99FC122350600800C5A9E5 /* Release */ = {
+		1D8CF57E2351865B00E35BB4 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -356,9 +392,9 @@
 			};
 			name = Release;
 		};
-		1D99FC142350600800C5A9E5 /* Debug */ = {
+		1D8CF5802351865B00E35BB4 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = FB2085D6626BEE7534D0363C /* Pods-BKCycleScrollViewDemo.debug.xcconfig */;
+			baseConfigurationReference = 1D1A436559DD7D6142A5E4DA /* Pods-BKCycleScrollViewDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -375,9 +411,9 @@
 			};
 			name = Debug;
 		};
-		1D99FC152350600800C5A9E5 /* Release */ = {
+		1D8CF5812351865B00E35BB4 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D1C89B517A8304166FF63CCB /* Pods-BKCycleScrollViewDemo.release.xcconfig */;
+			baseConfigurationReference = D4AE32FE15D0978B57B571D9 /* Pods-BKCycleScrollViewDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
@@ -397,25 +433,25 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		1D99FBF52350600700C5A9E5 /* Build configuration list for PBXProject "BKCycleScrollViewDemo" */ = {
+		1D8CF5612351865B00E35BB4 /* Build configuration list for PBXProject "BKCycleScrollViewDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1D99FC112350600800C5A9E5 /* Debug */,
-				1D99FC122350600800C5A9E5 /* Release */,
+				1D8CF57D2351865B00E35BB4 /* Debug */,
+				1D8CF57E2351865B00E35BB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		1D99FC132350600800C5A9E5 /* Build configuration list for PBXNativeTarget "BKCycleScrollViewDemo" */ = {
+		1D8CF57F2351865B00E35BB4 /* Build configuration list for PBXNativeTarget "BKCycleScrollViewDemo" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				1D99FC142350600800C5A9E5 /* Debug */,
-				1D99FC152350600800C5A9E5 /* Release */,
+				1D8CF5802351865B00E35BB4 /* Debug */,
+				1D8CF5812351865B00E35BB4 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
-	rootObject = 1D99FBF22350600700C5A9E5 /* Project object */;
+	rootObject = 1D8CF55E2351865B00E35BB4 /* Project object */;
 }

@@ -55,8 +55,7 @@
         self.clipsToBounds = NO;
         [self cutRadius:_radius];
         
-        [self addSubview:self.displayImageView];
-        [self.displayImageView addSubview:self.playBtn];
+        [self initUI];
     }
     return self;
 }
@@ -65,36 +64,26 @@
 {
     [super layoutSubviews];
     
-    _displayImageView.frame = self.bounds;
-    _playBtn.frame = CGRectMake((self.frame.size.width - 44)/2, (self.frame.size.height - 44)/2, 44, 44);
+    self.displayImageView.frame = self.bounds;
+    self.playBtn.frame = CGRectMake((self.frame.size.width - 44)/2, (self.frame.size.height - 44)/2, 44, 44);
+    self.playerBgView.frame = self.bounds;
 }
 
-#pragma mark - displayImageView
+#pragma mark - initUI
 
--(BKCycleScrollImageView*)displayImageView
+-(void)initUI
 {
-    if (!_displayImageView) {
-        _displayImageView = [[BKCycleScrollImageView alloc] initWithFrame:self.bounds];
-        _displayImageView.clipsToBounds = YES;
-        _displayImageView.contentMode = UIViewContentModeScaleAspectFill;
-        _displayImageView.userInteractionEnabled = YES;
-        _displayImageView.tag = 99999;
-        //        _displayImageView.runLoopMode = NSDefaultRunLoopMode;//滑动时gif不进行动画 为了滑动流畅
-    }
-    return _displayImageView;
-}
-
-#pragma mark - playBtn
-
--(UIButton*)playBtn
-{
-    if (!_playBtn) {
-        _playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
-        _playBtn.frame = CGRectMake((self.displayImageView.bounds.size.width - 44)/2, (self.displayImageView.bounds.size.height - 44)/2, 44, 44);
-        [_playBtn setBackgroundImage:[self imageWithCycleScrollImageName:@"BK_start"] forState:UIControlStateNormal];
-        [_playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
-    }
-    return _playBtn;
+    self.displayImageView = [[BKCycleScrollImageView alloc] init];
+    self.displayImageView.clipsToBounds = YES;
+    self.displayImageView.contentMode = UIViewContentModeScaleAspectFill;
+    self.displayImageView.userInteractionEnabled = YES;
+    //        _displayImageView.runLoopMode = NSDefaultRunLoopMode;//滑动时gif不进行动画 为了滑动流畅
+    [self addSubview:self.displayImageView];
+    
+    self.playBtn = [UIButton buttonWithType:UIButtonTypeCustom];
+    [self.playBtn setBackgroundImage:[self imageWithCycleScrollImageName:@"BK_start"] forState:UIControlStateNormal];
+    [self.playBtn addTarget:self action:@selector(playBtnClick:) forControlEvents:UIControlEventTouchUpInside];
+    [self.displayImageView addSubview:self.playBtn];
 }
 
 #pragma mark - 触发事件
@@ -103,7 +92,7 @@
 {
     if (self.dataObj.isVideo) {
         if (self.clickPlayBtnCallBack) {
-            self.clickPlayBtnCallBack(self, self.currentIndex);
+            self.clickPlayBtnCallBack(self);
         }
     }
 }

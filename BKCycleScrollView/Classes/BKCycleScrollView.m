@@ -11,8 +11,8 @@
 #import "BKCycleScrollCollectionViewCell.h"
 #import <BKTimer/BKTimer.h>
 
-NSInteger const kAllCount = 999;//初始item数量
-NSInteger const kMiddleCount = kAllCount/2-1;//item中间数
+NSInteger const kBKCycleScrollViewAllCount = 999;//初始item数量
+NSInteger const kBKCycleScrollViewMiddleCount = kBKCycleScrollViewAllCount/2-1;//item中间数
 NSInteger const kBKCycleScrollViewNoPlayIndex = -1;//没有播放索引
 NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionViewCell";
 
@@ -24,6 +24,8 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 @property (nonatomic,strong) NSIndexPath * displayIndexPath;//collectionView当前显示的indexPath
 
 @property (nonatomic,weak) dispatch_source_t timer;
+
+@property (nonatomic,assign) BOOL isDraggingScrollView;//是否正在拉动scrollview
 
 @property (nonatomic,strong) UIView * playerBgView;//播放视频view(该SDK没有添加视频控件，需要自己addSubView)
 @property (nonatomic,assign) NSInteger playIndex;//播放所在的索引 kBKCycleScrollViewNoPlayIndex代表已经停止播放
@@ -70,7 +72,8 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 {
     _currentIndex = currentIndex;
 
-    self.pageControl.currentPage = self.currentIndex;
+    self.pageControl.currentPage = _currentIndex;
+    [self settingPageControlHideStateAtIndex:_currentIndex correspondingIndexCellAtIndexPath:self.displayIndexPath];
     [self.collectionView reloadData];
 
     [self invalidateTimer];
@@ -217,15 +220,6 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     return [self.collectionView dequeueReusableCellWithReuseIdentifier:identifier forIndexPath:[NSIndexPath indexPathForItem:index inSection:0]];
 }
 
-#pragma mark - delloc
-
--(void)dealloc
-{
-    [self privateStopVideo];
-    [self invalidateTimer];
-    [[NSNotificationCenter defaultCenter] removeObserver:self];
-}
-
 #pragma mark - init
 
 -(instancetype)init
@@ -233,8 +227,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     self = [super init];
     if (self) {
         [self initData];
-        [self addSubview:self.collectionView];
-        [self addSubview:self.pageControl];
+        [self initUI];
     }
     return self;
 }
@@ -244,49 +237,9 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     self = [super initWithFrame:frame];
     if (self) {
         [self initData];
-        [self addSubview:self.collectionView];
-        [self addSubview:self.pageControl];
+        [self initUI];
     }
     return self;
-}
-
-/**
- 初始数据
- */
--(void)initData
-{
-    self.backgroundColor = [UIColor clearColor];
-    self.displayBackgroundColor = [UIColor clearColor];
-    self.isAutoScroll = YES;
-    self.autoScrollTime = 5;
-    self.pagingEnabled = YES;
-    
-    self.beginIndexPath = [NSIndexPath indexPathForItem:kMiddleCount inSection:0];
-    self.displayIndexPath = self.beginIndexPath;
-    self.currentIndex = 0;
-    
-    self.itemSpace = 0;
-    self.itemWidth = self.frame.size.width;
-    self.itemReduceScale = 0.1;
-    self.radius = 0;
-    
-    self.pageControlHeight = 7;
-    self.pageControlContentInset = UIEdgeInsetsMake(0, 10, 10, 10);
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
-}
-
--(void)willMoveToWindow:(UIWindow *)newWindow
-{
-    [super willMoveToWindow:newWindow];
-    
-    if (!newWindow) {
-        [self privateStopVideo];
-        [self invalidateTimer];
-    }else{
-        [self initTimer];
-    }
 }
 
 -(void)layoutSubviews
@@ -300,6 +253,66 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     }
     self.collectionView.frame = self.bounds;
     self.pageControl.frame = CGRectMake(self.pageControlContentInset.left, self.frame.size.height - self.pageControlContentInset.bottom - self.pageControlHeight, self.frame.size.width - self.pageControlContentInset.left - self.pageControlContentInset.right, self.pageControlHeight);
+}
+
+#pragma mark - willMoveToWindow
+
+-(void)willMoveToWindow:(UIWindow *)newWindow
+{
+    [super willMoveToWindow:newWindow];
+    
+    if (!newWindow) {
+        [self privateStopVideo];
+        [self invalidateTimer];
+    }else{
+        [self initTimer];
+    }
+}
+
+#pragma mark - dealloc
+
+-(void)dealloc
+{
+    [self privateStopVideo];
+    [self invalidateTimer];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+#pragma mark - initUI
+
+-(void)initUI
+{
+    [self addSubview:self.collectionView];
+    [self addSubview:self.pageControl];
+}
+
+#pragma mark - initData
+
+/**
+ 初始数据
+ */
+-(void)initData
+{
+    self.backgroundColor = [UIColor clearColor];
+    self.displayBackgroundColor = [UIColor clearColor];
+    self.isAutoScroll = YES;
+    self.autoScrollTime = 5;
+    self.pagingEnabled = YES;
+    
+    self.beginIndexPath = [NSIndexPath indexPathForItem:kBKCycleScrollViewMiddleCount inSection:0];
+    self.displayIndexPath = self.beginIndexPath;
+    self.currentIndex = 0;
+    
+    self.itemSpace = 0;
+    self.itemWidth = self.frame.size.width;
+    self.itemReduceScale = 0.1;
+    self.radius = 0;
+    
+    self.pageControlHeight = 7;
+    self.pageControlContentInset = UIEdgeInsetsMake(0, 10, 10, 10);
+    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didEnterBackgroundNotification:) name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didBecomeActiveNotification:) name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 #pragma mark - Notification
@@ -320,7 +333,6 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 {
     if (!_playerBgView) {
         _playerBgView = [[UIView alloc] init];
-        _playerBgView.backgroundColor = [UIColor redColor];
     }
     return _playerBgView;
 }
@@ -331,7 +343,6 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     if (self.isCustomCell) {
         return;
     }
-    
     self.isPlaying = YES;
 }
 
@@ -341,7 +352,6 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     if (self.isCustomCell) {
         return;
     }
-    
     self.isPlaying = NO;
 }
 
@@ -351,10 +361,9 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     if (self.isCustomCell) {
         return;
     }
-    
     self.isPlaying = NO;
-    [self.playerBgView removeFromSuperview];
-    self.playerBgView = nil;
+    self.playIndex = kBKCycleScrollViewNoPlayIndex;
+    self.pageControl.hidden = NO;
 }
 
 /// 内部暂停播放方法
@@ -368,30 +377,44 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
         return;
     }
     
-    __block BOOL isExist = NO;
-    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(__kindof UICollectionViewCell * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        BKCycleScrollCollectionViewCell * cell = (BKCycleScrollCollectionViewCell*)obj;
-        if (cell.currentIndex == self.playIndex) {
-            isExist = YES;
-            *stop = YES;
-        }
-    }];
-    if (!isExist && self.isPlaying) {
-        self.isPlaying = NO;
+    BKCycleScrollCollectionViewCell * playingCell = [self getPlayingCell];
+    if (!playingCell && self.isPlaying) {
         if ([self.delegate respondsToSelector:@selector(cycleScrollView:pauseIndex:)]) {
             [self.delegate cycleScrollView:self pauseIndex:self.playIndex];
+            self.isPlaying = NO;
         }
     }
 }
 
+/// 内部停止方法
 -(void)privateStopVideo
 {
+    if (self.isCustomCell) {
+        return;
+    }
+    
     if (self.playIndex != kBKCycleScrollViewNoPlayIndex) {
         if ([self.delegate respondsToSelector:@selector(cycleScrollView:stopIndex:)]) {
             [self.delegate cycleScrollView:self stopIndex:self.playIndex];
+            self.playIndex = kBKCycleScrollViewNoPlayIndex;
+            self.pageControl.hidden = NO;
         }
-        self.playIndex = kBKCycleScrollViewNoPlayIndex;
     }
+}
+
+#pragma mark - 获取播放中的cell 如果没在显示中返回nil
+
+-(nullable BKCycleScrollCollectionViewCell*)getPlayingCell
+{
+    __block BKCycleScrollCollectionViewCell * rCell = nil;
+    [[self.collectionView visibleCells] enumerateObjectsUsingBlock:^(__kindof UICollectionViewCell * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+        BKCycleScrollCollectionViewCell * cell = (BKCycleScrollCollectionViewCell*)obj;
+        if (cell.currentIndex == self.playIndex) {
+            rCell = cell;
+            *stop = YES;
+        }
+    }];
+    return rCell;
 }
 
 #pragma mark - 修改displayDataArr数据(不走setter的赋值)
@@ -455,14 +478,12 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     if (self.currentIndex == currentIndex && self.displayIndexPath == displayIndexPath) {
         return;
     }
+    self.displayIndexPath = displayIndexPath;//indexPath需要写在前面 currentIndex的setter方法中用到了indexPath
     self.currentIndex = currentIndex;
-    self.displayIndexPath = displayIndexPath;
     
     if (self.switchIndexCallBack) {
         self.switchIndexCallBack(self.currentIndex);
     }
-    
-    self.pageControl.currentPage = self.currentIndex;
 }
 
 #pragma mark - UICollectionView
@@ -495,7 +516,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
         _collectionView.bounces = NO;
         _collectionView.clipsToBounds = NO;
         _collectionView.userInteractionEnabled = NO;
-        _collectionView.decelerationRate = UIScrollViewDecelerationRateFast;
+        _collectionView.decelerationRate = 0;
         if (@available(iOS 11.0, *)) {
             _collectionView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }
@@ -506,7 +527,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.displayDataArr count] == 0 ? 0 : kAllCount;
+    return [self.displayDataArr count] == 0 ? 0 : kBKCycleScrollViewAllCount;
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -523,16 +544,19 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     
     BKCycleScrollCollectionViewCell * cell = [collectionView dequeueReusableCellWithReuseIdentifier:kBKCycleScrollCollectionViewCellID forIndexPath:indexPath];
     __weak typeof(self) weakSelf = self;
-    [cell setClickPlayBtnCallBack:^(BKCycleScrollCollectionViewCell *currentCell, NSUInteger currentIndex) {
-        BKCycleScrollDataModel * dataModel = weakSelf.displayDataArr[currentIndex];
-        if ([dataModel.videoUrl length] > 0) {
-            weakSelf.playIndex = currentIndex;
+    [cell setClickPlayBtnCallBack:^(BKCycleScrollCollectionViewCell *currentCell) {
+        if ([currentCell.dataObj.videoUrl length] > 0 &&
+            [weakSelf.delegate respondsToSelector:@selector(cycleScrollView:playIndex:superView:)]) {
+            
+            weakSelf.playerBgView.frame = currentCell.bounds;
             [currentCell addSubview:weakSelf.playerBgView];
-            weakSelf.playerBgView.frame = CGRectMake(0, 0, currentCell.frame.size.width, currentCell.frame.size.height);
-            if ([weakSelf.delegate respondsToSelector:@selector(cycleScrollView:playIndex:superView:)]) {
-                [weakSelf.delegate cycleScrollView:weakSelf playIndex:weakSelf.playIndex superView:weakSelf.playerBgView];
-            }
+            currentCell.playerBgView = weakSelf.playerBgView;
+            
+            [weakSelf.delegate cycleScrollView:weakSelf playIndex:currentCell.currentIndex superView:weakSelf.playerBgView];
+            
+            weakSelf.playIndex = currentCell.currentIndex;
             weakSelf.isPlaying = YES;
+            weakSelf.pageControl.hidden = YES;
         }
     }];
     
@@ -546,6 +570,27 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     return cell;
 }
 
+-(void)collectionView:(UICollectionView *)collectionView willDisplayCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:indexPath];
+    if (self.playIndex == selectIndex) {
+        BKCycleScrollCollectionViewCell * cCell = (BKCycleScrollCollectionViewCell*)cell;
+        [cCell addSubview:self.playerBgView];
+        cCell.playerBgView = self.playerBgView;
+    }
+}
+
+-(void)collectionView:(UICollectionView *)collectionView didEndDisplayingCell:(UICollectionViewCell *)cell forItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:indexPath];
+    if (self.playIndex == selectIndex) {
+        BKCycleScrollCollectionViewCell * cCell = (BKCycleScrollCollectionViewCell*)cell;
+        [self.playerBgView removeFromSuperview];
+        cCell.playerBgView = nil;
+        [self privatePauseVideo];
+    }
+}
+
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     [self invalidateTimer];
@@ -555,12 +600,12 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     UICollectionViewCell * cell = [self.collectionView cellForItemAtIndexPath:indexPath];
     if ([cell isKindOfClass:[BKCycleScrollCollectionViewCell class]]) {
         BKCycleScrollCollectionViewCell * cycleScrollCell = (BKCycleScrollCollectionViewCell*)cell;
-        if (self.selectItemAction) {
-            self.selectItemAction(selectIndex, cycleScrollCell.displayImageView);
+        if (self.clickItemCallBack) {
+            self.clickItemCallBack(selectIndex, cycleScrollCell.displayImageView);
         }
     }else {
-        if (self.selectItemAction) {
-            self.selectItemAction(selectIndex, nil);
+        if (self.clickItemCallBack) {
+            self.clickItemCallBack(selectIndex, nil);
         }
     }
 }
@@ -596,36 +641,56 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 
 #pragma mark - UIScrollViewDelegate
 
--(void)scrollViewDidScroll:(UIScrollView *)scrollView
-{
-    if ([self.delegate respondsToSelector:@selector(cycleScrollView:scrollViewDidScroll:)]) {
-        [self.delegate cycleScrollView:self scrollViewDidScroll:scrollView];
-    }
-    [self privatePauseVideo];
-}
-
 -(void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
 {
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:scrollViewWillBeginDragging:)]) {
         [self.delegate cycleScrollView:self scrollViewWillBeginDragging:scrollView];
     }
+    
+    self.isDraggingScrollView = YES;
     [self invalidateTimer];
+}
+
+-(void)scrollViewDidScroll:(UIScrollView *)scrollView
+{
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:scrollViewDidScroll:)]) {
+        [self.delegate cycleScrollView:self scrollViewDidScroll:scrollView];
+    }
+    
+    if (self.isDraggingScrollView) {
+        CGPoint contentOffset = CGPointMake(self.collectionView.contentOffset.x + self.collectionView.frame.size.width/2, self.collectionView.frame.size.height/2);
+        NSIndexPath * indexPath = [self.collectionView indexPathForItemAtPoint:contentOffset];
+        if (indexPath) {
+            NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:indexPath];
+            self.pageControl.currentPage = selectIndex;
+            [self settingPageControlHideStateAtIndex:selectIndex correspondingIndexCellAtIndexPath:indexPath];
+        }
+    }
 }
 
 -(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
 {
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:scrollViewDidEndDragging:willDecelerate:)]) {
+        [self.delegate cycleScrollView:self scrollViewDidEndDragging:scrollView willDecelerate:decelerate];
+    }
+    
+    self.isDraggingScrollView = NO;
     [self initTimer];
 }
 
 -(void)scrollViewWillEndDragging:(UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(inout CGPoint *)targetContentOffset
 {
+    if ([self.delegate respondsToSelector:@selector(cycleScrollView:scrollViewWillEndDragging:withVelocity:targetContentOffset:)]) {
+        [self.delegate cycleScrollView:self scrollViewWillEndDragging:scrollView withVelocity:velocity targetContentOffset:targetContentOffset];
+    }
+    
     if (self.pagingEnabled) {
         //因为偏移量最终位置collectionView一屏中显示3个item 滚动停止后targetContentOffset肯定比目前显示cell的item小1 所以偏移量x调成了中心
         //因为缩放原因 cell的y值不一定为0 所以把偏移量y调成了中心
         CGPoint newTargetContentOffset = CGPointMake((*targetContentOffset).x + self.collectionView.frame.size.width/2, self.collectionView.frame.size.height/2);
-        NSIndexPath * currentIndexPath = [self.collectionView indexPathForItemAtPoint:newTargetContentOffset];
-        NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:currentIndexPath];
-        [self resetCurrentIndex:selectIndex displayIndexPath:currentIndexPath];
+        NSIndexPath * indexPath = [self.collectionView indexPathForItemAtPoint:newTargetContentOffset];
+        NSInteger selectIndex = [self getDisplayIndexWithTargetIndexPath:indexPath];
+        [self resetCurrentIndex:selectIndex displayIndexPath:indexPath];
     }
 }
 
@@ -634,8 +699,8 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     if ([self.delegate respondsToSelector:@selector(cycleScrollView:scrollViewDidEndDecelerating:)]) {
         [self.delegate cycleScrollView:self scrollViewDidEndDecelerating:scrollView];
     }
+    
     [self scrollViewDidEndScrollingAnimation:scrollView];
-    [self privatePauseVideo];
 }
 
 #pragma mark - 停止滚动后 修改当前所在indexPath
@@ -667,9 +732,17 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 -(BKCycleScrollPageControl*)pageControl
 {
     if (!_pageControl) {
-        _pageControl = [[BKCycleScrollPageControl alloc] initWithFrame:CGRectMake(self.pageControlContentInset.left, self.frame.size.height - self.pageControlContentInset.bottom - self.pageControlHeight, self.frame.size.width - self.pageControlContentInset.left - self.pageControlContentInset.right, self.pageControlHeight)];
+        _pageControl = [[BKCycleScrollPageControl alloc] init];
         _pageControl.numberOfPages = [_displayDataArr count];
         _pageControl.currentPage = 0;
+        __weak typeof(self) weakSelf = self;
+        [_pageControl setSwitchStyleCallBack:^(BKCycleScrollPageControlStyle style) {
+            if (style == BKCycleScrollPageControlStyleNumberLab) {
+                weakSelf.pageControlHeight = 18;
+            }else {
+                weakSelf.pageControlHeight = 7;
+            }
+        }];
     }
     return _pageControl;
 }
@@ -677,6 +750,21 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 -(void)setPageControl:(BKCycleScrollPageControl * _Nonnull)pageControl
 {
     _pageControl = pageControl;
+}
+
+/// 设置对应indexPath的PageControl是否显示
+/// @param index 索引
+/// @param indexPath 索引对应的indexPath
+-(void)settingPageControlHideStateAtIndex:(NSUInteger)index correspondingIndexCellAtIndexPath:(NSIndexPath*)indexPath
+{
+    BKCycleScrollCollectionViewCell * cell = (BKCycleScrollCollectionViewCell*)[self.collectionView cellForItemAtIndexPath:indexPath];
+    if (cell) {
+        if (index == self.playIndex) {
+            self.pageControl.hidden = YES;
+        }else {
+            self.pageControl.hidden = NO;
+        }
+    }
 }
 
 @end

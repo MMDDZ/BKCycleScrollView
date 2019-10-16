@@ -10,7 +10,7 @@
 
 @implementation BKCycleCollectionViewFlowLayout
 
-- (void)prepareLayout
+-(void)prepareLayout
 {
     [super prepareLayout];
     

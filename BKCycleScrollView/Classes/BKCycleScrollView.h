@@ -25,21 +25,15 @@ typedef NS_ENUM(NSUInteger, BKDisplayCellLayoutStyle) {
 
 #pragma mark - 自定义cell
 
-/**
- 自定义cell时获取数据数
-
- @param cycleScrollView 无限滚动视图
- @return 数据数
- */
+/// 自定义cell时获取数据数
+/// @param cycleScrollView 无限滚动视图
+/// @return 数据数
 -(NSUInteger)numberOfItemsInCycleScrollView:(nonnull BKCycleScrollView *)cycleScrollView;
 
-/**
- 自定义cell方法
-
- @param cycleScrollView 无限滚动视图
- @param index 显示自定义cell的索引
- @return UICollectionViewCell
- */
+/// 自定义cell方法
+/// @param cycleScrollView 无限滚动视图
+/// @param index 显示自定义cell的索引
+/// @return UICollectionViewCell
 -(nonnull UICollectionViewCell *)cycleScrollView:(nonnull BKCycleScrollView *)cycleScrollView customCellForItemAtIndex:(NSInteger)index;
 
 #pragma mark - 视频
@@ -62,28 +56,32 @@ typedef NS_ENUM(NSUInteger, BKDisplayCellLayoutStyle) {
 
 #pragma mark - 滚动
 
-/**
- 开始滑动
-
- @param cycleScrollView 无限滚动视图
- @param scrollView 滑动视图
- */
+/// 开始划动
+/// @param cycleScrollView 无限滚动视图
+/// @param scrollView 滑动视图
 -(void)cycleScrollView:(nonnull BKCycleScrollView *)cycleScrollView scrollViewWillBeginDragging:(nonnull UIScrollView *)scrollView;
 
-/**
- 滑动中
- 
- @param cycleScrollView 无限滚动视图
- @param scrollView 滑动视图
- */
+/// 滑动中
+/// @param cycleScrollView 无限滚动视图
+/// @param scrollView 滑动视图
 -(void)cycleScrollView:(nonnull BKCycleScrollView *)cycleScrollView scrollViewDidScroll:(nonnull UIScrollView *)scrollView;
 
-/**
- 结束滑动
- 
- @param cycleScrollView 无限滚动视图
- @param scrollView 滑动视图
- */
+/// 结束划动
+/// @param cycleScrollView 无限滚动视图
+/// @param scrollView 滑动视图
+/// @param decelerate 即将进行减速
+-(void)cycleScrollView:(nonnull BKCycleScrollView *)cycleScrollView scrollViewDidEndDragging:(nonnull UIScrollView *)scrollView willDecelerate:(BOOL)decelerate;
+
+/// 结束划动 带目标停止位置
+/// @param cycleScrollView 无限滚动视图
+/// @param scrollView 滑动视图
+/// @param velocity 速度
+/// @param targetContentOffset 目标停止位置
+-(void)cycleScrollView:(nonnull BKCycleScrollView *)cycleScrollView scrollViewWillEndDragging:(nonnull UIScrollView *)scrollView withVelocity:(CGPoint)velocity targetContentOffset:(nonnull inout CGPoint *)targetContentOffset;
+
+/// 结束惯性滑动
+/// @param cycleScrollView 无限滚动视图
+/// @param scrollView 滑动视图
 -(void)cycleScrollView:(nonnull BKCycleScrollView *)cycleScrollView scrollViewDidEndDecelerating:(nonnull UIScrollView *)scrollView;
 
 @end
@@ -98,9 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,weak) id<BKCycleScrollViewDelegate> delegate;
 /** 背景颜色 默认透明 */
 @property (nonatomic,strong) UIColor * displayBackgroundColor;
-/**
- 轮播数组
- 自定义cell不用传 需使用numberOfItemsInCycleScrollView:代理*/
+/** 轮播数组 自定义cell不用传 需使用numberOfItemsInCycleScrollView:代理*/
 @property (nonatomic,copy,nullable) NSArray<BKCycleScrollDataModel*> * displayDataArr;
 /** 当前所看到数据的索引 */
 @property (nonatomic,assign) NSInteger currentIndex;
@@ -123,26 +119,18 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) CGFloat itemSpace;
 /** cell的宽度 默认和无限滚动视图同宽 */
 @property (nonatomic,assign) CGFloat itemWidth;
-/**
- 默认0.1 当layoutStyle = BKDisplayCellLayoutStyleMiddleLarger时有效
- 除中间显示的cell不缩放外,其余cell缩放系数
- */
+/** 默认0.1 当layoutStyle = BKDisplayCellLayoutStyleMiddleLarger时有效 除中间显示的cell不缩放外,其余cell缩放系数 */
 @property (nonatomic,assign) CGFloat itemReduceScale;
 /** cell圆角度数 默认0 */
 @property (nonatomic,assign) CGFloat radius;
 
-#pragma mark - 小圆点属性
+#pragma mark - 分页指示器属性
 
-/** 小圆点 */
+/** 分页指示器 */
 @property (nonatomic,strong,readonly) BKCycleScrollPageControl * pageControl;
-/** 小圆点距左底右边界偏移量 top无效 默认10 */
+/** 分页指示器距左底右边界偏移量 top无效 默认10 */
 @property (nonatomic,assign) UIEdgeInsets pageControlContentInset;
-/**
- 小圆点高度 默认 7
- pageControlStyle不同状态时默认小圆点宽度不同
- pageControlStyle = BKCycleScrollPageControlStyleNormalDots 时 所有小圆点宽度与高度一样
- pageControlStyle = BKCycleScrollPageControlStyleLongDots 时 选中小圆点宽度是高度的两倍 未选中小圆点宽度与高度一样
- */
+/** 分页指示器高度 当为小圆点样式时，默认7  当为文本数字样式时，默认18 */
 @property (nonatomic,assign) CGFloat pageControlHeight;
 
 #pragma mark - 视频
@@ -158,40 +146,27 @@ NS_ASSUME_NONNULL_BEGIN
 
 #pragma mark - 自定义cell
 
-/**
- 注册customCell (UICollectionViewCell)
- 
- @param cellClass cell类
- @param identifier 标识符
- */
+/// 注册customCell (UICollectionViewCell)
+/// @param cellClass cell类
+/// @param identifier 标识符
 -(void)registerClass:(nullable Class)cellClass forCustomCellWithReuseIdentifier:(nullable NSString *)identifier;
 
-/**
- 复用customCell (UICollectionViewCell)
-
- @param identifier 标识符
- @param index 索引
- @return UICollectionViewCell
- */
+/// 复用customCell (UICollectionViewCell)
+/// @param identifier 标识符
+/// @param index 索引
+/// @return UICollectionViewCell
 -(__kindof UICollectionViewCell*)dequeueReusableCustomCellWithReuseIdentifier:(NSString *)identifier forIndex:(NSUInteger)index;
 
 #pragma mark - 公开方法
 
-/**
- 获取显示的索引
-
- @return 索引数组
- */
+/// 获取显示的索引
+/// @return 索引数组
 -(NSArray<NSNumber*>*)visibleIndexs;
 
-/**
- 重置cell的位置
- */
+/// 重置cell的位置
 -(void)resetCellPosition;
 
-/**
- 刷新无限轮播视图
- */
+/// 刷新无限轮播视图
 -(void)reloadData;
 
 #pragma mark - 回调方法
@@ -201,7 +176,7 @@ NS_ASSUME_NONNULL_BEGIN
  index 点中的索引
  imageView 显示的图片 非自定义cell时有值
  */
-@property (nonatomic,copy) void (^selectItemAction)(NSInteger index, UIImageView * _Nullable imageView);
+@property (nonatomic,copy) void (^clickItemCallBack)(NSInteger index, UIImageView * _Nullable imageView);
 /**
  切换item回调
  */

@@ -2,7 +2,7 @@
 //  AppDelegate.h
 //  BKCycleScrollViewDemo
 //
-//  Created by zhaolin on 2019/10/11.
+//  Created by zhaolin on 2019/10/12.
 //  Copyright © 2019 BIKE. All rights reserved.
 //
 
@@ -10,7 +10,7 @@
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate>
 
-@property (strong, nonatomic) UIWindow *window;
+@property (nonatomic,strong) UIWindow * window;
 
 @end
 
