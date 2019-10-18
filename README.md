@@ -102,3 +102,4 @@ BKCycleScrollView * cycleScrollView = [[BKCycleScrollView alloc] init];
     1.2.1    细节修改
     1.2.2    更新ZFPlayer
     2.0.0    删除FLAnimatedImage，更新SDWebImage为5.1，删除ZFPlayer。 视频播放器跟无限滚动视图分开，sdk内不再提供播放器，只提供了播放器所在的视图。 
+    2.0.1    当只有一个cell时，不显示分页指示器，只显示一个且不能滑动

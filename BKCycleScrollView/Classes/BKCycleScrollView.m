@@ -529,7 +529,13 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return [self.displayDataArr count] == 0 ? 0 : kBKCycleScrollViewAllCount;
+    if ([self.displayDataArr count] == 0) {
+        return 0;
+    }else if ([self.displayDataArr count] == 1) {
+        return 1;
+    }else {
+        return kBKCycleScrollViewAllCount;
+    }
 }
 
 -(UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath

@@ -163,7 +163,7 @@
         }];
     }
     [superView addSubview:self.playerView];
-    self.playerView.frame = CGRectMake(0, 0, superView.frame.size.width, superView.frame.size.height);
+    self.playerView.frame = superView.bounds;
     
     BKCycleScrollDataModel * model = cycleScrollView.displayDataArr[playIndex];
     [self.playerView playVideoUrl:[NSURL URLWithString:model.videoUrl] seekTime:0];
