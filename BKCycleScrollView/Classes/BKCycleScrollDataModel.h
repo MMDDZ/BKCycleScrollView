@@ -14,7 +14,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface BKCycleScrollDataModel : NSObject
 
 /**
- 图片
+ 本地图片 或者 网络图片加载完有值
  */
 @property (nonatomic,strong) UIImage * image;
 /**

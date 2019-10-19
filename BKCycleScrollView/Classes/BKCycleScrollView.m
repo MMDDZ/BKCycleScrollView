@@ -219,7 +219,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
             BKCycleScrollDataModel * model = [[BKCycleScrollDataModel alloc] init];
             [displayDataArr addObject:model];
         }
-        self.displayDataArr = [displayDataArr copy];
+        [self assignDisplayDataArr:[displayDataArr copy]];
     }
     [self.collectionView reloadData];
 }
@@ -380,6 +380,11 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     if (self.isCustomCell) {
         return;
     }
+    
+    [self.playerBgView removeFromSuperview];
+    BKCycleScrollCollectionViewCell * cell = [self getPlayingCell];
+    cell.playerBgView = nil;
+    
     self.isPlaying = NO;
     self.playIndex = kBKCycleScrollViewNoPlayIndex;
     self.pageControl.hidden = NO;
@@ -415,6 +420,11 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     if (self.playIndex != kBKCycleScrollViewNoPlayIndex) {
         if ([self.delegate respondsToSelector:@selector(cycleScrollView:stopIndex:)]) {
             [self.delegate cycleScrollView:self stopIndex:self.playIndex];
+            
+            [self.playerBgView removeFromSuperview];
+            BKCycleScrollCollectionViewCell * cell = [self getPlayingCell];
+            cell.playerBgView = nil;
+            
             self.playIndex = kBKCycleScrollViewNoPlayIndex;
             self.pageControl.hidden = NO;
         }
@@ -588,12 +598,16 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
             weakSelf.pageControl.hidden = YES;
         }
     }];
+    [cell setImageLoadCompleteCallBack:^(BKCycleScrollDataModel *dataObj, NSUInteger currentIndex) {
+        NSMutableArray * nDisplayDataArr = [weakSelf.displayDataArr mutableCopy];
+        [nDisplayDataArr replaceObjectAtIndex:currentIndex withObject:dataObj];
+        [weakSelf assignDisplayDataArr:[nDisplayDataArr copy]];
+    }];
     
     cell.radius = self.radius;
     cell.placeholderImage = self.placeholderImage;
     if ([self.displayDataArr count] > selectIndex) {
-        cell.currentIndex = selectIndex;
-        cell.dataObj = self.displayDataArr[selectIndex];
+        [cell setDataObj:self.displayDataArr[selectIndex] currentIndex:selectIndex];
     }
     
     return cell;

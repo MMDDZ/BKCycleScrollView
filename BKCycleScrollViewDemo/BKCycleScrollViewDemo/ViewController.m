@@ -167,6 +167,7 @@
     self.playerView.frame = superView.bounds;
     
     BKCycleScrollDataModel * model = cycleScrollView.displayDataArr[playIndex];
+    self.playerView.coverImage = model.image;
     [self.playerView playVideoUrl:[NSURL URLWithString:model.videoUrl] seekTime:0];
 }
 

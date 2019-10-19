@@ -43,7 +43,7 @@
 -(void)setPlaceholderImage:(UIImage *)placeholderImage
 {
     _placeholderImage = placeholderImage;
-    [self setDataObj:self.dataObj];
+    [self setDataObj:self.dataObj currentIndex:self.currentIndex];
 }
 
 #pragma mark - init
@@ -99,18 +99,25 @@
 
 #pragma mark - 赋值
 
--(void)setDataObj:(BKCycleScrollDataModel *)dataObj
+-(void)setDataObj:(BKCycleScrollDataModel *)dataObj currentIndex:(NSUInteger)currentIndex
 {
     _dataObj = dataObj;
+    _currentIndex = currentIndex;
     
     self.displayImageView.image = self.placeholderImage;
     
     if ([dataObj.imageUrl length] > 0) {
         NSString * escapedUrl = [dataObj.imageUrl stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
         NSURL * imageUrl = [NSURL URLWithString:escapedUrl];
-        [self.displayImageView sd_setImageWithURL:imageUrl placeholderImage:self.placeholderImage];
-    }else if (dataObj.image) {
-        self.displayImageView.image = dataObj.image;
+        __weak typeof(self) weakSelf = self;
+        [self.displayImageView sd_setImageWithURL:imageUrl placeholderImage:self.placeholderImage completed:^(UIImage * _Nullable image, NSError * _Nullable error, SDImageCacheType cacheType, NSURL * _Nullable imageURL) {
+            if (!weakSelf.dataObj.image) {
+                weakSelf.dataObj.image = image;
+                if (weakSelf.imageLoadCompleteCallBack) {
+                    weakSelf.imageLoadCompleteCallBack(weakSelf.dataObj, weakSelf.currentIndex);
+                }
+            }
+        }];
     }else if (dataObj.imageData) {
         SDAnimatedImage * animatedImage = [SDAnimatedImage imageWithData:dataObj.imageData];
         if (animatedImage) {
@@ -119,6 +126,14 @@
             UIImage * image = [UIImage imageWithData:dataObj.imageData];
             self.displayImageView.image = image;
         }
+        if (!_dataObj.image) {
+            _dataObj.image = self.displayImageView.image;
+            if (self.imageLoadCompleteCallBack) {
+                self.imageLoadCompleteCallBack(_dataObj, self.currentIndex);
+            }
+        }
+    }else if (dataObj.image) {
+        self.displayImageView.image = dataObj.image;
     }
     
     if (_dataObj.isVideo) {

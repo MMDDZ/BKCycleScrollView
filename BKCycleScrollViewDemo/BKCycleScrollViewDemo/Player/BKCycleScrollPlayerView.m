@@ -218,7 +218,7 @@
     if (!_coverImageView) {
         _coverImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         _coverImageView.clipsToBounds = YES;
-        _coverImageView.contentMode = UIViewContentModeScaleAspectFit;
+        _coverImageView.contentMode = UIViewContentModeScaleAspectFill;
     }
     return _coverImageView;
 }
@@ -314,6 +314,7 @@
             {
                 [self.loadingView startAnimate];
                 self.coverImageView.hidden = NO;
+                self.coverImageView.image = self.coverImage;
                 self.circlePlayBtn.hidden = YES;
             }
                 break;

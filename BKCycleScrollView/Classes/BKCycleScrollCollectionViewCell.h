@@ -25,14 +25,21 @@
 @property (nonatomic,assign) CGFloat radius;
 /// 占位图 无默认
 @property (nonatomic,strong) UIImage * placeholderImage;
-/// 当前cell数据的索引
-@property (nonatomic,assign) NSUInteger currentIndex;
+
 /// 数据
-@property (nonatomic,strong) BKCycleScrollDataModel * dataObj;
+@property (nonatomic,strong,readonly) BKCycleScrollDataModel * dataObj;
+/// 当前cell数据的索引
+@property (nonatomic,assign,readonly) NSUInteger currentIndex;
+/// 赋值
+/// @param dataObj 数据
+/// @param currentIndex 当前cell数据的索引
+-(void)setDataObj:(BKCycleScrollDataModel *)dataObj currentIndex:(NSUInteger)currentIndex;
 
 #pragma mark - 回调
 
 /// 点击播放回调
 @property (nonatomic,copy) void (^clickPlayBtnCallBack)(BKCycleScrollCollectionViewCell * currentCell);
+/// 加载完图片回调
+@property (nonatomic,copy) void (^imageLoadCompleteCallBack)(BKCycleScrollDataModel * dataObj, NSUInteger currentIndex);
 
 @end
