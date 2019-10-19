@@ -147,7 +147,7 @@
 -(void)resetUI
 {
     [[self subviews] makeObjectsPerformSelector:@selector(removeFromSuperview)];
-    if (self.numberOfPages <= 1) {
+    if (self.numberOfPages <= 1 || self.style == BKCycleScrollPageControlStyleNone) {
         return;
     }
     

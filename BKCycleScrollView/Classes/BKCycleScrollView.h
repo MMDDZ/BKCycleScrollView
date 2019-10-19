@@ -96,7 +96,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,weak) id<BKCycleScrollViewDelegate> delegate;
 /** 背景颜色 默认透明 */
 @property (nonatomic,strong) UIColor * displayBackgroundColor;
-/** 轮播数组 自定义cell不用传 需使用numberOfItemsInCycleScrollView:代理*/
+/** 轮播数组 自定义cell不用传 需使用numberOfItemsInCycleScrollView:代理 */
 @property (nonatomic,copy,nullable) NSArray<BKCycleScrollDataModel*> * displayDataArr;
 /** 当前所看到数据的索引 */
 @property (nonatomic,assign) NSInteger currentIndex;
@@ -108,8 +108,10 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,assign) CGFloat autoScrollTime;
 /** 是否分页 (就是滑动结束时控件中心和某个item中心重合) 默认分页 */
 @property (nonatomic,assign) BOOL pagingEnabled;
-/** 是否允许滑动 */
+/** 是否允许滑动 默认是 */
 @property (nonatomic,assign) BOOL isAllowScroll;
+/** 是否无限滑动 默认是 如果设置成NO，自动滚动失效，contentOffsetx重新滑动至0 */
+@property (nonatomic,assign) BOOL isCycleScroll;
 
 #pragma mark - cell属性
 

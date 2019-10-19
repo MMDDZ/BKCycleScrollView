@@ -397,6 +397,7 @@
 			baseConfigurationReference = 1D1A436559DD7D6142A5E4DA /* Pods-BKCycleScrollViewDemo.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 779S864B3K;
 				INFOPLIST_FILE = BKCycleScrollViewDemo/Info.plist;
@@ -407,6 +408,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = BIKE.BKCycleScrollViewDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -416,6 +418,7 @@
 			baseConfigurationReference = D4AE32FE15D0978B57B571D9 /* Pods-BKCycleScrollViewDemo.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 779S864B3K;
 				INFOPLIST_FILE = BKCycleScrollViewDemo/Info.plist;
@@ -426,6 +429,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = BIKE.BKCycleScrollViewDemo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

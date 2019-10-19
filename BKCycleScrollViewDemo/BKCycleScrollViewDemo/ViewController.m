@@ -87,6 +87,7 @@
         _cycleScrollView1.itemWidth = self.view.frame.size.width - 40;
         _cycleScrollView1.itemReduceScale = 0.1;
         _cycleScrollView1.radius = 12;
+//        _cycleScrollView1.isCycleScroll = NO;
         _cycleScrollView1.isAutoScroll = NO;
         
         [_cycleScrollView1 setClickItemCallBack:^(NSInteger index, UIImageView * _Nullable imageView) {

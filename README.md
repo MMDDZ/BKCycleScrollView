@@ -96,10 +96,18 @@ BKCycleScrollView * cycleScrollView = [[BKCycleScrollView alloc] init];
 - [SDWebImage](https://github.com/rs/SDWebImage)
 
 ## 版本记录
-    1.0.0    无限轮播第一版完成
-    1.1.0    修复创建时不赋值崩溃bug，优化无数据时滚动视图不能滑动
-    1.2.0    添加视频显示
-    1.2.1    细节修改
-    1.2.2    更新ZFPlayer
-    2.0.0    删除FLAnimatedImage，更新SDWebImage为5.1，删除ZFPlayer。 视频播放器跟无限滚动视图分开，sdk内不再提供播放器，只提供了播放器所在的视图。 
+    2.0.2    修复分页指示器的样式为None时还显示的问题。 添加是否无限循环属性
     2.0.1    当只有一个cell时，不显示分页指示器，只显示一个且不能滑动
+    2.0.0    删除FLAnimatedImage，更新SDWebImage为5.1，删除ZFPlayer。 视频播放器跟无限滚动视图分开，sdk内不再提供播放器，只提供了播放器所在的视图。 
+    1.2.2    更新ZFPlayer
+    1.2.1    细节修改
+    1.2.0    添加视频显示
+    1.1.0    修复创建时不赋值崩溃bug，优化无数据时滚动视图不能滑动
+    1.0.0    无限轮播第一版完成
+    
+    
+    
+    
+    
+    
+    

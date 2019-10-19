@@ -49,23 +49,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 -(void)setDisplayDataArr:(NSArray<BKCycleScrollDataModel *> *)displayDataArr
 {
     _displayDataArr = displayDataArr;
-
-    [self privateStopVideo];
-    [self invalidateTimer];
-
-    self.currentIndex = 0;
-    [self.collectionView reloadData];
-    if ([_displayDataArr count] > 0) {
-        self.collectionView.userInteractionEnabled = YES;
-        [self.collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
-    }else {
-        self.collectionView.userInteractionEnabled = NO;
-    }
-
-    self.pageControl.numberOfPages = [_displayDataArr count];
-    self.pageControl.currentPage = 0;
-
-    [self initTimer];
+    [self settingAboutCollectionViewAttributes];
 }
 
 -(void)setCurrentIndex:(NSInteger)currentIndex
@@ -107,6 +91,38 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 {
     _isAllowScroll = isAllowScroll;
     self.collectionView.scrollEnabled = _isAllowScroll;
+}
+
+-(void)setIsCycleScroll:(BOOL)isCycleScroll
+{
+    _isCycleScroll = isCycleScroll;
+    [self settingAboutCollectionViewAttributes];
+}
+
+#pragma mark - 设置关于collectionView的数据 同一方法
+
+-(void)settingAboutCollectionViewAttributes
+{
+    [self privateStopVideo];
+    [self invalidateTimer];
+    
+    self.currentIndex = 0;
+    [self.collectionView reloadData];
+    if ([self.displayDataArr count] > 0) {
+        self.collectionView.userInteractionEnabled = YES;
+        if (self.isCycleScroll) {
+            [self.collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+        }else {
+            [self.collectionView setContentOffset:CGPointZero];
+        }
+    }else {
+        self.collectionView.userInteractionEnabled = NO;
+    }
+    
+    self.pageControl.numberOfPages = [self.displayDataArr count];
+    self.pageControl.currentPage = 0;
+    
+    [self initTimer];
 }
 
 #pragma mark - cell属性
@@ -298,6 +314,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     self.isAutoScroll = YES;
     self.autoScrollTime = 5;
     self.pagingEnabled = YES;
+    self.isCycleScroll = YES;
     
     self.beginIndexPath = [NSIndexPath indexPathForItem:kBKCycleScrollViewMiddleCount inSection:0];
     self.displayIndexPath = self.beginIndexPath;
@@ -435,7 +452,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 
 -(void)initTimer
 {
-    if (!self.isAutoScroll) {
+    if (!self.isAutoScroll || !self.isCycleScroll) {
         return;
     }
     if ([self.displayDataArr count] > 0) {
@@ -529,12 +546,16 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
 
 -(NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    if ([self.displayDataArr count] == 0) {
-        return 0;
-    }else if ([self.displayDataArr count] == 1) {
-        return 1;
+    if (self.isCycleScroll) {
+        if ([self.displayDataArr count] == 0) {
+            return 0;
+        }else if ([self.displayDataArr count] == 1) {
+            return 1;
+        }else {
+            return kBKCycleScrollViewAllCount;
+        }
     }else {
-        return kBKCycleScrollViewAllCount;
+        return [self.displayDataArr count];
     }
 }
 
