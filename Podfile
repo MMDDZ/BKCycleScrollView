@@ -10,7 +10,7 @@ target 'BKCycleScrollViewDemo' do
 
 pod 'BKTimer', '~> 1.0.1'
 pod 'SDWebImage', '~> 5.1.0'
-pod 'PLPlayerKit', '~> 3.4.1'
+#pod 'PLPlayerKit', '~> 3.4.1'
 
 end
 

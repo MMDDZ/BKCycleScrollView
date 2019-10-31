@@ -202,7 +202,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
  */
 -(void)resetCellPosition
 {
-    if ([self.displayDataArr count] > 0) {
+    if ([self.displayDataArr count] > 1) {
         [self.collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
     }
 }
@@ -465,7 +465,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     if (!self.isAutoScroll || !self.isCycleScroll) {
         return;
     }
-    if ([self.displayDataArr count] > 0) {
+    if ([self.displayDataArr count] > 1) {
         [self invalidateTimer];
         self.timer = [BKTimer bk_setupTimerWithTimeInterval:5 totalTime:kBKTimerRepeatsTime handler:^(dispatch_source_t timer, CGFloat lastTime) {
             [self timerExecutionMethod];

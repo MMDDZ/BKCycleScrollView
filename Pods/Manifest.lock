@@ -1,28 +1,22 @@
 PODS:
   - BKTimer (1.0.1)
-  - PLPlayerKit (3.4.3):
-    - PLPlayerKit/iphoneos (= 3.4.3)
-  - PLPlayerKit/iphoneos (3.4.3)
   - SDWebImage (5.1.1):
     - SDWebImage/Core (= 5.1.1)
   - SDWebImage/Core (5.1.1)
 
 DEPENDENCIES:
   - BKTimer (~> 1.0.1)
-  - PLPlayerKit (~> 3.4.1)
   - SDWebImage (~> 5.1.0)
 
 SPEC REPOS:
-  https://github.com/cocoapods/specs.git:
+  https://github.com/CocoaPods/Specs.git:
     - BKTimer
-    - PLPlayerKit
     - SDWebImage
 
 SPEC CHECKSUMS:
   BKTimer: 2590f2309f63f63f42e1a16d731481e999e86584
-  PLPlayerKit: a44734dc78c1f8f9fb22c537fa1916612fa46b06
   SDWebImage: 96d7f03415ccb28d299d765f93557ff8a617abd8
 
-PODFILE CHECKSUM: 6356e99154b2f4c41ac999a030c7449499056235
+PODFILE CHECKSUM: 34b188ae461226913df9e0ef3400d305c6ce8cd1
 
-COCOAPODS: 1.7.3
+COCOAPODS: 1.8.4
