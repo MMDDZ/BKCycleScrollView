@@ -96,6 +96,7 @@ BKCycleScrollView * cycleScrollView = [[BKCycleScrollView alloc] init];
 - [SDWebImage](https://github.com/rs/SDWebImage)
 
 ## 版本记录
+    2.0.5    修复自定义cell类型不能滑动bug
     2.0.4    修复当数据只有1条会崩溃的bug 此版本pod不添加播放器了，太大，上传下载太慢，下载完成自行update
     2.0.3    优化加载完网络图片后把图片赋值给model 修改播放完成后播放背景没有删除问题
     2.0.2    修复分页指示器的样式为None时还显示的问题。 添加是否无限循环属性

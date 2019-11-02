@@ -219,7 +219,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
             BKCycleScrollDataModel * model = [[BKCycleScrollDataModel alloc] init];
             [displayDataArr addObject:model];
         }
-        [self assignDisplayDataArr:[displayDataArr copy]];
+        self.displayDataArr = [displayDataArr copy];
     }
     [self.collectionView reloadData];
 }
