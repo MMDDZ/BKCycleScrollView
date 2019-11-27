@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
 s.name                  = 'BKCycleScrollView'
-s.version               = '2.0.5'
+s.version               = '2.0.6'
 s.summary               = '无限滚动视图'
 s.homepage              = 'https://github.com/MMDDZ/BKCycleScrollView'
 s.license               = { :type => 'MIT', :file => 'LICENSE' }

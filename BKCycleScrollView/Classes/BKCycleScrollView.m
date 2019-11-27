@@ -111,7 +111,9 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     if ([self.displayDataArr count] > 0) {
         self.collectionView.userInteractionEnabled = YES;
         if (self.isCycleScroll) {
-            [self.collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+            if ([self.displayDataArr count] > 1) {
+                [self.collectionView scrollToItemAtIndexPath:self.displayIndexPath atScrollPosition:UICollectionViewScrollPositionCenteredHorizontally animated:NO];
+            }
         }else {
             [self.collectionView setContentOffset:CGPointZero];
         }
