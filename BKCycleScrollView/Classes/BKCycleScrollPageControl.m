@@ -127,7 +127,7 @@
 {
     self.backgroundColor = [UIColor clearColor];
     
-    self.pageSpace = 7;
+    self.pageSpace = 4;
     self.normalPageColor = [UIColor lightGrayColor];
     self.selectPageColor = [UIColor whiteColor];
     

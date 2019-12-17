@@ -132,7 +132,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic,strong,readonly) BKCycleScrollPageControl * pageControl;
 /** 分页指示器距左底右边界偏移量 top无效 默认10 */
 @property (nonatomic,assign) UIEdgeInsets pageControlContentInset;
-/** 分页指示器高度 当为小圆点样式时，默认7  当为文本数字样式时，默认18 */
+/** 分页指示器高度 当为小圆点样式时，默认4  当为文本数字样式时，默认18 */
 @property (nonatomic,assign) CGFloat pageControlHeight;
 
 #pragma mark - 视频

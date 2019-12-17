@@ -96,6 +96,7 @@ BKCycleScrollView * cycleScrollView = [[BKCycleScrollView alloc] init];
 - [SDWebImage](https://github.com/rs/SDWebImage)
 
 ## 版本记录
+    2.0.7    修改默认原点大小 从7改成4
     2.0.6    修复刷新数据时日志打印错误（不崩溃，qmui打印出的）
     2.0.5    修复自定义cell类型不能滑动bug
     2.0.4    修复当数据只有1条会崩溃的bug 此版本pod不添加播放器了，太大，上传下载太慢，下载完成自行update

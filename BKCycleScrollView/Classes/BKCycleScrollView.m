@@ -327,7 +327,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
     self.itemReduceScale = 0.1;
     self.radius = 0;
     
-    self.pageControlHeight = 7;
+    self.pageControlHeight = 4;
     self.pageControlContentInset = UIEdgeInsetsMake(0, 10, 10, 10);
     
     self.playIndex = kBKCycleScrollViewNoPlayIndex;
@@ -785,7 +785,7 @@ NSString * const kBKCycleScrollCollectionViewCellID = @"BKCycleScrollCollectionV
             if (style == BKCycleScrollPageControlStyleNumberLab) {
                 weakSelf.pageControlHeight = 18;
             }else {
-                weakSelf.pageControlHeight = 7;
+                weakSelf.pageControlHeight = 4;
             }
         }];
     }

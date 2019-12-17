@@ -40,7 +40,7 @@ typedef NS_ENUM(NSUInteger, BKCycleScrollPageControlStyle) {
 
 #pragma mark - 小圆点样式
 
-/** 小圆点之间的间距 默认7 */
+/** 小圆点之间的间距 默认4 */
 @property (nonatomic,assign) CGFloat pageSpace;
 /** 小圆点默认颜色 默认灰 */
 @property (nonatomic,strong) UIColor * normalPageColor;
